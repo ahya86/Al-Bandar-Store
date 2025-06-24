@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كاميرا FPV الاحترافية - متجر البندر</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0c1220 0%, #1a2a4a 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* خلفية متحركة */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(26, 42, 74, 0.2) 0%, rgba(12, 18, 32, 0.8) 70%);
+            z-index: -1;
+        }
+        
+        .floating {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(78,205,196,0.15) 0%, transparent 70%);
+            animation: float 15s infinite linear;
+        }
+        
+        .floating:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
+            animation-duration: 20s;
+        }
+        
+        .floating:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 70%;
+            left: 80%;
+            animation-duration: 25s;
+        }
+        
+        .floating:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            top: 40%;
+            left: 30%;
+            animation-duration: 18s;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(20px, 20px) rotate(90deg); }
+            50% { transform: translate(0, 40px) rotate(180deg); }
+            75% { transform: translate(-20px, 20px) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* زر العودة */
+        .back-btn {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.5);
+        }
+        
+        .back-btn i {
+            transition: transform 0.3s ease;
+        }
+        
+        .back-btn:hover i {
+            transform: translateX(5px);
+        }
+        
+        header {
+            text-align: center;
+            padding: 80px 0 40px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .logo {
+            font-size: 3.2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+        }
+        
+        .product-title {
+            font-size: 2.8rem;
+            color: #fff;
+            margin: 30px 0 15px;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .product-title:after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 25%;
+            right: 25%;
+            height: 4px;
+            background: linear-gradient(to right, #ff6b6b, #4ecdc4);
+            border-radius: 4px;
+        }
+        
+        .product-subtitle {
+            color: #a0a0cc;
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+        
+        .highlight-bar {
+            background: linear-gradient(90deg, rgba(255,107,107,0.2), rgba(78,205,196,0.2));
+            border-radius: 10px;
+            padding: 20px;
+            margin: 40px auto;
+            max-width: 900px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .highlight-icon {
+            font-size: 1.8rem;
+            color: #ff6b6b;
+        }
+        
+        .highlight-text {
+            font-size: 1.2rem;
+            text-align: right;
+        }
+        
+        .product-detail-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .image-and-specs {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .product-image-container {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            height: 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0a1429;
+            border: 2px solid rgba(78,205,196,0.3);
+        }
+        
+        .product-image {
+            width: 90%;
+            height: 90%;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-image-container:hover .product-image {
+            transform: scale(1.05);
+        }
+        
+        /* معرض الصور المصغرة */
+        .thumbnail-gallery {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .thumbnail:hover, .thumbnail.active {
+            border-color: #4ecdc4;
+            transform: scale(1.05);
+        }
+        
+        .specs-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-top: 0;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(78,205,196,0.3);
+        }
+        
+        .specs-list {
+            list-style: none;
+            padding-right: 20px;
+        }
+        
+        .specs-list li {
+            margin-bottom: 15px;
+            padding-right: 30px;
+            position: relative;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+        
+        .specs-list li:before {
+            content: '•';
+            color: #4ecdc4;
+            font-size: 2rem;
+            position: absolute;
+            right: -20px;
+            top: -5px;
+        }
+        
+        .product-info {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            height: 100%;
+        }
+        
+        .price-container {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+        }
+        
+        .original-price {
+            color: #a0a0cc;
+            text-decoration: line-through;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .price-highlight {
+            color: #4ecdc4;
+            font-weight: bold;
+            font-size: 2.5rem;
+            display: block;
+        }
+        
+        .discount-badge {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-top: 15px;
+            display: inline-block;
+            font-size: 1.3rem;
+            box-shadow: 0 5px 15px rgba(255,107,107,0.3);
+        }
+        
+        .order-section {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .order-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            text-align: center;
+            color: #ff6b6b;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .order-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 30%;
+            right: 30%;
+            height: 3px;
+            background: linear-gradient(to right, transparent, #4ecdc4, transparent);
+        }
+        
+        .order-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 12px;
+            color: #a0a0cc;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-group label i {
+            color: #4ecdc4;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 16px 22px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(0, 0, 0, 0.25);
+            color: white;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            border-color: #4ecdc4;
+            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.3);
+            outline: none;
+        }
+        
+        .full-width {
+            grid-column: 1 / span 2;
+        }
+        
+        .payment-details {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .payment-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0 10px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-bottom: none;
+        }
+        
+        .total-amount {
+            color: #4ecdc4;
+            font-size: 1.5rem;
+        }
+        
+        .order-btn {
+            background: linear-gradient(45deg, #00c853, #09f);
+            color: white;
+            border: none;
+            padding: 22px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 1.3rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 200, 83, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .order-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 200, 83, 0.5);
+        }
+        
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            background: #25D366;
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.5);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+            border: 3px solid white;
+            text-decoration: none;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.7);
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        
+        .description {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 35px;
+            margin-top: 50px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .description-title {
+            font-size: 1.8rem;
+            color: #ff6b6b;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .description-text {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: #d0d0e8;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 60px 0 40px;
+            color: #a0a0cc;
+            margin-top: 80px;
+            position: relative;
+            z-index: 10;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .copyright {
+            font-size: 1.1rem;
+            margin-top: 20px;
+        }
+        
+        /* تصميم متجاوب */
+        @media (max-width: 1100px) {
+            .product-detail-container {
+                grid-template-columns: 1fr;
+                max-width: 800px;
+            }
+            
+            .product-image-container {
+                height: 450px;
+            }
+            
+            .image-and-specs {
+                order: 1;
+            }
+            
+            .product-info {
+                order: 2;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .back-btn {
+                top: 20px;
+                right: 20px;
+                padding: 10px 20px;
+            }
+            
+            .product-title {
+                font-size: 2.2rem;
+            }
+            
+            .product-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .order-form {
+                grid-template-columns: 1fr;
+            }
+            
+            .full-width {
+                grid-column: 1;
+            }
+            
+            .highlight-bar {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .thumbnail {
+                width: 60px;
+                height: 60px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .product-title {
+                font-size: 1.8rem;
+            }
+            
+            .product-image-container {
+                height: 350px;
+            }
+            
+            .price-highlight {
+                font-size: 2rem;
+            }
+            
+            .thumbnail {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- خلفية متحركة -->
+    <div class="bg-pattern">
+        <div class="floating"></div>
+        <div class="floating"></div>
+        <div class="floating"></div>
+    </div>
+    
+    <div class="container">
+        <!-- زر العودة -->
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-right"></i> العودة للمنتجات
+        </a>
+        
+        <header>
+            <div class="logo">متجر البندر</div>
+            <div class="product-title">كاميرا FPV الاحترافية</div>
+            <div class="product-subtitle">توصيل مجاني - كاميرا فئة 4 - شحن خلال 4-5 يوم عمل</div>
+        </header>
+        
+        <div class="highlight-bar">
+            <div class="highlight-item">
+                <div class="highlight-icon"><i class="fas fa-shipping-fast"></i></div>
+                <div class="highlight-text">توصيل مجاني لجميع أنحاء السلطنة</div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="highlight-text">ضمان لمدة عامين شامل</div>
+            </div>
+            <div class="highlight-item">
+                <div class="highlight-icon"><i class="fas fa-headset"></i></div>
+                <div class="highlight-text">دعم فني على مدار الساعة</div>
+            </div>
+        </div>
+        
+        <div class="product-detail-container">
+            <!-- قسم الصورة والمواصفات -->
+            <div class="image-and-specs">
+                <div class="product-image-container">
+                    <div class="product-image" id="main-image" style="background-image: url('https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');"></div>
+                </div>
+                
+                <!-- معرض الصور المصغرة -->
+                <div class="thumbnail-gallery">
+                    <div class="thumbnail active" style="background-image: url('https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');" data-image="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"></div>
+                    <div class="thumbnail" style="background-image: url('https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');" data-image="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"></div>
+                    <div class="thumbnail" style="background-image: url('https://images.unsplash.com/photo-1577106263724-2c8e03bfe9cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');" data-image="https://images.unsplash.com/photo-1577106263724-2c8e03bfe9cf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"></div>
+                    <div class="thumbnail" style="background-image: url('https://images.unsplash.com/photo-1564466809058-3aace3e5c2a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');" data-image="https://images.unsplash.com/photo-1564466809058-3aace3e5c2a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"></div>
+                </div>
+                
+                <!-- المواصفات الفنية في المساحة الفارغة -->
+                <div class="specs-section">
+                    <h3 class="section-title">المواصفات الفنية</h3>
+                    <ul class="specs-list">
+                        <li>دقة 4K فائقة الوضوح مع معدل 60 إطار/ثانية</li>
+                        <li>نظام FPV للتحكم عن بعد بمدى 2 كيلومتر</li>
+                        <li>زوم بصري 50x مع ثبات ثلاثي المحاور</li>
+                        <li>تصوير بانورامي 360 درجة</li>
+                        <li>بطارية قابلة للإزالة تدوم حتى 45 دقيقة</li>
+                        <li>مقاوم للماء والغبار (تصنيف IP68)</li>
+                        <li>تقنية التتبع الذكي للأجسام</li>
+                        <li>تصوير في الظروف المنخفضة الإضاءة</li>
+                        <li>وزن خفيف (250 جرام فقط)</li>
+                        <li>شاشة تعمل باللمس 3 بوصة</li>
+                        <li>وضع الطيران الذكي</li>
+                        <li>مستشعر 1/2.3 بوصة</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- قسم الطلب والمعلومات -->
+            <div class="product-info">
+                <div class="price-container">
+                    <div class="original-price">349.99 ريال</div>
+                    <div class="price-highlight">299.99 ريال</div>
+                    <div class="discount-badge">وفر 50 ريال</div>
+                </div>
+                
+                <div class="order-section">
+                    <h3 class="order-title">الطلب الآن</h3>
+                    
+                    <div class="order-form">
+                        <div class="form-group">
+                            <label for="name"><i class="fas fa-user"></i> اسم الكامل</label>
+                            <input type="text" id="name" >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone"><i class="fas fa-mobile-alt"></i> رقم الجوال</label>
+                            <input type="tel" id="phone" >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="city"><i class="fas fa-city"></i> المحافظة</label>
+                            <select id="city">
+                                <option value="" disabled selected>اختر المحافظة والولاية</option>
+                                <!-- محافظة مسقط -->
+                                <optgroup label="محافظة مسقط">
+                                    <option>مسقط - مسقط</option>
+                                    <option>مسقط - مطرح</option>
+                                    <option>مسقط - بوشر</option>
+                                    <option>مسقط - السيب</option>
+                                    <option>مسقط - العامرات</option>
+                                    <option>مسقط - قريات</option>
+                                </optgroup>
+                                
+                                <!-- محافظة الداخلية -->
+                                <optgroup label="محافظة الداخلية">
+                                    <option>الداخلية - نزوى</option>
+                                    <option>الداخلية - بهلاء</option>
+                                    <option>الداخلية - منح</option>
+                                    <option>الداخلية - الحمراء</option>
+                                    <option>الداخلية - أدم</option>
+                                    <option>الداخلية - إزكي</option>
+                                    <option>الداخلية - سمائل</option>
+                                    <option>الداخلية - بدبد</option>
+                                </optgroup>
+                                
+                                <!-- محافظة شمال الباطنة -->
+                                <optgroup label="محافظة شمال الباطنة">
+                                    <option>شمال الباطنة - صحار</option>
+                                    <option>شمال الباطنة - شناص</option>
+                                    <option>شمال الباطنة - لوى</option>
+                                    <option>شمال الباطنة - صحم</option>
+                                    <option>شمال الباطنة - الخابورة</option>
+                                    <option>شمال الباطنة - السويق</option>
+                                </optgroup>
+                                
+                                <!-- محافظة جنوب الباطنة -->
+                                <optgroup label="محافظة جنوب الباطنة">
+                                    <option>جنوب الباطنة - الرستاق</option>
+                                    <option>جنوب الباطنة - العوابي</option>
+                                    <option>جنوب الباطنة - نخل</option>
+                                    <option>جنوب الباطنة - وادي المعاول</option>
+                                    <option>جنوب الباطنة - بركاء</option>
+                                    <option>جنوب الباطنة - المصنعة</option>
+                                </optgroup>
+                                
+                                <!-- محافظة شمال الشرقية -->
+                                <optgroup label="محافظة شمال الشرقية">
+                                    <option>شمال الشرقية - إبراء</option>
+                                    <option>شمال الشرقية - المضيبي</option>
+                                    <option>شمال الشرقية - بدية</option>
+                                    <option>شمال الشرقية - القابل</option>
+                                    <option>شمال الشرقية - وادي بني خالد</option>
+                                    <option>شمال الشرقية - دماء والطائيين</option>
+                                </optgroup>
+                                
+                                <!-- محافظة جنوب الشرقية -->
+                                <optgroup label="محافظة جنوب الشرقية">
+                                    <option>جنوب الشرقية - صور</option>
+                                    <option>جنوب الشرقية - الكامل والوافي</option>
+                                    <option>جنوب الشرقية - جعلان بني بو حسن</option>
+                                    <option>جنوب الشرقية - جعلان بني بو علي</option>
+                                    <option>جنوب الشرقية - مصيرة</option>
+                                </optgroup>
+                                
+                                <!-- محافظة الظاهرة -->
+                                <optgroup label="محافظة الظاهرة">
+                                    <option>الظاهرة - عبري</option>
+                                    <option>الظاهرة - ينقل</option>
+                                    <option>الظاهرة - ضنك</option>
+                                </optgroup>
+                                
+                                <!-- محافظة الوسطى -->
+                                <optgroup label="محافظة الوسطى">
+                                    <option>الوسطى - هيما</option>
+                                    <option>الوسطى - محوت</option>
+                                    <option>الوسطى - الدقم</option>
+                                    <option>الوسطى - الجازر</option>
+                                </optgroup>
+                                
+                                <!-- محافظة ظفار -->
+                                <optgroup label="محافظة ظفار">
+                                    <option>ظفار - صلالة</option>
+                                    <option>ظفار - طاقة</option>
+                                    <option>ظفار - مرباط</option>
+                                    <option>ظفار - ثمريت</option>
+                                    <option>ظفار - رخيوت</option>
+                                    <option>ظفار - ضلكوت</option>
+                                    <option>ظفار - مقشن</option>
+                                    <option>ظفار - شليم وجزر الحلانيات</option>
+                                </optgroup>
+                                
+                                <!-- محافظة البريمي -->
+                                <optgroup label="محافظة البريمي">
+                                    <option>البريمي - البريمي</option>
+                                    <option>البريمي - محضة</option>
+                                    <option>البريمي - السنينة</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="quantity"><i class="fas fa-cubes"></i> الكمية</label>
+                            <select id="quantity" onchange="updatePrice()">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="address"><i class="fas fa-map-marker-alt"></i> عنوان التسليم</label>
+                            <input type="text" id="address" placeholder="(رقم المبنى، اسم الشارع، المنطقة)">
+                        </div>
+                        
+                        <div class="payment-details">
+                            <div class="payment-row">
+                                <span>سعر المنتج</span>
+                                <span id="product-price">299.99 ريال</span>
+                            </div>
+                            
+                            <div class="payment-row">
+                                <span> الشحن</span>
+                                <span>مجاني</span>
+                            </div>
+                            
+                            <!-- معلومات الضريبة -->
+                            <div class="payment-row">
+                                <span>ضريبة القيمة المضافة (5%)</span>
+                                <span id="tax-amount">15.00 ريال</span>
+                            </div>
+                            
+                            <div class="total-row">
+                                <span>الإجمالي</span>
+                                <span class="total-amount" id="total-amount">314.99 ريال</span>
+                            </div>
+                        </div>
+                        
+                        <button class="order-btn">
+                            <i class="fas fa-paper-plane"></i> إرسال الطلب
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="description">
+            <h3 class="description-title">وصف المنتج</h3>
+            <p class="description-text">
+                4K كاميرا نورة بدقة 2024 لون أسود FPV، وتوفير مباشر. كاميرا احترافية بتقنية FPV تمكنك من التحكم بها عن بعد لمسافات تصل إلى 2 كيلومتر. تتميز بدقة 4K فائقة الوضوح مع زوم بصري 50x وثبات ثلاثي المحاور للحصول على لقطات ثابتة ونقية في جميع الظروف. الكاميرا مقاومة للماء والغبار وتأتي مع حقيبة حمل فاخرة وشاحن سريع. مثالية للمصورين المحترفين وهواة التصوير الجوي.
+            </p>
+        </div>
+        
+        <!-- WhatsApp Button -->
+        <a href="https://wa.me/091233456" class="whatsapp-btn" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        
+        <footer>
+            <div class="features">
+                <div class="feature-item">
+                    <i class="fas fa-truck"></i>
+                    <h4>توصيل سريع</h4>
+                    <p>توصيل خلال 4-5 يوم</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>ضمان أصلي</h4>
+                    <p>ضمان لمدة عامين</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-credit-cash"></i>
+                    <h4>دفع آمن</h4>
+                    <p>(دفع عند الاستلام - عن طريق التحويل) وسائل الدفع المتاحة</p>
+                </div>
+            </div>
+            <div class="copyright">© 2025 متجر البندر. جميع الحقوق محفوظة.</div>
+        </footer>
+    </div>
+
+    <script>
+        // تأثيرات بسيطة للصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            // تأثير التمرير السلس
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // تأثير عند تحميل الصفحة
+            setTimeout(() => {
+                document.querySelector('.product-title').style.opacity = 1;
+                document.querySelector('.product-subtitle').style.opacity = 1;
+            }, 300);
+        });
+        
+        // تحديث السعر حسب الكمية المختارة
+        function updatePrice() {
+            const quantity = document.getElementById('quantity').value;
+            const unitPrice = 299.99;
+            const totalPrice = (unitPrice * quantity).toFixed(2);
+            const tax = (totalPrice * 0.05).toFixed(2);
+            const totalWithTax = (parseFloat(totalPrice) + parseFloat(tax)).toFixed(2);
+            
+            document.getElementById('product-price').textContent = `${totalPrice} ريال`;
+            document.getElementById('tax-amount').textContent = `${tax} ريال`;
+            document.getElementById('total-amount').textContent = `${totalWithTax} ريال`;
+        }
+        
+        // تحديث السعر عند تحميل الصفحة
+        updatePrice();
+        
+        // معرض الصور
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        const mainImage = document.getElementById('main-image');
+        let currentImageIndex = 0;
+        
+        // تغيير الصورة عند النقر على الصور المصغرة
+        thumbnails.forEach((thumbnail, index) => {
+            thumbnail.addEventListener('click', function() {
+                // تحديث الصورة الرئيسية
+                const imageUrl = this.getAttribute('data-image');
+                mainImage.style.backgroundImage = `url('${imageUrl}')`;
+                
+                // تحديث الصور النشطة
+                thumbnails.forEach(thumb => thumb.classList.remove('active'));
+                this.classList.add('active');
+                
+                // إعادة تعيين العداد التلقائي
+                currentImageIndex = index;
+                clearInterval(sliderInterval);
+                startSlider();
+            });
+        });
+        
+        // تغيير الصورة تلقائياً كل 5 ثوانٍ
+        function changeImage() {
+            currentImageIndex = (currentImageIndex + 1) % thumbnails.length;
+            const imageUrl = thumbnails[currentImageIndex].getAttribute('data-image');
+            mainImage.style.backgroundImage = `url('${imageUrl}')`;
+            
+            // تحديث الصور النشطة
+            thumbnails.forEach(thumb => thumb.classList.remove('active'));
+            thumbnails[currentImageIndex].classList.add('active');
+        }
+        
+        // بدء العرض التلقائي
+        function startSlider() {
+            sliderInterval = setInterval(changeImage, 5000);
+        }
+        
+        let sliderInterval = startSlider();
+        
+        // إيقاف العرض التلقائي عند التمرير فوق الصورة
+        mainImage.parentElement.addEventListener('mouseenter', () => {
+            clearInterval(sliderInterval);
+        });
+        
+        // استئناف العرض التلقائي عند مغادرة الصورة
+        mainImage.parentElement.addEventListener('mouseleave', () => {
+            sliderInterval = startSlider();
+        });
+    </script>
+</body>
+</html>
