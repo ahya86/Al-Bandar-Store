@@ -6,14 +6,15 @@
   <title>متجر البندر | أفضل المنتجات </title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-       :root {
+    :root {
       --primary: #4ecdc4;
       --secondary: #ff6b6b;
-      --dark: #0c1220;
-      --darker: #080d18;
-      --medium: #1a2a4a;
-      --light: #f0f8ff;
-      --gray: #8a9aaf;
+      --light-bg: #f8f9fa;
+      --darker-bg: #e9ecef;
+      --medium: #dee2e6;
+      --dark-text: #212529;
+      --light-text: #495057;
+      --gray: #6c757d;
       --gold: #FFD700;
       --discount: #e74c3c;
     }
@@ -25,38 +26,57 @@
     }
     
     body {
-      background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
-      color: white;
+      background: linear-gradient(135deg, var(--darker-bg) 0%, var(--light-bg) 100%);
+      color: var(--dark-text);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       line-height: 1.6;
       padding-bottom: 30px;
       transition: all 0.3s ease;
+      padding-top: 100px; /* إضافة حشو للأعلى لتعويض الشريط الثابت */
     }
     
-    /* شريط التنقل */
+    /* شريط التنقل - ثابت في الأعلى */
     .navbar {
-      background: rgba(10, 20, 40, 0.95);
+      background: white;
       backdrop-filter: blur(10px);
-      padding: 15px 30px;
+      padding: 10px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: sticky;
+      position: fixed;
       top: 0;
-      z-index: 100;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      border-bottom: 1px solid rgba(78, 205, 196, 0.2);
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     }
     
     .logo {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 15px;
+      position: relative;
     }
     
-    .logo i {
-      color: var(--primary);
-      font-size: 28px;
+    .logo-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.5rem;
+      overflow: hidden;
+    }
+    
+    .logo-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     
     .logo h1 {
@@ -74,7 +94,7 @@
     }
     
     .nav-links a {
-      color: var(--light);
+      color: var(--light-text);
       text-decoration: none;
       font-weight: 500;
       transition: all 0.3s ease;
@@ -109,7 +129,7 @@
     }
     
     .nav-icons a {
-      color: var(--light);
+      color: var(--light-text);
       font-size: 1.2rem;
       transition: all 0.3s ease;
       text-decoration: none;
@@ -150,7 +170,7 @@
     
     /* الهيدر الرئيسي */
     .hero {
-      background: linear-gradient(rgba(12, 18, 32, 0.8), rgba(8, 13, 24, 0.9)), 
+      background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(249, 249, 249, 0.9)), 
                   url('https://images.unsplash.com/photo-1512790182412-b19e6d62bc39?auto=format&fit=crop&w=1920&q=80');
       background-size: cover;
       background-position: center;
@@ -162,6 +182,9 @@
       text-align: center;
       padding: 30px;
       position: relative;
+      border-radius: 20px;
+      margin: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
     }
     
     .hero::before {
@@ -171,7 +194,7 @@
       right: 0;
       bottom: 0;
       left: 0;
-      background: radial-gradient(circle, transparent 70%, rgba(8, 13, 24, 0.95) 100%);
+      background: radial-gradient(circle, transparent 70%, rgba(255, 255, 255, 0.95) 100%);
     }
     
     .hero-content {
@@ -182,8 +205,8 @@
     .hero h1 {
       font-size: 3rem;
       margin-bottom: 20px;
-      color: white;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      color: var(--dark-text);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     }
     
     .hero h1 span {
@@ -193,7 +216,7 @@
     .hero p {
       font-size: 1.2rem;
       margin-bottom: 30px;
-      color: var(--light);
+      color: var(--light-text);
       max-width: 600px;
       margin: 0 auto 30px;
     }
@@ -209,12 +232,12 @@
       display: inline-block;
       margin-top: 20px;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
     
     .cta-button:hover {
       transform: translateY(-3px);
-      box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 7px 20px rgba(0, 0, 0, 0.15);
     }
     
     /* قسم التصنيفات */
@@ -237,11 +260,12 @@
       display: flex;
       flex-wrap: wrap;
       gap: 15px;
+      justify-content: center;
     }
     
     .category-btn {
-      background: rgba(26, 42, 74, 0.5);
-      color: var(--light);
+      background: white;
+      color: var(--light-text);
       border: none;
       padding: 10px 25px;
       border-radius: 30px;
@@ -251,11 +275,13 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     }
     
     .category-btn:hover {
-      background: rgba(78, 205, 196, 0.2);
+      background: rgba(78, 205, 196, 0.1);
       transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
     
     .category-btn.active {
@@ -271,7 +297,7 @@
     /* قسم المنتجات */
     .section-title {
       text-align: center;
-      margin: 20px 0 30px;
+      margin: 40px 0 30px;
       position: relative;
     }
     
@@ -313,22 +339,22 @@
     }
     
     .product-card {
-      background: linear-gradient(145deg, rgba(26, 42, 74, 0.8), rgba(15, 25, 45, 0.9));
+      background: white;
       border-radius: 15px;
       overflow: hidden;
       text-decoration: none;
-      color: white;
+      color: var(--dark-text);
       display: flex;
       flex-direction: column;
       transition: all 0.4s ease;
       position: relative;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(78, 205, 196, 0.1);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(0, 0, 0, 0.05);
     }
     
     .product-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
       border-color: rgba(78, 205, 196, 0.3);
     }
     
@@ -364,7 +390,7 @@
     
     .badge-special-offer {
       background: var(--gold);
-      color: var(--dark);
+      color: var(--dark-text);
     }
     
     .product-image {
@@ -382,7 +408,7 @@
       right: 0;
       left: 0;
       height: 50%;
-      background: linear-gradient(to top, rgba(12, 18, 32, 0.8), transparent);
+      background: linear-gradient(to top, rgba(255, 255, 255, 0.8), transparent);
     }
     
     .product-details {
@@ -419,7 +445,7 @@
     }
     
     .product-description {
-      color: var(--light);
+      color: var(--light-text);
       font-size: 0.95rem;
       margin-bottom: 20px;
       flex-grow: 1;
@@ -449,14 +475,16 @@
     
     .view-details-btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
     
     /* قسم الخصائص */
     .features {
-      background: rgba(15, 25, 45, 0.6);
+      background: white;
       padding: 60px 30px;
       margin: 50px 0;
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
     }
     
     .features-grid {
@@ -468,19 +496,19 @@
     }
     
     .feature-card {
-      background: rgba(26, 42, 74, 0.3);
+      background: white;
       border-radius: 15px;
       padding: 30px;
       text-align: center;
       transition: all 0.3s ease;
-      border: 1px solid rgba(78, 205, 196, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     }
     
     .feature-card:hover {
       transform: translateY(-10px);
-      background: rgba(26, 42, 74, 0.5);
       border-color: rgba(78, 205, 196, 0.3);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
     
     .feature-icon {
@@ -492,20 +520,21 @@
     .feature-card h3 {
       font-size: 1.4rem;
       margin-bottom: 15px;
+      color: var(--dark-text);
     }
     
     .feature-card p {
-      color: var(--light);
+      color: var(--light-text);
       font-size: 0.95rem;
     }
     
     /* الفوتر */
     footer {
-      background: rgba(8, 13, 24, 0.95);
+      background: white;
       padding: 50px 30px 30px;
       text-align: center;
       margin-top: 50px;
-      border-top: 1px solid rgba(78, 205, 196, 0.1);
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
     }
     
     .footer-content {
@@ -544,7 +573,7 @@
     }
     
     .footer-links a {
-      color: var(--light);
+      color: var(--light-text);
       text-decoration: none;
       transition: all 0.3s ease;
       display: flex;
@@ -558,7 +587,7 @@
     }
     
     .footer-contact p {
-      color: var(--light);
+      color: var(--light-text);
       margin-bottom: 15px;
       display: flex;
       align-items: center;
@@ -595,7 +624,7 @@
       color: var(--gray);
       margin-top: 40px;
       padding-top: 20px;
-      border-top: 1px solid rgba(78, 205, 196, 0.1);
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
       font-size: 0.9rem;
     }
     
@@ -603,7 +632,7 @@
     .search-container {
       display: flex;
       align-items: center;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.05);
       border-radius: 30px;
       padding: 5px 15px;
       width: 250px;
@@ -613,14 +642,14 @@
     .search-container input {
       background: transparent;
       border: none;
-      color: white;
+      color: var(--dark-text);
       padding: 8px;
       width: 100%;
       outline: none;
     }
     
     .search-container input::placeholder {
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(0, 0, 0, 0.4);
     }
     
     .search-container button {
@@ -699,7 +728,7 @@
       }
       
       .products-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(2, 1fr); /* صفين في الشاشات المتوسطة */
         padding: 0 15px 30px;
         gap: 20px;
       }
@@ -727,6 +756,31 @@
     @media (max-width: 480px) {
       .navbar {
         padding: 15px;
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .logo {
+        margin-bottom: 15px;
+        justify-content: center;
+        width: 100%;
+      }
+      
+      .logo-img {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .nav-icons {
+        width: 100%;
+        justify-content: center;
+        margin-top: 10px;
+      }
+      
+      .nav-links {
+        margin-top: 10px;
+        gap: 10px;
+        font-size: 0.9rem;
       }
       
       .hero h1 {
@@ -742,9 +796,10 @@
         display: none;
       }
       
-      .nav-links {
-        gap: 10px;
-        font-size: 0.9rem;
+      .products-grid {
+        grid-template-columns: 1fr; /* عمود واحد في الشاشات الصغيرة جدًا */
+        gap: 15px;
+        padding: 0 15px 30px;
       }
       
       .language-switcher span {
@@ -756,7 +811,8 @@
       }
       
       .search-container {
-        width: 120px;
+        width: 100%;
+        max-width: 200px;
       }
       
       .search-container input {
@@ -774,13 +830,34 @@
         font-size: 24px;
       }
     }
+    
+    @media (max-width: 360px) {
+      .products-grid {
+        grid-template-columns: 1fr; /* عمود واحد في الشاشات الصغيرة جدًا */
+      }
+    }
+    
+    /* رسالة نتائج البحث */
+    .search-results {
+      text-align: center;
+      padding: 20px;
+      color: var(--primary);
+      font-size: 1.2rem;
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <!-- شريط التنقل -->
+  <!-- شريط التنقل الثابت -->
   <nav class="navbar">
     <div class="logo">
-      <i class="fas fa-store"></i>
+      <div class="logo-img">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="48" fill="#4ecdc4" />
+          <path d="M30,40 L50,60 L70,40 L70,70 L30,70 Z" fill="white" />
+          <circle cx="50" cy="40" r="10" fill="#ff6b6b" />
+        </svg>
+      </div>
       <h1>متجر البندر</h1>
     </div>
     
@@ -793,7 +870,7 @@
     </div>
     
     <div class="nav-icons">
-      <!-- شريط البحث الثابت والمفتوح -->
+      <!-- شريط البحث -->
       <div class="search-container">
         <input type="text" placeholder="ابحث عن منتج..." id="searchInput">
         <button id="searchBtn"><i class="fas fa-search"></i></button>
@@ -854,6 +931,11 @@
   <section id="products">
     <div class="section-title">
       <h2>منتجاتنا المميزة</h2>
+    </div>
+    
+    <!-- رسالة نتائج البحث -->
+    <div class="search-results" id="searchResults">
+      نتائج البحث
     </div>
     
     <div class="products-grid">
@@ -1487,7 +1569,7 @@
           </div>
         </div>
       </a>
-      <a href="product34.html" class="product-card" data-category="home">
+      <a href="product34.html" class="product-card" data-category="Home">
         <div class="product-badge badge-best-seller"> توصيل مجاني</div>
         <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 44%</div>
         <div class="product-image" style="background-image: url('https://om.jetronics.ae/uploads/product_img/24_04_2021_13_26_39_9152190_id_6083cf37499b8.jpeg');"></div>
@@ -1696,7 +1778,7 @@
           </div>
         </div>
       </a>
-      <a href="product45.html" class="product-card" data-category="home">
+      <a href="product45.html" class="product-card" data-category="Home">
         <div class="product-badge badge-best-seller"> توصيل مجاني</div>
         <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 36%</div>
         <div class="product-image" style="background-image: url('https://www.megadealsom.com/uploads/cashes/23-11-25-07-53-1-540x540.jpg');"></div>
@@ -2079,7 +2161,7 @@
           </div>
         </div>
       </a>
-      <a href="product65.html" class="product-card" data-category="home">
+      <a href="product65.html" class="product-card" data-category="Home">
         <div class="product-badge badge-best-seller"> توصيل مجاني</div>
         <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 19%</div>
         <div class="product-image" style="background-image: url('https://www.megadealsom.com/uploads/cashes/24-01-24-03-15-1-540x540.jpg');"></div>
@@ -2193,7 +2275,7 @@
           </div>
         </div>
       </a>
-      <a href="product71.html" class="product-card" data-category="home">
+      <a href="product71.html" class="product-card" data-category="Home">
         <div class="product-badge badge-best-seller"> توصيل مجاني</div>
         <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 9%</div>
         <div class="product-image" style="background-image: url('https://www.megadealsom.com/uploads/cashes/24-05-16-02-42-1-540x540.jpg');"></div>
@@ -2212,7 +2294,7 @@
           </div>
         </div>
       </a>
-      <a href="product72.html" class="product-card" data-category="home">
+      <a href="product72.html" class="product-card" data-category="Home">
         <div class="product-badge badge-best-seller"> توصيل مجاني</div>
         <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 47%</div>
         <div class="product-image" style="background-image: url('https://om.jetronics.ae/uploads/product_img/21_02_2022_23_03_55_7183983_id_6213e21b54252.jpeg');"></div>
@@ -2459,7 +2541,7 @@
           </div>
         </div>
       </a>
-      <a href="product85.html" class="product-card" data-category="home">
+      <a href="product85.html" class="product-card" data-category="Home">
         <div class="product-badge badge-best-seller"> توصيل مجاني</div>
         <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 22%</div>
         <div class="product-image" style="background-image: url('https://www.megadealsom.com/uploads/cashes/24-07-28-03-30-1-540x540.JPG');"></div>
@@ -2668,7 +2750,7 @@
           </div>
         </div>
       </a>
-      <a href="product96.html" class="product-card" data-category="home">
+      <a href="product96.html" class="product-card" data-category="Home">
         <div class="product-badge badge-best-seller"> توصيل مجاني</div>
         <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 38%</div>
         <div class="product-image" style="background-image: url('https://om.jetronics.ae/uploads/product_img/27_02_2024_22_46_40_8588425_id_65de2e10036dc.jpeg');"></div>
@@ -2687,7 +2769,7 @@
           </div>
         </div>
       </a>
-      <a href="product97.html" class="product-card" data-category="home">
+      <a href="product97.html" class="product-card" data-category="Home">
         <div class="product-badge badge-best-seller"> توصيل مجاني</div>
         <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 25%</div>
         <div class="product-image" style="background-image: url('https://www.megadealsom.com/uploads/cashes/25-02-04-02-17-1-540x540.jpg');"></div>
@@ -2839,7 +2921,7 @@
           </div>
         </div>
       </a>
-      <a href="product105.html" class="product-card" data-category="home">
+      <a href="product105.html" class="product-card" data-category="Home">
         <div class="product-badge badge-best-seller"> توصيل مجاني</div>
         <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 36%</div>
         <div class="product-image" style="background-image: url('https://www.megadealsom.com/uploads/cashes/24-01-28-05-00-1-540x540.jpg');"></div>
@@ -2953,7 +3035,7 @@
           </div>
         </div>
       </a>
-            <a href="product111.html" class="product-card" data-category="home">
+            <a href="product111.html" class="product-card" data-category="Home">
         <div class="product-badge badge-best-seller"> توصيل مجاني</div>
         <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 24%</div>
         <div class="product-image" style="background-image: url('https://www.megadealsom.com/uploads/cashes/24-05-11-09-59-1-540x540.png');"></div>
@@ -2991,7 +3073,7 @@
           </div>
         </div>
       </a>
-      <a href="product113.html" class="product-card" data-category="home">
+      <a href="product113.html" class="product-card" data-category="Home">
         <div class="product-badge badge-best-seller"> توصيل مجاني</div>
         <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 25%</div>
         <div class="product-image" style="background-image: url('https://www.megadealsom.com/uploads/cashes/24-05-11-09-02-1-540x540.jpg');"></div>
@@ -3029,7 +3111,7 @@
           </div>
         </div>
       </a>
-      <a href="product115.html" class="product-card" data-category="home">
+      <a href="product115.html" class="product-card" data-category="Home">
         <div class="product-badge badge-best-seller"> توصيل مجاني</div>
         <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 36%</div>
         <div class="product-image" style="background-image: url('https://www.megadealsom.com/uploads/cashes/24-05-16-02-30-1-540x540.jpg');"></div>
@@ -3086,7 +3168,7 @@
           </div>
         </div>
       </a>
-      <a href="product118.html" class="product-card" data-category="home">
+      <a href="product118.html" class="product-card" data-category="Home">
         <div class="product-badge badge-best-seller"> توصيل مجاني</div>
         <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 32%</div>
         <div class="product-image" style="background-image: url('https://om.jetronics.ae/uploads/product_img/02_09_2024_20_03_39_6910900_id_66d5e1dbb4f07.jpeg');"></div>
@@ -3136,6 +3218,389 @@
           </div>
           <div class="product-meta">
             <span><i class="fas fa-star"></i> 4.7 (823 تقييم)</span>
+            <span><i class="fas fa-box"></i> متوفر</span>
+          </div>
+          <div class="view-details-btn">
+            <i class="fas fa-eye"></i> عرض التفاصيل
+          </div>
+        </div>
+      </a>
+      <a href="product121.html" class="product-card" data-category="other">
+        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
+        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 35%</div>
+        <div class="product-image" style="background-image: url('https://www.megadealsom.com/uploads/cashes/24-05-16-02-36-1-540x540.jpg');"></div>
+        <div class="product-details">
+          <div class="product-name"> مصباح LED قابل لإعادة الشحن ومقاوم للماء - اشترِ واحدًا واحصل على الثاني مجانًا - توصيل مجاني</div>
+          <div class="product-price">
+            <span class="original-price">14.3 ريال</span>
+            <span class="discounted-price">9.3 ريال</span>
+          </div>
+          <div class="product-meta">
+            <span><i class="fas fa-star"></i> 4.8 (128 تقييم)</span>
+            <span><i class="fas fa-box"></i> متوفر</span>
+          </div>
+          <div class="view-details-btn">
+            <i class="fas fa-eye"></i> عرض التفاصيل
+          </div>
+        </div>
+      </a>
+
+      <a href="product122.html" class="product-card"  data-category="kitchen">
+        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
+        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 25%</div>
+        <div class="product-image" style="background-image: url('https://om.jetronics.ae/uploads/product_img/17_05_2021_13_10_02_5651025_id_60a232ea83bd8.jpeg');"></div>
+        <div class="product-details">
+          <div class="product-name"> مفرمة اللحوم والخضروات الكهربائية</div>
+          <div class="product-price">
+            <span class="original-price">12.6 ريال</span>
+            <span class="discounted-price">9.5 ريال</span>
+          </div>
+          <div class="product-meta">
+            <span><i class="fas fa-star"></i> 4.3 (962 تقييم)</span>
+            <span><i class="fas fa-box"></i> متوفر</span>
+          </div>
+          <div class="view-details-btn">
+            <i class="fas fa-eye"></i> عرض التفاصيل
+          </div>
+        </div>
+      </a>
+
+      <a href="product123.html" class="product-card" data-category="cosmetics">
+        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
+        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 30%</div>
+        <div class="product-image" style="background-image: url('https://www.megadealsom.com/uploads/cashes/23-11-24-05-13-1-540x540.jpg');"></div>
+        <div class="product-details">
+          <div class="product-name"> قناع الشاي الأخضر الأصلي - اشتري واحد واحصل على الثاني مجانًا </div>
+          <div class="product-price">
+            <span class="original-price">12 ريال</span>
+            <span class="discounted-price">8.4 ريال</span>
+          </div>
+          <div class="product-meta">
+            <span><i class="fas fa-star"></i> 8.4 (341 تقييم)</span>
+            <span><i class="fas fa-box"></i> متوفر</span>
+          </div>
+          <div class="view-details-btn">
+            <i class="fas fa-eye"></i> عرض التفاصيل
+          </div>
+        </div>
+      </a>
+
+      <a href="product124.html" class="product-card" data-category="Home">
+        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
+        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 40%</div>
+        <div class="product-image" style="background-image: url('https://om.jetronics.ae/uploads/product_img/30_05_2024_11_32_38_5286641_id_66582b962e619.jpeg');"></div>
+        <div class="product-details">
+          <div class="product-name"> ناموسية بحجم سرير مزدوج كبير</div>
+          <div class="product-price">
+            <span class="original-price">16 ريال</span>
+            <span class="discounted-price">9.6 ريال</span>
+          </div>
+          <div class="product-meta">
+            <span><i class="fas fa-star"></i> 4.4 (19 تقييم)</span>
+            <span><i class="fas fa-box"></i> متوفر</span>
+          </div>
+          <div class="view-details-btn">
+            <i class="fas fa-eye"></i> عرض التفاصيل
+          </div>
+        </div>
+      </a>
+      <a href="product125.html" class="product-card" data-category="car-care">
+        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
+        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 19%</div>
+        <div class="product-image" style="background-image: url('https://www.megadealsom.com/uploads/cashes/23-12-17-03-31-2-540x540.jpg');"></div>
+        <div class="product-details">
+          <div class="product-name"> مزيل خدوش السيارة الفوري وإصلاح الطلاء - اشترِ واحدًا واحصل على الثاني مجانًا</div>
+          <div class="product-price">
+            <span class="original-price">10.4 ريال</span>
+            <span class="discounted-price">8.4 ريال</span>
+          </div>
+          <div class="product-meta">
+            <span><i class="fas fa-star"></i> 4.9 (120 تقييم)</span>
+            <span><i class="fas fa-box"></i> متوفر</span>
+          </div>
+          <div class="view-details-btn">
+            <i class="fas fa-eye"></i> عرض التفاصيل
+          </div>
+        </div>
+      </a>
+      <a href="product126.html" class="product-card" data-category="watches">
+        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
+        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 43%</div>
+        <div class="product-image" style="background-image: url('https://om.jetronics.ae/uploads/product_img/14_12_2023_21_57_10_9921957_id_657b41f6efe6a.jpeg');"></div>
+        <div class="product-details">
+          <div class="product-name"> ساعة فافا فروم بلاك ماجيك الجلدية</div>
+          <div class="product-price">
+            <span class="original-price">15.8 ريال</span>
+            <span class="discounted-price">9 ريال</span>
+          </div>
+          <div class="product-meta">
+            <span><i class="fas fa-star"></i> 5 (187 تقييم)</span>
+            <span><i class="fas fa-box"></i> متوفر</span>
+          </div>
+          <div class="view-details-btn">
+            <i class="fas fa-eye"></i> عرض التفاصيل
+          </div>
+        </div>
+      </a>
+      <a href="product127.html" class="product-card" data-category="Home">
+        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
+        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 43%</div>
+        <div class="product-image" style="background-image: url('https://www.megadealsom.com/uploads/cashes/24-07-30-03-47-1-540x540.jpg');"></div>
+        <div class="product-details">
+          <div class="product-name"> مسدس مسامير خرساني عالي التحمل</div>
+          <div class="product-price">
+            <span class="original-price">19.8 ريال</span>
+            <span class="discounted-price">11.3 ريال</span>
+          </div>
+          <div class="product-meta">
+            <span><i class="fas fa-star"></i> 3.9 (65 تقييم)</span>
+            <span><i class="fas fa-box"></i> متوفر</span>
+          </div>
+          <div class="view-details-btn">
+            <i class="fas fa-eye"></i> عرض التفاصيل
+          </div>
+        </div>
+      </a>
+      <a href="product128.html" class="product-card" data-category="car-care">
+        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
+        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 24%</div>
+        <div class="product-image" style="background-image: url('https://om.jetronics.ae/uploads/product_img/06_11_2023_21_46_12_4241953_id_654926641f082.jpeg');"></div>
+        <div class="product-details">
+          <div class="product-name"> مسدس غسيل هيدرو سوبر جيت </div>
+          <div class="product-price">
+            <span class="original-price">11.8 ريال</span>
+            <span class="discounted-price">9 ريال</span>
+          </div>
+          <div class="product-meta">
+            <span><i class="fas fa-star"></i> 4.2 (617 تقييم)</span>
+            <span><i class="fas fa-box"></i> متوفر</span>
+          </div>
+          <div class="view-details-btn">
+            <i class="fas fa-eye"></i> عرض التفاصيل
+          </div>
+        </div>
+      </a>
+      <a href="product129.html" class="product-card" data-category="electronics">
+        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
+        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 34%</div>
+        <div class="product-image" style="background-image: url('https://www.megadealsom.com/uploads/cashes/23-12-13-07-49-4-540x540.jpg');"></div>
+        <div class="product-details">
+          <div class="product-name"> جهاز تدليك القدمين القابل لإعادة الشحن EMS (اشترِ واحدًا واحصل على الثاني مجانًا)</div>
+          <div class="product-price">
+            <span class="original-price">15 ريال</span>
+            <span class="discounted-price">9.9 ريال</span>
+          </div>
+          <div class="product-meta">
+            <span><i class="fas fa-star"></i> 4.6 (98 تقييم)</span>
+            <span><i class="fas fa-box"></i> متوفر</span>
+          </div>
+          <div class="view-details-btn">
+            <i class="fas fa-eye"></i> عرض التفاصيل
+          </div>
+        </div>
+      </a>
+      <a href="product130.html" class="product-card" data-category="other">
+        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
+        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 16%</div>
+        <div class="product-image" style="background-image: url('https://om.jetronics.ae/uploads/product_img/17_05_2021_19_35_18_8064945_id_60a28d362c1d3.jpeg');"></div>
+        <div class="product-details">
+          <div class="product-name"> معزز الركبة القوي </div>
+          <div class="product-price">
+            <span class="original-price">11.4 ريال</span>
+            <span class="discounted-price">9.6 ريال</span>
+          </div>
+          <div class="product-meta">
+            <span><i class="fas fa-star"></i> 4.8 (116 تقييم)</span>
+            <span><i class="fas fa-box"></i> متوفر</span>
+          </div>
+          <div class="view-details-btn">
+            <i class="fas fa-eye"></i> عرض التفاصيل
+          </div>
+        </div>
+      </a>
+      <a href="product131.html" class="product-card" data-category="watches">
+        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
+        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 9%</div>
+        <div class="product-image" style="background-image: url('https://www.megadealsom.com/uploads/cashes/24-08-12-02-07-1-540x540.jpg');"></div>
+        <div class="product-details">
+          <div class="product-name"> ساعة فاخرة من الفولاذ المقاوم للصدأ للرجال R2</div>
+          <div class="product-price">
+            <span class="original-price">10.7 ريال</span>
+            <span class="discounted-price">9.8 ريال</span>
+          </div>
+          <div class="product-meta">
+            <span><i class="fas fa-star"></i> 4.1 (120 تقييم)</span>
+            <span><i class="fas fa-box"></i> متوفر</span>
+          </div>
+          <div class="view-details-btn">
+            <i class="fas fa-eye"></i> عرض التفاصيل
+          </div>
+        </div>
+      </a>
+      <a href="product132.html" class="product-card" data-category="kitchen">
+        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
+        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 29%</div>
+        <div class="product-image" style="background-image: url('https://om.jetronics.ae/uploads/product_img/17_05_2021_19_44_02_5419660_id_60a28f423aaac.jpeg');"></div>
+        <div class="product-details">
+          <div class="product-name"> ماكينة صنع القهوة التركية سايبر</div>
+          <div class="product-price">
+            <span class="original-price">33.8 ريال</span>
+            <span class="discounted-price">24 ريال</span>
+          </div>
+          <div class="product-meta">
+            <span><i class="fas fa-star"></i> 4.3 (190 تقييم)</span>
+            <span><i class="fas fa-box"></i> متوفر</span>
+          </div>
+          <div class="view-details-btn">
+            <i class="fas fa-eye"></i> عرض التفاصيل
+          </div>
+        </div>
+      </a>
+      <a href="product133.html" class="product-card" data-category="watches">
+        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
+        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 32%</div>
+        <div class="product-image" style="background-image: url('https://www.megadealsom.com/uploads/cashes/24-08-12-02-01-1-540x540.jpg');"></div>
+        <div class="product-details">
+          <div class="product-name"> ساعة IIK الفاخرة للرجال من الفولاذ المقاوم للصدأ R3</div>
+          <div class="product-price">
+            <span class="original-price">16.2 ريال</span>
+            <span class="discounted-price">14.7 ريال</span>
+          </div>
+          <div class="product-meta">
+            <span><i class="fas fa-star"></i> 4.7 (197 تقييم)</span>
+            <span><i class="fas fa-box"></i> متوفر</span>
+          </div>
+          <div class="view-details-btn">
+            <i class="fas fa-eye"></i> عرض التفاصيل
+          </div>
+        </div>
+      </a>
+      <a href="product134.html" class="product-card" data-category="Home">
+        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
+        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 35%</div>
+        <div class="product-image" style="background-image: url('https://om.jetronics.ae/uploads/product_img/18_06_2025_01_24_34_9659366_id_6851dd120a83b.jpeg');"></div>
+        <div class="product-details">
+          <div class="product-name"> مكبر صوت حائطي للقرآن الكريم</div>
+          <div class="product-price">
+            <span class="original-price">19 ريال</span>
+            <span class="discounted-price">12.3 ريال</span>
+          </div>
+          <div class="product-meta">
+            <span><i class="fas fa-star"></i> 4.3 (107 تقييم)</span>
+            <span><i class="fas fa-box"></i> متوفر</span>
+          </div>
+          <div class="view-details-btn">
+            <i class="fas fa-eye"></i> عرض التفاصيل
+          </div>
+        </div>
+      </a>
+      <a href="product135.html" class="product-card" data-category="cosmetics">
+        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
+        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 26%</div>
+        <div class="product-image" style="background-image: url('https://om.jetronics.ae/uploads/product_img/18_05_2021_21_40_56_4279145_id_60a3fc2887436.jpeg');"></div>
+        <div class="product-details">
+          <div class="product-name"> جهاز إزالة مسامير القدم القابل لإعادة الشحن </div>
+          <div class="product-price">
+            <span class="original-price">12 ريال</span>
+            <span class="discounted-price">8.9 ريال</span>
+          </div>
+          <div class="product-meta">
+            <span><i class="fas fa-star"></i> 4.8 (96 تقييم)</span>
+            <span><i class="fas fa-box"></i> متوفر</span>
+          </div>
+          <div class="view-details-btn">
+            <i class="fas fa-eye"></i> عرض التفاصيل
+          </div>
+        </div>
+      </a>
+      <a href="product136.html" class="product-card" data-category="other">
+        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
+        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 13%</div>
+        <div class="product-image" style="background-image: url('https://om.jetronics.ae/uploads/product_img/24_12_2023_21_08_07_6517873_id_65886577bf2d3.jpeg');"></div>
+        <div class="product-details">
+          <div class="product-name"> مقلاع ليزر احترافي </div>
+          <div class="product-price">
+            <span class="original-price">9.8 ريال</span>
+            <span class="discounted-price">8.5 ريال</span>
+          </div>
+          <div class="product-meta">
+            <span><i class="fas fa-star"></i> 4.4 (93 تقييم)</span>
+            <span><i class="fas fa-box"></i> متوفر</span>
+          </div>
+          <div class="view-details-btn">
+            <i class="fas fa-eye"></i> عرض التفاصيل
+          </div>
+        </div>
+      </a>
+      <a href="product137.html" class="product-card" data-category="other">
+        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
+        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 25%</div>
+        <div class="product-image" style="background-image: url('https://om.jetronics.ae/uploads/product_img/25_04_2024_09_02_13_4195735_id_6629e3d5a7836.jpeg');"></div>
+        <div class="product-details">
+          <div class="product-name"> أحذية جيت دون الرياضية الأكثر أناقة</div>
+          <div class="product-price">
+            <span class="original-price">16.4 ريال</span>
+            <span class="discounted-price">12.3 ريال</span>
+          </div>
+          <div class="product-meta">
+            <span><i class="fas fa-star"></i> 4.8 (65 تقييم)</span>
+            <span><i class="fas fa-box"></i> متوفر</span>
+          </div>
+          <div class="view-details-btn">
+            <i class="fas fa-eye"></i> عرض التفاصيل
+          </div>
+        </div>
+      </a>
+      <a href="product138.html" class="product-card" data-category="electronics">
+        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
+        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 27%</div>
+        <div class="product-image" style="background-image: url('https://om.jetronics.ae/uploads/product_img/18_06_2025_02_19_35_5455718_id_6851e9f732006.jpeg');"></div>
+        <div class="product-details">
+          <div class="product-name"> كاميرا رقمية احترافية صغيرة للجسم بدقة 1080 بكسل عالية الدقة</div>
+          <div class="product-price">
+            <span class="original-price">16 ريال</span>
+            <span class="discounted-price">11.6 ريال</span>
+          </div>
+          <div class="product-meta">
+            <span><i class="fas fa-star"></i> 4.9 (178 تقييم)</span>
+            <span><i class="fas fa-box"></i> متوفر</span>
+          </div>
+          <div class="view-details-btn">
+            <i class="fas fa-eye"></i> عرض التفاصيل
+          </div>
+        </div>
+      </a>
+      <a href="product139.html" class="product-card" data-category="watches">
+        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
+        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 35%</div>
+        <div class="product-image" style="background-image: url('https://om.jetronics.ae/uploads/product_img/18_06_2025_02_10_21_8034857_id_6851e7cdb41ff.jpeg');"></div>
+        <div class="product-details">
+          <div class="product-name"> ساعة من الفولاذ المقاوم للصدأ باللون الأسود مع أرقام عربية </div>
+          <div class="product-price">
+            <span class="original-price">16.5 ريال</span>
+            <span class="discounted-price">10.7 ريال</span>
+          </div>
+          <div class="product-meta">
+            <span><i class="fas fa-star"></i> 5 (476 تقييم)</span>
+            <span><i class="fas fa-box"></i> متوفر</span>
+          </div>
+          <div class="view-details-btn">
+            <i class="fas fa-eye"></i> عرض التفاصيل
+          </div>
+        </div>
+      </a>
+      <a href="product140.html" class="product-card" data-category="Home">
+        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
+        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 47%</div>
+        <div class="product-image" style="background-image: url('https://om.jetronics.ae/uploads/product_img/19_06_2025_23_25_13_3706648_id_68546419b7f49.jpeg');"></div>
+        <div class="product-details">
+          <div class="product-name"> سرير هوائي قابل للنفخ مع مضخة هوائية مدمجة </div>
+          <div class="product-price">
+            <span class="original-price">41.5 ريال</span>
+            <span class="discounted-price">22 ريال</span>
+          </div>
+          <div class="product-meta">
+            <span><i class="fas fa-star"></i> 4.7 (321 تقييم)</span>
             <span><i class="fas fa-box"></i> متوفر</span>
           </div>
           <div class="view-details-btn">
@@ -3412,6 +3877,7 @@
     // تفعيل وظيفة البحث مع دعم الأخطاء الإملائية
     const searchInput = document.getElementById('searchInput');
     const searchBtn = document.getElementById('searchBtn');
+    const searchResults = document.getElementById('searchResults');
     
     // دالة البحث التقريبي
     function fuzzySearch(term, text) {
@@ -3444,17 +3910,36 @@
     function performSearch() {
       const searchTerm = searchInput.value;
       const productCards = document.querySelectorAll('.product-card');
+      let foundCount = 0;
+      
+      if (searchTerm.trim() === '') {
+        searchResults.style.display = 'none';
+        productCards.forEach(card => {
+          card.style.display = 'flex';
+        });
+        return;
+      }
       
       productCards.forEach(card => {
         const productName = card.querySelector('.product-name').textContent;
-        const productDesc = card.querySelector('.product-description').textContent;
+        const productDesc = card.querySelector('.product-description')?.textContent || '';
         
         if (fuzzySearch(searchTerm, productName) || fuzzySearch(searchTerm, productDesc)) {
           card.style.display = 'flex';
+          foundCount++;
         } else {
           card.style.display = 'none';
         }
       });
+      
+      // عرض رسالة نتائج البحث
+      if (foundCount > 0) {
+        searchResults.textContent = `تم العثور على ${foundCount} منتجات تتطابق مع بحثك`;
+        searchResults.style.display = 'block';
+      } else {
+        searchResults.textContent = 'لم يتم العثور على منتجات تطابق بحثك';
+        searchResults.style.display = 'block';
+      }
       
       // إعادة تنشيط الزر "جميع المنتجات" بعد البحث
       document.querySelectorAll('.category-btn').forEach(btn => {
