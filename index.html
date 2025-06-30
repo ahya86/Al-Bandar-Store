@@ -32,25 +32,21 @@
       line-height: 1.6;
       padding-bottom: 30px;
       transition: all 0.3s ease;
-      padding-top: 100px; /* إضافة حشو للأعلى لتعويض الشريط الثابت */
     }
     
-    /* شريط التنقل - ثابت في الأعلى */
-    .navbar {
-      background: white;
-      backdrop-filter: blur(10px);
-      padding: 10px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    }
+   .navbar {
+  background: white;                          /* خلفية بيضاء */
+  backdrop-filter: blur(10px);                /* تمويه للخلفية */
+  padding: 10px 30px;                         /* مسافة داخلية للشريط */
+  display: flex;                              /* استخدام Flexbox لترتيب العناصر */
+  justify-content: space-between;             /* توزيع العناصر بشكل متباعد */
+  align-items: center;                        /* محاذاة عمودية في المنتصف */
+  /* بدون تثبيت في الأعلى */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);   /* ظل أسفل الشريط */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);/* حد سفلي بسيط */
+}
+
+
     
     .logo {
       display: flex;
@@ -848,41 +844,38 @@
   </style>
 </head>
 <body>
-  <!-- شريط التنقل الثابت -->
-  <nav class="navbar">
-    <div class="logo">
-      <div class="logo-img">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="48" fill="#4ecdc4" />
-          <path d="M30,40 L50,60 L70,40 L70,70 L30,70 Z" fill="white" />
-          <circle cx="50" cy="40" r="10" fill="#ff6b6b" />
-        </svg>
-      </div>
-      <h1>متجر البندر</h1>
+<!-- شريط التنقل -->
+<nav class="navbar">
+  <div class="logo">
+    <div class="logo-img">
+      <!-- صورة الشعار -->
+      <img src="11zon_cropped.png" alt="شعار المتجر" style="height: 50px; width: 50px; object-fit: contain;">
     </div>
-    
-    <div class="nav-links">
-      <a href="#"><i class="fas fa-home"></i> الرئيسية</a>
-      <a href="#products"><i class="fas fa-box-open"></i> المنتجات</a>
-      <a href="#products"><i class="fas fa-percent"></i> العروض</a>
-      <a href="#"><i class="fas fa-headset"></i> الدعم</a>
-      <a href="#footer"><i class="fas fa-address-card"></i> من نحن</a>
+    <h1>متجر البندر</h1>
+  </div>
+
+  <div class="nav-links">
+    <a href="#"><i class="fas fa-home"></i> الرئيسية</a>
+    <a href="#products"><i class="fas fa-box-open"></i> المنتجات</a>
+    <a href="#products"><i class="fas fa-percent"></i> العروض</a>
+    <a href="https://wa.me/96891800885" target="_blank"><i class="fas fa-headset"></i> الدعم</a>
+    <a href="#footer"><i class="fas fa-address-card"></i> من نحن</a>
+  </div>
+
+  <div class="nav-icons">
+    <!-- شريط البحث -->
+    <div class="search-container">
+      <input type="text" placeholder="ابحث عن منتج..." id="searchInput">
+      <button id="searchBtn"><i class="fas fa-search"></i></button>
     </div>
-    
-    <div class="nav-icons">
-      <!-- شريط البحث -->
-      <div class="search-container">
-        <input type="text" placeholder="ابحث عن منتج..." id="searchInput">
-        <button id="searchBtn"><i class="fas fa-search"></i></button>
-      </div>
-      
-      <!-- زر تغيير اللغة -->
-      <div class="language-switcher" id="languageSwitcher">
-        <i class="fas fa-globe"></i>
-        <span>English</span>
-      </div>
+
+    <!-- زر تغيير اللغة -->
+    <div class="language-switcher" id="languageSwitcher">
+      <i class="fas fa-globe"></i>
+      <span>English</span>
     </div>
-  </nav>
+  </div>
+</nav>
 
   <!-- الهيدر الرئيسي -->
   <header class="hero">
@@ -3623,7 +3616,7 @@
           <i class="fas fa-shipping-fast"></i>
         </div>
         <h3>شحن سريع</h3>
-        <p>توصيل سريع لجميع أنحاء السلطنة خلال 2-5 أيام عمل مع تتبع الشحنة</p>
+        <p>توصيل سريع لجميع أنحاء السلطنة خلال 3-6 أيام عمل مع تتبع الشحنة</p>
       </div>
       
       <div class="feature-card">
@@ -3666,22 +3659,22 @@
           <li><a href="#"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>
           <li><a href="#products"><i class="fas fa-chevron-left"></i> المنتجات</a></li>
           <li><a href="#products"><i class="fas fa-chevron-left"></i> العروض</a></li>
-          <li><a href="#footer"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
+          <li><a href="https://wa.me/96891800885" target="_blank"><i class="fas fa-chevron-left" ></i> اتصل بنا</a></li>
         </ul>
       </div>
       
       <div class="footer-contact">
         <h3>تواصل معنا</h3>
-        <p><i class="fas fa-map-marker-alt"></i> الداخلية , سلطنة عمان</p>
-        <p><i class="fas fa-phone"></i> 966112345678+</p>
-        <p><i class="fas fa-envelope"></i> info@albandar-store.com</p>
-        <p><i class="fas fa-clock"></i> الأحد - الخميس: 9 صباحًا - 10 مساءً</p>
+        <p><i class="fas fa-map-marker-alt"></i> سلطنة عمان </p>
+        <p><i class="fas fa-phone"></i> 96891800885+</p>
+        <p><i class="fas fa-envelope"></i> albandarstore799@gmail.com </p>
+        <p><i class="fas fa-clock"></i> الأحد - السبت : 9 صباحًا - 10 مساءً</p>
       </div>
     </div>
     
     <div class="social-icons">
       <a href="#"><i class="fab fa-twitter"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.instagram.com/al_bandar_store/" target="_blank"><i class="fab fa-instagram"></i></a>
       <a href="#"><i class="fab fa-snapchat"></i></a>
       <a href="#"><i class="fab fa-youtube"></i></a>
       <a href="#"><i class="fab fa-tiktok"></i></a>
@@ -3694,7 +3687,7 @@
   </footer>
 
   <!-- زر الواتساب الثابت المضاف -->
-  <a class="whatsapp-button" href="https://wa.me/966112345678" target="_blank">
+  <a class="whatsapp-button" href="https://wa.me/96891800885" target="_blank">
     <i class="fab fa-whatsapp"></i>
   </a>
 
