@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+
+<html dir="rtl" lang="ar">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>متجر البندر | أفضل المنتجات </title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>متجر البندر | أفضل المنتجات </title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style>
     :root {
       --primary: #4ecdc4;
       --secondary: #ff6b6b;
@@ -198,6 +199,18 @@
     }
 
     .cart-dropdown {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+  max-height: none !important;
+  overflow-y: auto !important;
+  padding-bottom: 50px;
+  z-index: 9999;
+
       position: absolute;
       top: 100%;
       right: 0;
@@ -225,7 +238,7 @@
       padding: 20px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
     }
 
@@ -237,17 +250,37 @@
       gap: 10px;
     }
 
+    .cart-middle-section {
+      padding: 15px 20px;
+      display: flex;
+      justify-content: center;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
     .clear-cart-btn {
-      background: none;
+      background: linear-gradient(135deg, var(--secondary), #e74c3c);
       border: none;
-      color: var(--secondary);
+      color: white;
       cursor: pointer;
       font-size: 0.9rem;
+      padding: 10px 20px;
+      border-radius: 25px;
       transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      box-shadow: 0 2px 10px rgba(231, 76, 60, 0.3);
     }
 
     .clear-cart-btn:hover {
-      color: var(--discount);
+      background: linear-gradient(135deg, #e74c3c, var(--secondary));
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+    }
+
+    .clear-cart-btn:active {
+      transform: translateY(0);
     }
 
     .cart-items {
@@ -1095,6 +1128,18 @@
     }
 
     [dir="ltr"] .cart-dropdown {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+  max-height: none !important;
+  overflow-y: auto !important;
+  padding-bottom: 50px;
+  z-index: 9999;
+
       left: 0;
       right: auto;
     }
@@ -1113,6 +1158,18 @@
     @media (max-width: 1200px) {
       /* On narrower screens position dropdown fixed to viewport right */
       .cart-dropdown {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+  max-height: none !important;
+  overflow-y: auto !important;
+  padding-bottom: 50px;
+  z-index: 9999;
+
         position: fixed;
         top: 80px;           /* below navbar */
         right: 10px;
@@ -1140,6 +1197,18 @@
       }
 
       .cart-dropdown {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+  max-height: none !important;
+  overflow-y: auto !important;
+  padding-bottom: 50px;
+  z-index: 9999;
+
         width: 350px;
       }
     }
@@ -1184,6 +1253,18 @@
       }
 
       .cart-dropdown {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+  max-height: none !important;
+  overflow-y: auto !important;
+  padding-bottom: 50px;
+  z-index: 9999;
+
         width: 300px;
         right: 10px; /* Fixed position */
       }
@@ -1199,6 +1280,18 @@
     @media (max-width: 600px) {
       /* Adjust cart dropdown for tablets and phones */
       .cart-dropdown {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+  max-height: none !important;
+  overflow-y: auto !important;
+  padding-bottom: 50px;
+  z-index: 9999;
+
         width: 320px;
         right: 10px;
         left: auto;
@@ -1284,6 +1377,18 @@
       }
 
       .cart-dropdown {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+  max-height: none !important;
+  overflow-y: auto !important;
+  padding-bottom: 50px;
+  z-index: 9999;
+
         width: 280px;
         right: 10px; /* Fixed position */
         left: auto;
@@ -1306,6 +1411,18 @@
       }
 
       .cart-dropdown {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+  max-height: none !important;
+  overflow-y: auto !important;
+  padding-bottom: 50px;
+  z-index: 9999;
+
         width: 260px;
         right: 10px; /* Fixed position */
         left: auto;
@@ -1321,359 +1438,365 @@
       display: none;
     }
          .cart-dropdown {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+  max-height: none !important;
+  overflow-y: auto !important;
+  padding-bottom: 50px;
+  z-index: 9999;
+
   inset-inline-end: 0 !important; /* لضبط اليمين في RTL و LTR */
   inset-inline-start: auto !important;
   max-width: 95vw;
   overflow-x: hidden;
 }
-  </style>
+  
+body.cart-open {
+  overflow: hidden;
+}
+
+.cart-dropdown {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+  max-height: none !important;
+  overflow-y: auto !important;
+  padding-bottom: 50px;
+  background: white !important;
+  z-index: 9999;
+}
+
+/* زر إغلاق السلة */
+.cart-close-btn {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: var(--secondary);
+  color: white;
+  border: none;
+  font-size: 1.4rem;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 10000;
+  transition: all 0.3s ease;
+}
+.cart-close-btn:hover {
+  background: var(--discount);
+}
+</style>
 </head>
 <body>
 <!-- Cart backdrop overlay -->
 <div class="cart-backdrop" id="cartBackdrop"></div>
 <!-- شريط التنقل -->
 <nav class="navbar">
-  <div class="logo">
-    <div class="logo-img">
-      <!-- صورة الشعار -->
-      <img src="11zon_cropped.png" alt="شعار المتجر" style="height: 50px; width: 50px; object-fit: contain;">
-    </div>
-    <h1>متجر البندر</h1>
-  </div>
-
-  <div class="nav-links">
-    <a href="#"><i class="fas fa-home"></i> الرئيسية</a>
-    <a href="#products"><i class="fas fa-box-open"></i> المنتجات</a>
-    <a href="#products"><i class="fas fa-percent"></i> العروض</a>
-    <a href="https://wa.me/96891800885" target="_blank"><i class="fas fa-headset"></i> الدعم</a>
-    <a href="#footer"><i class="fas fa-address-card"></i> من نحن</a>
-  </div>
-
-  <div class="nav-icons">
-    <!-- شريط البحث -->
-    <div class="search-container">
-      <input type="text" placeholder="ابحث عن منتج..." id="searchInput">
-      <button id="searchBtn"><i class="fas fa-search"></i></button>
-    </div>
-
-    <!-- سلة التسوق -->
-    <div class="cart-container">
-      <div class="cart-icon" id="cartIcon">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="cart-badge" id="cartBadge">0</span>
-      </div>
-      
-      <div class="cart-dropdown" id="cartDropdown">
-        <div class="cart-header">
-          <h3><i class="fas fa-shopping-cart"></i> سلة التسوق</h3>
-          <button class="clear-cart-btn" id="clearCartBtn">مسح الكل</button>
-        </div>
-        
-        <div class="cart-items" id="cartItems">
-          <div class="empty-cart">
-            <i class="fas fa-shopping-cart"></i>
-            <p>سلة التسوق فارغة</p>
-            <small>ابدأ بإضافة المنتجات التي تعجبك</small>
-          </div>
-        </div>
-        
-        <div class="cart-footer" style="display: none;" id="cartFooter">
-            <div class="cart-delivery">
-              <span class="cart-delivery-label" id="cartDeliveryLabel">التوصيل:</span>
-              <span class="cart-delivery-amount" id="cartDelivery">0 ريال</span>
-            </div>
-          <div class="cart-total">
-            <span class="cart-total-label">الإجمالي:</span>
-            <span class="cart-total-amount" id="cartTotal">0 ريال</span>
-            <p class="delivery-note" id="deliveryNote" style="font-size:0.8rem;color:var(--gray);margin:5px 0 10px;">رسوم التوصيل ثابتة 2 ريال عماني</p>
-          </div>
-          <button class="checkout-btn" id="checkoutBtn">
-            <i class="fas fa-shopping-bag"></i>
+<div class="logo">
+<div class="logo-img">
+<!-- صورة الشعار -->
+<img alt="شعار المتجر" src="11zon_cropped.png" style="height: 50px; width: 50px; object-fit: contain;"/>
+</div>
+<h1>متجر البندر</h1>
+</div>
+<div class="nav-links">
+<a href="#"><i class="fas fa-home"></i> الرئيسية</a>
+<a href="#products"><i class="fas fa-box-open"></i> المنتجات</a>
+<a href="#products"><i class="fas fa-percent"></i> العروض</a>
+<a href="https://wa.me/96891800885" target="_blank"><i class="fas fa-headset"></i> الدعم</a>
+<a href="#footer"><i class="fas fa-address-card"></i> من نحن</a>
+</div>
+<div class="nav-icons">
+<!-- شريط البحث -->
+<div class="search-container">
+<input id="searchInput" placeholder="ابحث عن منتج..." type="text"/>
+<button id="searchBtn"><i class="fas fa-search"></i></button>
+</div>
+<!-- سلة التسوق -->
+<div class="cart-container">
+<div class="cart-icon" id="cartIcon">
+<i class="fas fa-shopping-cart"></i>
+<span class="cart-badge" id="cartBadge">0</span>
+</div>
+<div class="cart-dropdown" id="cartDropdown"><button class="cart-close-btn" id="closeCartBtn">×</button>
+<div class="cart-header">
+<h3><i class="fas fa-shopping-cart"></i> سلة التسوق</h3>
+</div>
+<div class="cart-items" id="cartItems">
+<div class="empty-cart">
+<i class="fas fa-shopping-cart"></i>
+<p>سلة التسوق فارغة</p>
+<small>ابدأ بإضافة المنتجات التي تعجبك</small>
+</div>
+</div>
+<div class="cart-middle-section" id="cartMiddleSection" style="display: none;">
+<button class="clear-cart-btn" id="clearCartBtn">
+<i class="fas fa-trash-alt"></i>
+مسح الكل
+</button>
+</div>
+<div class="cart-footer" id="cartFooter" style="display: none;">
+<div class="cart-delivery">
+<span class="cart-delivery-label" id="cartDeliveryLabel">التوصيل:</span>
+<span class="cart-delivery-amount" id="cartDelivery">0 ريال</span>
+</div>
+<div class="cart-total">
+<span class="cart-total-label">الإجمالي:</span>
+<span class="cart-total-amount" id="cartTotal">0 ريال</span>
+<p class="delivery-note" id="deliveryNote" style="font-size:0.8rem;color:var(--gray);margin:5px 0 10px;">رسوم التوصيل ثابتة 2 ريال عماني</p>
+</div>
+<button class="checkout-btn" id="checkoutBtn">
+<i class="fas fa-shopping-bag"></i>
             إتمام الشراء
           </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- زر تغيير اللغة -->
-    <div class="language-switcher" id="languageSwitcher">
-      <i class="fas fa-globe"></i>
-      <span>English</span>
-    </div>
-  </div>
+</div>
+</div>
+</div>
+<!-- زر تغيير اللغة -->
+<div class="language-switcher" id="languageSwitcher">
+<i class="fas fa-globe"></i>
+<span>English</span>
+</div>
+</div>
 </nav>
-
-  <!-- الهيدر الرئيسي -->
-  <header class="hero">
-    <div class="hero-content">
-      <h1>اكتشف عالم  مع متجر البندر</h1>
-      <p>نقدم لكم أحدث المنتجات  بأفضل الأسعار وجودة لا تضاهى. اكتشف تشكيلتنا الواسعة من الكاميرات، الطائرات بدون طيار، السماعات وغيرها من المنتجات.</p>
-      <a href="#products" class="cta-button">تصفح المنتجات <i class="fas fa-arrow-left"></i></a>
-    </div>
-  </header>
-
-  <!-- قسم تصنيفات المنتجات -->
-  <div class="categories-section">
-    <div class="categories-title">
-      <i class="fas fa-filter"></i>
-      <h3>تصنيفات المنتجات</h3>
-    </div>
-    <div class="categories-container">
-      <button class="category-btn active" data-category="all">
-        <i class="fas fa-boxes"></i> جميع المنتجات
+<!-- الهيدر الرئيسي -->
+<header class="hero">
+<div class="hero-content">
+<h1>اكتشف عالم  مع متجر البندر</h1>
+<p>نقدم لكم أحدث المنتجات  بأفضل الأسعار وجودة لا تضاهى. اكتشف تشكيلتنا الواسعة من الكاميرات، الطائرات بدون طيار، السماعات وغيرها من المنتجات.</p>
+<a class="cta-button" href="#products">تصفح المنتجات <i class="fas fa-arrow-left"></i></a>
+</div>
+</header>
+<!-- قسم تصنيفات المنتجات -->
+<div class="categories-section">
+<div class="categories-title">
+<i class="fas fa-filter"></i>
+<h3>تصنيفات المنتجات</h3>
+</div>
+<div class="categories-container">
+<button class="category-btn active" data-category="all">
+<i class="fas fa-boxes"></i> جميع المنتجات
       </button>
-      <button class="category-btn" data-category="cosmetics">
-        <i class="fas fa-paint-brush"></i> مستحضرات التجميل
+<button class="category-btn" data-category="cosmetics">
+<i class="fas fa-paint-brush"></i> مستحضرات التجميل
       </button>
-      <button class="category-btn" data-category="electronics">
-        <i class="fas fa-laptop"></i> الكترونيات
+<button class="category-btn" data-category="electronics">
+<i class="fas fa-laptop"></i> الكترونيات
       </button>
-      <button class="category-btn" data-category="watches">
-        <i class="fas fa-clock"></i> الساعات
+<button class="category-btn" data-category="watches">
+<i class="fas fa-clock"></i> الساعات
       </button>
-      <button class="category-btn" data-category="kitchen">
-        <i class="fas fa-utensils"></i> المطبخ
+<button class="category-btn" data-category="kitchen">
+<i class="fas fa-utensils"></i> المطبخ
       </button>
-      <button class="category-btn" data-category="car-care">
-        <i class="fas fa-car"></i> للعناية بالسيارات
+<button class="category-btn" data-category="car-care">
+<i class="fas fa-car"></i> للعناية بالسيارات
       </button>
-      <button class="category-btn" data-category="Home">
-        <i class="fas fa-boxes"></i> المنزل 
+<button class="category-btn" data-category="Home">
+<i class="fas fa-boxes"></i> المنزل 
       </button>
-      <button class="category-btn" data-category="other">
-        <i class="fas fa-gamepad"></i> اخرى
+<button class="category-btn" data-category="other">
+<i class="fas fa-gamepad"></i> اخرى
       </button>
-    </div>
-  </div>
-
-  <!-- قسم المنتجات -->
-  <section id="products">
-    <div class="section-title">
-      <h2>منتجاتنا المميزة</h2>
-    </div>
-    
-    <!-- رسالة نتائج البحث -->
-    <div class="search-results" id="searchResults">
+</div>
+</div>
+<!-- قسم المنتجات -->
+<section id="products">
+<div class="section-title">
+<h2>منتجاتنا المميزة</h2>
+</div>
+<!-- رسالة نتائج البحث -->
+<div class="search-results" id="searchResults">
       نتائج البحث
     </div>
-    
-    <div class="products-grid">
-      <div class="product-card" data-category="car-care" 
-           data-id="1"
-           data-name="جهاز بدء تشغيل محمول 2 في 1 بقوة 800 أمبير ومضخة هواء"
-           data-price="22"
-           data-original-price="33.85"
-           data-image="https://www.megadealsom.com/uploads/cashes/25-01-07-01-09-1-360x360.jpg">
-        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
-        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 35%</div>
-        <div class="product-image" style="background-image: url('https://www.megadealsom.com/uploads/cashes/25-01-07-01-09-1-360x360.jpg');"></div>
-        <div class="product-details">
-          <div class="product-name">جهاز بدء تشغيل محمول 2 في 1 بقوة 800 أمبير ومضخة هواء </div>
-          <div class="product-price">
-            <span class="original-price">33.85 ريال</span>
-            <span class="discounted-price">24 ريال</span>
-          </div>
-          <div class="product-meta">
-            <span><i class="fas fa-star"></i> 4.8 (128 تقييم)</span>
-            <span><i class="fas fa-box"></i> متوفر</span>
-          </div>
-          <div class="product-actions">
-            <button class="add-to-cart-btn" onclick="addToCart(this)">
-              <i class="fas fa-cart-plus"></i> أضف للسلة
+<div class="products-grid">
+<div class="product-card" data-category="car-care" data-id="1" data-image="https://www.megadealsom.com/uploads/cashes/25-01-07-01-09-1-360x360.jpg" data-name="جهاز بدء تشغيل محمول 2 في 1 بقوة 800 أمبير ومضخة هواء" data-original-price="33.85" data-price="22">
+<div class="product-badge badge-best-seller"> توصيل مجاني</div>
+<div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 35%</div>
+<div class="product-image" style="background-image: url('https://www.megadealsom.com/uploads/cashes/25-01-07-01-09-1-360x360.jpg');"></div>
+<div class="product-details">
+<div class="product-name">جهاز بدء تشغيل محمول 2 في 1 بقوة 800 أمبير ومضخة هواء </div>
+<div class="product-price">
+<span class="original-price">33.85 ريال</span>
+<span class="discounted-price">24 ريال</span>
+</div>
+<div class="product-meta">
+<span><i class="fas fa-star"></i> 4.8 (128 تقييم)</span>
+<span><i class="fas fa-box"></i> متوفر</span>
+</div>
+<div class="product-actions">
+<button class="add-to-cart-btn" onclick="addToCart(this)">
+<i class="fas fa-cart-plus"></i> أضف للسلة
             </button>
-            <a href="product1.html" class="view-details-btn">
-              <i class="fas fa-eye"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="cosmetics"
-           data-id="2"
-           data-name="جهاز قياس سكر الدم IVD مع 50 شريطًا"
-           data-price="11"
-           data-original-price="14.67"
-           data-image="https://om.jetronics.ae/uploads/product_img/14_12_2021_22_26_08_1872445_id_61b8e1c0a5545.jpeg">
-        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
-        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 25%</div>
-        <div class="product-image" style="background-image: url('https://om.jetronics.ae/uploads/product_img/14_12_2021_22_26_08_1872445_id_61b8e1c0a5545.jpeg');"></div>
-        <div class="product-details">
-          <div class="product-name">جهاز قياس سكر الدم IVD مع 50 شريطًا</div>
-          <div class="product-price">
-            <span class="original-price">14.67 ريال</span>
-            <span class="discounted-price">13 ريال</span>
-          </div>
-          <div class="product-meta">
-            <span><i class="fas fa-star"></i> 4.3 (962 تقييم)</span>
-            <span><i class="fas fa-box"></i> متوفر</span>
-          </div>
-          <div class="product-actions">
-            <button class="add-to-cart-btn" onclick="addToCart(this)">
-              <i class="fas fa-cart-plus"></i> أضف للسلة
+<a class="view-details-btn" href="product1.html">
+<i class="fas fa-eye"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="product-card" data-category="cosmetics" data-id="2" data-image="https://om.jetronics.ae/uploads/product_img/14_12_2021_22_26_08_1872445_id_61b8e1c0a5545.jpeg" data-name="جهاز قياس سكر الدم IVD مع 50 شريطًا" data-original-price="14.67" data-price="11">
+<div class="product-badge badge-best-seller"> توصيل مجاني</div>
+<div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 25%</div>
+<div class="product-image" style="background-image: url('https://om.jetronics.ae/uploads/product_img/14_12_2021_22_26_08_1872445_id_61b8e1c0a5545.jpeg');"></div>
+<div class="product-details">
+<div class="product-name">جهاز قياس سكر الدم IVD مع 50 شريطًا</div>
+<div class="product-price">
+<span class="original-price">14.67 ريال</span>
+<span class="discounted-price">13 ريال</span>
+</div>
+<div class="product-meta">
+<span><i class="fas fa-star"></i> 4.3 (962 تقييم)</span>
+<span><i class="fas fa-box"></i> متوفر</span>
+</div>
+<div class="product-actions">
+<button class="add-to-cart-btn" onclick="addToCart(this)">
+<i class="fas fa-cart-plus"></i> أضف للسلة
             </button>
-            <a href="product2.html" class="view-details-btn">
-              <i class="fas fa-eye"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="electronics"
-           data-id="3"
-           data-name="طائرة جيت مافيك بدون طيار - كاميرا عالية الدقة 4K"
-           data-price="12"
-           data-original-price="24"
-           data-image="https://www.megadealsom.com/uploads/cashes/24-05-13-04-13-5-360x360.jpg">
-        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
-        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 50%</div>
-        <div class="product-image" style="background-image: url('https://www.megadealsom.com/uploads/cashes/24-05-13-04-13-5-360x360.jpg');"></div>
-        <div class="product-details">
-          <div class="product-name">طائرة جيت مافيك بدون طيار - كاميرا عالية الدقة 4K </div>
-          <div class="product-price">
-            <span class="original-price">24 ريال</span>
-            <span class="discounted-price">14 ريال</span>
-          </div>
-          <div class="product-meta">
-            <span><i class="fas fa-star"></i> 4.4 (341 تقييم)</span>
-            <span><i class="fas fa-box"></i> متوفر</span>
-          </div>
-          <div class="product-actions">
-            <button class="add-to-cart-btn" onclick="addToCart(this)">
-              <i class="fas fa-cart-plus"></i> أضف للسلة
+<a class="view-details-btn" href="product2.html">
+<i class="fas fa-eye"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="product-card" data-category="electronics" data-id="3" data-image="https://www.megadealsom.com/uploads/cashes/24-05-13-04-13-5-360x360.jpg" data-name="طائرة جيت مافيك بدون طيار - كاميرا عالية الدقة 4K" data-original-price="24" data-price="12">
+<div class="product-badge badge-best-seller"> توصيل مجاني</div>
+<div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 50%</div>
+<div class="product-image" style="background-image: url('https://www.megadealsom.com/uploads/cashes/24-05-13-04-13-5-360x360.jpg');"></div>
+<div class="product-details">
+<div class="product-name">طائرة جيت مافيك بدون طيار - كاميرا عالية الدقة 4K </div>
+<div class="product-price">
+<span class="original-price">24 ريال</span>
+<span class="discounted-price">14 ريال</span>
+</div>
+<div class="product-meta">
+<span><i class="fas fa-star"></i> 4.4 (341 تقييم)</span>
+<span><i class="fas fa-box"></i> متوفر</span>
+</div>
+<div class="product-actions">
+<button class="add-to-cart-btn" onclick="addToCart(this)">
+<i class="fas fa-cart-plus"></i> أضف للسلة
             </button>
-            <a href="product3.html" class="view-details-btn">
-              <i class="fas fa-eye"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card" data-category="Home"
-           data-id="4"
-           data-name="ممسحة صغيرة محمولة ذاتية الضغط"
-           data-price="7"
-           data-original-price="11.66"
-           data-image="https://om.jetronics.ae/uploads/product_img/14_05_2023_22_07_46_9788710_id_646123726921e.jpeg">
-        <div class="product-badge badge-best-seller"> توصيل مجاني</div>
-        <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 40%</div>
-        <div class="product-image" style="background-image: url('https://om.jetronics.ae/uploads/product_img/14_05_2023_22_07_46_9788710_id_646123726921e.jpeg');"></div>
-        <div class="product-details">
-          <div class="product-name">ممسحة صغيرة محمولة ذاتية الضغط</div>
-          <div class="product-price">
-            <span class="original-price">11.66 ريال</span>
-            <span class="discounted-price">9 ريال</span>
-          </div>
-          <div class="product-meta">
-            <span><i class="fas fa-star"></i> 4.4 (19 تقييم)</span>
-            <span><i class="fas fa-box"></i> متوفر</span>
-          </div>
-          <div class="product-actions">
-            <button class="add-to-cart-btn" onclick="addToCart(this)">
-              <i class="fas fa-cart-plus"></i> أضف للسلة
+<a class="view-details-btn" href="product3.html">
+<i class="fas fa-eye"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="product-card" data-category="Home" data-id="4" data-image="https://om.jetronics.ae/uploads/product_img/14_05_2023_22_07_46_9788710_id_646123726921e.jpeg" data-name="ممسحة صغيرة محمولة ذاتية الضغط" data-original-price="11.66" data-price="7">
+<div class="product-badge badge-best-seller"> توصيل مجاني</div>
+<div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم 40%</div>
+<div class="product-image" style="background-image: url('https://om.jetronics.ae/uploads/product_img/14_05_2023_22_07_46_9788710_id_646123726921e.jpeg');"></div>
+<div class="product-details">
+<div class="product-name">ممسحة صغيرة محمولة ذاتية الضغط</div>
+<div class="product-price">
+<span class="original-price">11.66 ريال</span>
+<span class="discounted-price">9 ريال</span>
+</div>
+<div class="product-meta">
+<span><i class="fas fa-star"></i> 4.4 (19 تقييم)</span>
+<span><i class="fas fa-box"></i> متوفر</span>
+</div>
+<div class="product-actions">
+<button class="add-to-cart-btn" onclick="addToCart(this)">
+<i class="fas fa-cart-plus"></i> أضف للسلة
             </button>
-            <a href="product4.html" class="view-details-btn">
-              <i class="fas fa-eye"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-   
-    </div>
-  </section>
-
-  <!-- قسم الخصائص -->
-  <section class="features">
-    <div class="section-title">
-      <h2>لماذا تختار متجر البندر؟</h2>
-    </div>
-    
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">
-          <i class="fas fa-shipping-fast"></i>
-        </div>
-        <h3>شحن سريع</h3>
-        <p>توصيل سريع لجميع أنحاء السلطنة خلال 3-6 أيام عمل مع تتبع الشحنة</p>
-      </div>
-      
-      <div class="feature-card">
-        <div class="feature-icon">
-          <i class="fas fa-shield-alt"></i>
-        </div>
-        <h3>ضمان للمنتجات </h3>
-        <p>جميع منتجاتنا تأتي بضمان للمنتجات المكسورة او التالفة مع استرداد المبلغ</p>
-      </div>
-      
-      <div class="feature-card">
-        <div class="feature-icon">
-          <i class="fas fa-undo"></i>
-        </div>
-        <h3>إرجاع سهل</h3>
-        <p>إمكانية إرجاع المنتج خلال 14 يومًا من الاستلام مع استرجاع كامل المبلغ</p>
-      </div>
-      
-      <div class="feature-card">
-        <div class="feature-icon">
-          <i class="fas fa-headset"></i>
-        </div>
-        <h3>دعم فني متكامل</h3>
-        <p>فريق دعم فني متاح على مدار الساعة لمساعدتك في أي استفسار </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- الفوتر -->
-  <footer id="footer">
-    <div class="footer-content">
-      <div class="footer-about">
-        <div class="footer-logo">متجر البندر</div>
-        <p>متجر البندر وجهتك الأولى للحصول على أحدث المنتجات  بأفضل الأسعار وجودة لا تضاهى. نسعى دائمًا لتقديم تجربة تسوق استثنائية لعملائنا الكرام.</p>
-      </div>
-      
-      <div class="footer-links">
-        <h3>روابط سريعة</h3>
-        <ul>
-          <li><a href="#"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>
-          <li><a href="#products"><i class="fas fa-chevron-left"></i> المنتجات</a></li>
-          <li><a href="#products"><i class="fas fa-chevron-left"></i> العروض</a></li>
-          <li><a href="https://wa.me/96891800885" target="_blank"><i class="fas fa-chevron-left" ></i> اتصل بنا</a></li>
-        </ul>
-      </div>
-      
-      <div class="footer-contact">
-        <h3>تواصل معنا</h3>
-        <p><i class="fas fa-map-marker-alt"></i> سلطنة عمان </p>
-        <p><i class="fas fa-phone"></i> 96891800885+</p>
-        <p><i class="fas fa-envelope"></i> albandarstore799@gmail.com </p>
-        <p><i class="fas fa-clock"></i> الأحد - السبت : 9 صباحًا - 10 مساءً</p>
-      </div>
-    </div>
-    
-    <div class="social-icons">
-      <a href="#"><i class="fab fa-twitter"></i></a>
-      <a href="https://www.instagram.com/al_bandar_store/" target="_blank"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-snapchat"></i></a>
-      <a href="#"><i class="fab fa-youtube"></i></a>
-      <a href="#"><i class="fab fa-tiktok"></i></a>
-    </div>
-    
-    <div class="copyright">
-      <p>© 2025 متجر البندر. جميع الحقوق محفوظة.</p>
-      <p>تم التطوير بواسطة فريق متجر البندر </p>
-    </div>
-  </footer>
-
-  <!-- زر الواتساب الثابت -->
-  <a class="whatsapp-button" href="https://wa.me/96891800885" target="_blank" style="position:fixed;bottom:20px;right:20px;background:#25d366;color:#fff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 2px 6px rgba(0,0,0,0.3);z-index:1000;">
-    <i class="fab fa-whatsapp"></i>
-  </a>
-
-  <!-- ختم المتجر العماني -->
-  <div class="omani-seal" style="position:fixed;bottom:100px;left:20px;width:90px;height:90px;border-radius:50%;border:3px solid var(--primary);background:#fff;color:var(--primary);display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:.65rem;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,0.2);transform:rotate(-8deg);z-index:1000;">
+<a class="view-details-btn" href="product4.html">
+<i class="fas fa-eye"></i>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- قسم الخصائص -->
+<section class="features">
+<div class="section-title">
+<h2>لماذا تختار متجر البندر؟</h2>
+</div>
+<div class="features-grid">
+<div class="feature-card">
+<div class="feature-icon">
+<i class="fas fa-shipping-fast"></i>
+</div>
+<h3>شحن سريع</h3>
+<p>توصيل سريع لجميع أنحاء السلطنة خلال 3-6 أيام عمل مع تتبع الشحنة</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">
+<i class="fas fa-shield-alt"></i>
+</div>
+<h3>ضمان للمنتجات </h3>
+<p>جميع منتجاتنا تأتي بضمان للمنتجات المكسورة او التالفة مع استرداد المبلغ</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">
+<i class="fas fa-undo"></i>
+</div>
+<h3>إرجاع سهل</h3>
+<p>إمكانية إرجاع المنتج خلال 14 يومًا من الاستلام مع استرجاع كامل المبلغ</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">
+<i class="fas fa-headset"></i>
+</div>
+<h3>دعم فني متكامل</h3>
+<p>فريق دعم فني متاح على مدار الساعة لمساعدتك في أي استفسار </p>
+</div>
+</div>
+</section>
+<!-- الفوتر -->
+<footer id="footer">
+<div class="footer-content">
+<div class="footer-about">
+<div class="footer-logo">متجر البندر</div>
+<p>متجر البندر وجهتك الأولى للحصول على أحدث المنتجات  بأفضل الأسعار وجودة لا تضاهى. نسعى دائمًا لتقديم تجربة تسوق استثنائية لعملائنا الكرام.</p>
+</div>
+<div class="footer-links">
+<h3>روابط سريعة</h3>
+<ul>
+<li><a href="#"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>
+<li><a href="#products"><i class="fas fa-chevron-left"></i> المنتجات</a></li>
+<li><a href="#products"><i class="fas fa-chevron-left"></i> العروض</a></li>
+<li><a href="https://wa.me/96891800885" target="_blank"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
+</ul>
+</div>
+<div class="footer-contact">
+<h3>تواصل معنا</h3>
+<p><i class="fas fa-map-marker-alt"></i> سلطنة عمان </p>
+<p><i class="fas fa-phone"></i> 96891800885+</p>
+<p><i class="fas fa-envelope"></i> albandarstore799@gmail.com </p>
+<p><i class="fas fa-clock"></i> الأحد - السبت : 9 صباحًا - 10 مساءً</p>
+</div>
+</div>
+<div class="social-icons">
+<a href="#"><i class="fab fa-twitter"></i></a>
+<a href="https://www.instagram.com/al_bandar_store/" target="_blank"><i class="fab fa-instagram"></i></a>
+<a href="#"><i class="fab fa-snapchat"></i></a>
+<a href="#"><i class="fab fa-youtube"></i></a>
+<a href="#"><i class="fab fa-tiktok"></i></a>
+</div>
+<div class="copyright">
+<p>© 2025 متجر البندر. جميع الحقوق محفوظة.</p>
+<p>تم التطوير بواسطة فريق متجر البندر </p>
+</div>
+</footer>
+<!-- زر الواتساب الثابت -->
+<a class="whatsapp-button" href="https://wa.me/96891800885" style="position:fixed;bottom:20px;right:20px;background:#25d366;color:#fff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 2px 6px rgba(0,0,0,0.3);z-index:1000;" target="_blank">
+<i class="fab fa-whatsapp"></i>
+</a>
+<!-- ختم المتجر العماني -->
+<div class="omani-seal" style="position:fixed;bottom:100px;left:20px;width:90px;height:90px;border-radius:50%;border:3px solid var(--primary);background:#fff;color:var(--primary);display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:.65rem;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,0.2);transform:rotate(-8deg);z-index:1000;">
     100% متجر عماني
   </div>
-
-  <script>
+<script>
     // Shopping Cart functionality
     let cart = JSON.parse(localStorage.getItem('bandarStoreCart')) || [];
     let isArabic = true;
@@ -2199,6 +2322,7 @@ window.addEventListener('load', () => {
       const cartDeliveryLabel = document.getElementById('cartDeliveryLabel');
       const cartDeliveryAmount = document.getElementById('cartDelivery');
       const deliveryNote = document.getElementById('deliveryNote');
+      const cartMiddleSection = document.getElementById('cartMiddleSection');
 
       if (cart.length === 0) {
         cartItems.innerHTML = `
@@ -2209,6 +2333,7 @@ window.addEventListener('load', () => {
           </div>
         `;
         cartFooter.style.display = 'none';
+        if (cartMiddleSection) cartMiddleSection.style.display = 'none';
         return;
       }
 
@@ -2234,12 +2359,15 @@ window.addEventListener('load', () => {
 
       const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
       const deliveryFee = 2;
-      cartDeliveryLabel.textContent = isArabic ? 'التوصيل:' : 'Delivery:';
-      cartDeliveryAmount.textContent = `${deliveryFee.toFixed(2)} ${isArabic ? 'ريال' : 'SAR'}`;
-      deliveryNote.textContent = isArabic ? 'رسوم التوصيل ثابتة 2 ريال عماني' : 'Fixed delivery fee of 2 OMR';
+      if (cartDeliveryLabel) cartDeliveryLabel.textContent = isArabic ? 'التوصيل:' : 'Delivery:';
+      if (cartDeliveryAmount) cartDeliveryAmount.textContent = `${deliveryFee.toFixed(2)} ${isArabic ? 'ريال' : 'SAR'}`;
+      if (deliveryNote) deliveryNote.textContent = isArabic ? 'رسوم التوصيل ثابتة 2 ريال عماني' : 'Fixed delivery fee of 2 OMR';
       const total = subtotal + deliveryFee;
       cartTotal.textContent = `${total.toFixed(2)} ${isArabic ? 'ريال' : 'SAR'}`;
       cartFooter.style.display = 'block';
+
+      // Show the middle section with clear button when there are items
+      if (cartMiddleSection) cartMiddleSection.style.display = 'flex';
     }
 
     // Increase quantity
@@ -2413,7 +2541,7 @@ window.addEventListener('load', () => {
         
         // تغيير نصوص السلة
         document.querySelector('.cart-header h3').innerHTML = "<i class='fas fa-shopping-cart'></i> Shopping Cart";
-        document.querySelector('.clear-cart-btn').textContent = "Clear All";
+        document.querySelector('.clear-cart-btn').innerHTML = "<i class='fas fa-trash-alt'></i> Clear All";
         document.querySelector('.cart-total-label').textContent = "Total:";
         document.querySelector('#checkoutBtn').innerHTML = "<i class='fas fa-shopping-bag'></i> Checkout";
         
@@ -2496,7 +2624,7 @@ window.addEventListener('load', () => {
         
         // إعادة نصوص السلة
         document.querySelector('.cart-header h3').innerHTML = "<i class='fas fa-shopping-cart'></i> سلة التسوق";
-        document.querySelector('.clear-cart-btn').textContent = "مسح الكل";
+        document.querySelector('.clear-cart-btn').innerHTML = "<i class='fas fa-trash-alt'></i> مسح الكل";
         document.querySelector('.cart-total-label').textContent = "الإجمالي:";
         document.querySelector('#checkoutBtn').innerHTML = "<i class='fas fa-shopping-bag'></i> إتمام الشراء";
         
@@ -2635,7 +2763,7 @@ window.addEventListener('load', () => {
     function updateCartLanguage(isArabic) {
       if (isArabic) {
         document.querySelector('.cart-header h3').innerHTML = "<i class='fas fa-shopping-cart'></i> سلة التسوق";
-        document.querySelector('.clear-cart-btn').textContent = "مسح الكل";
+        document.querySelector('.clear-cart-btn').innerHTML = "<i class='fas fa-trash-alt'></i> مسح الكل";
         document.querySelector('.cart-total-label').textContent = "الإجمالي:";
         document.querySelector('#checkoutBtn').innerHTML = "<i class='fas fa-shopping-bag'></i> إتمام الشراء";
         
@@ -2650,7 +2778,7 @@ window.addEventListener('load', () => {
         }
       } else {
         document.querySelector('.cart-header h3').innerHTML = "<i class='fas fa-shopping-cart'></i> Shopping Cart";
-        document.querySelector('.clear-cart-btn').textContent = "Clear All";
+        document.querySelector('.clear-cart-btn').innerHTML = "<i class='fas fa-trash-alt'></i> Clear All";
         document.querySelector('.cart-total-label').textContent = "Total:";
         document.querySelector('#checkoutBtn').innerHTML = "<i class='fas fa-shopping-bag'></i> Checkout";
         
@@ -2665,6 +2793,22 @@ window.addEventListener('load', () => {
         }
       }
     }
-  </script>
+  
+document.getElementById("cartIcon").addEventListener("click", function () {
+  document.getElementById("cartDropdown").classList.add("show");
+  document.getElementById("cartBackdrop").classList.add("show");
+  document.body.classList.add("cart-open");
+});
+document.getElementById("closeCartBtn").addEventListener("click", function () {
+  document.getElementById("cartDropdown").classList.remove("show");
+  document.getElementById("cartBackdrop").classList.remove("show");
+  document.body.classList.remove("cart-open");
+});
+document.getElementById("cartBackdrop").addEventListener("click", function () {
+  document.getElementById("cartDropdown").classList.remove("show");
+  document.getElementById("cartBackdrop").classList.remove("show");
+  document.body.classList.remove("cart-open");
+});
+</script>
 </body>
 </html>
