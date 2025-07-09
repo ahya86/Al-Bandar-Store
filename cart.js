@@ -15,6 +15,7 @@ class BandarCart {
         this.updateCartDisplay();
         this.updateCartBadge();
         this.attachEventListeners();
+        this.ensureCartClosed(); // Ensure cart is closed on page load
     }
 
     attachEventListeners() {
@@ -34,7 +35,11 @@ class BandarCart {
         // Close cart handlers
         const closeCartBtn = document.getElementById('closeCartBtn') || document.getElementById('closeCart');
         if (closeCartBtn) {
-            closeCartBtn.addEventListener('click', () => this.closeCart());
+            closeCartBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                this.closeCart();
+            });
         }
 
         // Backdrop/overlay handlers
@@ -113,6 +118,27 @@ class BandarCart {
         }
         if (backdrop) {
             backdrop.classList.remove('show', 'active');
+        }
+        document.body.classList.remove('cart-open');
+        document.body.style.overflow = 'auto';
+    }
+
+    ensureCartClosed() {
+        // Force close cart on page load to prevent auto-opening issues
+        const cartDropdown = document.getElementById('cartDropdown');
+        const cartModal = document.getElementById('cartModal');
+        const backdrop = document.getElementById('cartBackdrop') || document.getElementById('overlay');
+
+        if (cartDropdown) {
+            cartDropdown.classList.remove('show');
+            cartDropdown.style.display = 'flex'; // Ensure proper display
+        }
+        if (cartModal) {
+            cartModal.classList.remove('active');
+        }
+        if (backdrop) {
+            backdrop.classList.remove('show', 'active');
+            backdrop.style.display = 'none';
         }
         document.body.classList.remove('cart-open');
         document.body.style.overflow = 'auto';
