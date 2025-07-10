@@ -7,7 +7,8 @@ class BandarCart {
     constructor() {
         this.cart = JSON.parse(localStorage.getItem('bandarStoreCart')) || [];
         this.isArabic = true;
-        this.deliveryFee = 2;
+        this.baseDeliveryFee = 2;
+        this.freeShippingThreshold = 5; // Free shipping when 5+ items
         this.init();
     }
 
@@ -204,6 +205,24 @@ class BandarCart {
         }
     }
 
+    // Free shipping helper methods
+    getTotalItems() {
+        return this.cart.reduce((total, item) => total + item.quantity, 0);
+    }
+
+    isEligibleForFreeShipping() {
+        return this.getTotalItems() >= this.freeShippingThreshold;
+    }
+
+    getCurrentDeliveryFee() {
+        return this.isEligibleForFreeShipping() ? 0 : this.baseDeliveryFee;
+    }
+
+    getItemsNeededForFreeShipping() {
+        const totalItems = this.getTotalItems();
+        return Math.max(0, this.freeShippingThreshold - totalItems);
+    }
+
     updateCartDisplay() {
         const cartItems = document.getElementById('cartItems');
         if (!cartItems) return;
@@ -288,7 +307,9 @@ class BandarCart {
 
     updateCartTotals() {
         const subtotal = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        const total = subtotal + this.deliveryFee;
+        const deliveryFee = this.getCurrentDeliveryFee();
+        const total = subtotal + deliveryFee;
+        const isFreeShipping = this.isEligibleForFreeShipping();
 
         // Update various total elements that might exist
         const cartTotal = document.getElementById('cartTotal');
@@ -298,14 +319,123 @@ class BandarCart {
 
         if (cartTotal) cartTotal.textContent = `${total.toFixed(2)} ${this.isArabic ? 'ريال' : 'SAR'}`;
         if (cartSubtotal) cartSubtotal.textContent = `${subtotal.toFixed(2)} ${this.isArabic ? 'ريال' : 'SAR'}`;
-        if (cartDeliveryAmount) cartDeliveryAmount.textContent = `${this.deliveryFee.toFixed(2)} ${this.isArabic ? 'ريال' : 'SAR'}`;
+
+        // Update delivery fee display
+        if (cartDeliveryAmount) {
+            if (isFreeShipping) {
+                cartDeliveryAmount.textContent = this.isArabic ? 'مجاني' : 'Free';
+                cartDeliveryAmount.style.color = '#28a745';
+                cartDeliveryAmount.style.fontWeight = 'bold';
+            } else {
+                cartDeliveryAmount.textContent = `${deliveryFee.toFixed(2)} ${this.isArabic ? 'ريال' : 'SAR'}`;
+                cartDeliveryAmount.style.color = '';
+                cartDeliveryAmount.style.fontWeight = '';
+            }
+        }
+
         if (cartDeliveryLabel) cartDeliveryLabel.textContent = this.isArabic ? 'التوصيل:' : 'Delivery:';
+
+        // Update free shipping promotion display
+        this.updateFreeShippingPromotion();
+    }
+
+    updateFreeShippingPromotion() {
+        // Create or update free shipping promotion element
+        let promoElement = document.getElementById('freeShippingPromo');
+        const cartItems = document.getElementById('cartItems');
+
+        if (!cartItems) return;
+
+        const totalItems = this.getTotalItems();
+        const itemsNeeded = this.getItemsNeededForFreeShipping();
+        const isFreeShipping = this.isEligibleForFreeShipping();
+
+        // Remove existing promo element if it exists
+        if (promoElement) {
+            promoElement.remove();
+        }
+
+        // Only show promotion if there are items in cart
+        if (totalItems === 0) return;
+
+        // Create new promotion element
+        promoElement = document.createElement('div');
+        promoElement.id = 'freeShippingPromo';
+        promoElement.style.cssText = `
+            margin: 15px 20px;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            transition: all 0.3s ease;
+            animation: slideInFromTop 0.5s ease-out;
+        `;
+
+        // Add CSS animation keyframes if not already added
+        if (!document.getElementById('freeShippingAnimations')) {
+            const style = document.createElement('style');
+            style.id = 'freeShippingAnimations';
+            style.textContent = `
+                @keyframes slideInFromTop {
+                    from {
+                        opacity: 0;
+                        transform: translateY(-20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                @keyframes pulse {
+                    0%, 100% { transform: scale(1); }
+                    50% { transform: scale(1.05); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        if (isFreeShipping) {
+            // Free shipping achieved
+            promoElement.innerHTML = `
+                <div style="color: #28a745; background: #d4edda; border: 1px solid #c3e6cb; padding: 12px; border-radius: 8px; animation: pulse 2s infinite;">
+                    <i class="fas fa-shipping-fast" style="margin-left: 8px; font-size: 1.1rem;"></i>
+                    ${this.isArabic ? '🎉 تهانينا! شحن مجاني على طلبك' : '🎉 Congratulations! Free shipping on your order'}
+                </div>
+            `;
+        } else {
+            // Progress towards free shipping
+            const progressPercentage = Math.min((totalItems / this.freeShippingThreshold) * 100, 100);
+            promoElement.innerHTML = `
+                <div style="color: #856404; background: #fff3cd; border: 1px solid #ffeaa7; padding: 12px; border-radius: 8px;">
+                    <div style="margin-bottom: 8px;">
+                        <i class="fas fa-truck" style="margin-left: 8px;"></i>
+                        ${this.isArabic ?
+                            `أضف ${itemsNeeded} منتج${itemsNeeded > 1 ? 'ات' : ''} أخرى للحصول على شحن مجاني!` :
+                            `Add ${itemsNeeded} more item${itemsNeeded > 1 ? 's' : ''} for free shipping!`
+                        }
+                    </div>
+                    <div style="background: #f8f9fa; border-radius: 10px; height: 6px; overflow: hidden; margin-top: 8px;">
+                        <div style="background: linear-gradient(90deg, #4ECDC4, #44A08D); height: 100%; width: ${progressPercentage}%; transition: width 0.3s ease;"></div>
+                    </div>
+                    <small style="color: #6c757d; margin-top: 4px; display: block;">
+                        ${this.isArabic ? `${totalItems} من ${this.freeShippingThreshold} منتجات` : `${totalItems} of ${this.freeShippingThreshold} items`}
+                    </small>
+                </div>
+            `;
+        }
+
+        // Insert promotion at the top of cart items
+        cartItems.insertBefore(promoElement, cartItems.firstChild);
     }
 
     checkout() {
         if (this.cart.length === 0) return;
-        
-        const total = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) + this.deliveryFee;
+
+        const subtotal = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const deliveryFee = this.getCurrentDeliveryFee();
+        const total = subtotal + deliveryFee;
         let message = `${this.isArabic ? 'السلام عليكم، أريد طلب المنتجات التالية:' : 'Hello, I want to order the following products:'}\n\n`;
         
         this.cart.forEach((item, index) => {
@@ -313,6 +443,13 @@ class BandarCart {
             message += `   ${this.isArabic ? 'الكمية:' : 'Quantity:'} ${item.quantity}\n`;
             message += `   ${this.isArabic ? 'السعر:' : 'Price:'} ${item.price} ${this.isArabic ? 'ريال' : 'SAR'}\n\n`;
         });
+
+        // Add delivery information
+        if (this.isEligibleForFreeShipping()) {
+            message += `${this.isArabic ? 'التوصيل: مجاني 🎉' : 'Delivery: Free 🎉'}\n`;
+        } else {
+            message += `${this.isArabic ? 'التوصيل:' : 'Delivery:'} ${deliveryFee.toFixed(2)} ${this.isArabic ? 'ريال' : 'SAR'}\n`;
+        }
 
         message += `${this.isArabic ? 'المجموع الكلي:' : 'Total:'} ${total.toFixed(2)} ${this.isArabic ? 'ريال' : 'SAR'}`;
 
