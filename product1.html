@@ -571,15 +571,54 @@
         /* Related Products */
         .related-section {
             padding: 50px 0;
+            background: #f8f9fa;
+            margin-top: 50px;
         }
-        
+
+        .related-section .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .related-section .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            border-radius: 2px;
+        }
+
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
-            padding: 0 30px 50px;
+            padding: 0 30px;
             max-width: 1400px;
             margin: 0 auto;
+        }
+
+        /* Ensure grid works on all screen sizes */
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+                padding: 0 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 0 10px;
+            }
         }
         
         .product-card {
@@ -602,13 +641,29 @@
             border-color: rgba(78, 205, 196, 0.3);
         }
         
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+        }
+
         .product-image {
             height: 220px;
             background-size: cover;
             background-position: center;
             position: relative;
             overflow: hidden;
+            background-color: #f8f9fa;
         }
+
         .product-image::after {
             content: '';
             position: absolute;
@@ -617,6 +672,41 @@
             left: 0;
             height: 50%;
             background: linear-gradient(to top, rgba(255, 255, 255, 0.8), transparent);
+        }
+
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover .product-overlay {
+            opacity: 1;
+        }
+
+        .quick-view-btn {
+            background: white;
+            color: #2c3e50;
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .quick-view-btn:hover {
+            background: #4ECDC4;
+            color: white;
+            transform: scale(1.1);
         }
         
         .product-details {
@@ -633,11 +723,92 @@
         }
         .product-price {
             font-weight: bold;
-            font-size: 1.4rem;
-            margin: 5px 0 15px;
+            font-size: 1.2rem;
+            margin: 10px 0 15px;
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+
+        .original-price {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 0.9rem;
+            font-weight: normal;
+        }
+
+        .discounted-price {
+            color: #4ECDC4;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0 20px;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .product-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .product-meta i {
+            color: #ffc107;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .add-to-cart-btn {
+            flex: 1;
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(78, 205, 196, 0.4);
+        }
+
+        .view-details-btn {
+            background: #f8f9fa;
+            color: #6c757d;
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 44px;
+            min-height: 44px;
+        }
+
+        .view-details-btn:hover {
+            background: #4ECDC4;
+            color: white;
+            border-color: #4ECDC4;
+            transform: scale(1.1);
         }
         .original-price {
             color: var(--gray);
@@ -1020,10 +1191,7 @@
         .overlay.active {
             display: block;
         }
-        /* Hide first duplicate title and keep one */
-        .related-products-section .section-title {
-            display: none;
-        }
+
         .reviews-section {
             display: none;
         }
@@ -1230,13 +1398,7 @@
         </div>
     </section>
 
-    <!-- Related Products Section -->
-    <section class="related-products-section">
-        <div class="container">
-            <h2 class="section-title">منتجات ذات صلة</h2>
-            <div class="products-grid related-grid"></div>
-        </div>
-    </section>
+
     
     <!-- Reviews Section -->
     <section class="reviews-section">
@@ -1527,50 +1689,187 @@
         // Cart is now automatically initialized by cart.js
 
         // ----------------- Related Products -----------------
+        function getRelatedProductsData() {
+            // Try to get products from localStorage first (if user visited main page)
+            const storedProducts = JSON.parse(localStorage.getItem('bandarStoreProducts')) || [];
+
+            // If localStorage has products, use them
+            if (storedProducts.length > 0) {
+                return storedProducts.filter(p => p.category === 'car-care').slice(0, 6);
+            }
+
+            // Fallback: Static product data for when localStorage is empty (direct visits or deployed sites)
+            return [
+                {
+                    id: 'related-1',
+                    name: 'منظف السيارات المتطور',
+                    price: '25.00',
+                    originalPrice: '30.00',
+                    discount: '17',
+                    rating: '4.8',
+                    reviews: '156',
+                    category: 'car-care',
+                    image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'
+                },
+                {
+                    id: 'related-2',
+                    name: 'ملمع الإطارات الاحترافي',
+                    price: '18.00',
+                    originalPrice: '22.00',
+                    discount: '18',
+                    rating: '4.6',
+                    reviews: '89',
+                    category: 'car-care',
+                    image: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'
+                },
+                {
+                    id: 'related-3',
+                    name: 'شامبو السيارات الفاخر',
+                    price: '32.00',
+                    originalPrice: '40.00',
+                    discount: '20',
+                    rating: '4.9',
+                    reviews: '203',
+                    category: 'car-care',
+                    image: 'https://images.unsplash.com/photo-1486496572940-2bb2341fdbdf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'
+                },
+                {
+                    id: 'related-4',
+                    name: 'مناديل التنظيف المايكروفايبر',
+                    price: '15.00',
+                    originalPrice: '20.00',
+                    discount: '25',
+                    rating: '4.7',
+                    reviews: '124',
+                    category: 'car-care',
+                    image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'
+                },
+                {
+                    id: 'related-5',
+                    name: 'ملمع الجسم والطلاء',
+                    price: '45.00',
+                    originalPrice: '55.00',
+                    discount: '18',
+                    rating: '4.8',
+                    reviews: '167',
+                    category: 'car-care',
+                    image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'
+                },
+                {
+                    id: 'related-6',
+                    name: 'منظف الزجاج الكريستالي',
+                    price: '22.00',
+                    originalPrice: '28.00',
+                    discount: '21',
+                    rating: '4.5',
+                    reviews: '98',
+                    category: 'car-care',
+                    image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'
+                }
+            ];
+        }
+
         function renderRelatedProducts() {
             const grid = document.querySelector('.related-section .related-grid');
             if (!grid) return;
+
             // Clear any static placeholder cards
             grid.innerHTML = '';
-            const products = JSON.parse(localStorage.getItem('bandarStoreProducts')) || [];
-            const related = products.filter(p => p.category === 'car-care').slice(0, 6);
-            related.forEach(p => {
-                const price = (parseFloat(p.price) - 2).toFixed(2);
-                const originalPrice = (parseFloat(p.originalPrice) - 2).toFixed(2);
 
+            // Get related products data (from localStorage or fallback)
+            const relatedProducts = getRelatedProductsData();
+
+            // If no products available, show a message
+            if (relatedProducts.length === 0) {
+                grid.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #6c757d; grid-column: 1 / -1;">
+                        <i class="fas fa-box-open" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.5;"></i>
+                        <p>لا توجد منتجات ذات صلة متاحة حالياً</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Render each product
+            relatedProducts.forEach(product => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
-                card.dataset.category = p.category;
-                card.dataset.id = p.id;
-                card.dataset.name = p.name;
-                card.dataset.price = price;
-                card.dataset.originalPrice = originalPrice;
-                card.dataset.image = p.image;
+                card.dataset.category = product.category;
+                card.dataset.id = product.id;
+                card.dataset.name = product.name;
+                card.dataset.price = product.price;
+                card.dataset.originalPrice = product.originalPrice;
+                card.dataset.image = product.image;
 
                 card.innerHTML = `
-                    <div class="product-badge badge-discount"><i class="fas fa-tag"></i> خصم ${p.discount}%</div>
-                    <div class="product-image" style="background-image: url('${p.image}');"></div>
+                    <div class="product-badge badge-discount">
+                        <i class="fas fa-tag"></i> خصم ${product.discount}%
+                    </div>
+                    <div class="product-image" style="background-image: url('${product.image}');">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn" onclick="quickView('${product.id}')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
                     <div class="product-details">
-                        <div class="product-name">${p.name}</div>
+                        <div class="product-name">${product.name}</div>
                         <div class="product-price">
-                            <span class="original-price">${originalPrice} ريال</span>
-                            <span class="discounted-price">${price} ريال</span>
+                            <span class="original-price">${product.originalPrice} ريال</span>
+                            <span class="discounted-price">${product.price} ريال</span>
                         </div>
                         <div class="product-meta">
-                            <span><i class="fas fa-star"></i> ${p.rating} (${p.reviews} تقييم)</span>
+                            <span><i class="fas fa-star"></i> ${product.rating} (${product.reviews} تقييم)</span>
                             <span><i class="fas fa-box"></i> متوفر</span>
                         </div>
                         <div class="product-actions">
                             <button class="add-to-cart-btn" onclick="addToCart(this)">
                                 <i class="fas fa-cart-plus"></i> أضف للسلة
                             </button>
-                            <a href="product${p.id}.html" class="view-details-btn">
-                                <i class="fas fa-eye"></i>
-                            </a>
+                            <button class="view-details-btn" onclick="viewProduct('${product.id}')">
+                                <i class="fas fa-info-circle"></i> التفاصيل
+                            </button>
                         </div>
-                    </div>`;
+                    </div>
+                `;
                 grid.appendChild(card);
             });
+        }
+
+        // Helper functions for product interactions
+        function quickView(productId) {
+            // Quick view functionality
+            console.log('Quick view for product:', productId);
+            // You can implement a modal or redirect to product page
+        }
+
+        function viewProduct(productId) {
+            // Navigate to product page or show details
+            console.log('View product details:', productId);
+            // For now, just scroll to top or implement navigation
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Global addToCart function for related products
+        function addToCart(button) {
+            if (typeof bandarCart !== 'undefined' && bandarCart.addToCart) {
+                // Use the unified cart system if available
+                const productCard = button.closest('.product-card');
+                if (productCard) {
+                    const productData = {
+                        id: productCard.dataset.id || 'related-product',
+                        name: productCard.dataset.name || productCard.querySelector('.product-name')?.textContent || 'منتج',
+                        price: parseFloat(productCard.dataset.price || productCard.querySelector('.discounted-price')?.textContent?.replace(/[^\d.]/g, '') || '0'),
+                        image: productCard.dataset.image || 'https://via.placeholder.com/300',
+                        quantity: 1
+                    };
+                    bandarCart.addToCart(productData);
+                }
+            } else {
+                // Fallback for when cart system is not available
+                const productName = button.closest('.product-card')?.querySelector('.product-name')?.textContent || 'المنتج';
+                alert(`تم إضافة ${productName} إلى السلة!`);
+            }
         }
 
         // addToCart function for related cards - now using unified cart system
