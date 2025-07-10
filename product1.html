@@ -121,7 +121,6 @@
         }
         
         /* Cart icon styles */
-        }
         /* removed floating cart styles */
         #floatingCart{
             position:fixed;
@@ -159,42 +158,77 @@
         .cart-modal {
             position: fixed;
             top: 0;
-            right: -400px;
-            width: 380px;
+            right: -420px;
+            width: 420px;
             height: 100vh;
-            background: var(--cart-bg);
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            background: white;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
             z-index: 1000;
-            transition: right 0.4s ease;
-            padding: 20px;
+            transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             display: flex;
             flex-direction: column;
+            border-left: 1px solid rgba(0, 0, 0, 0.1);
+            visibility: hidden;
+            overflow: hidden;
         }
         
         .cart-modal.active {
             right: 0;
+            visibility: visible; /* Make visible when active */
         }
         
         .cart-header {
+            padding: 25px 20px;
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--gray);
-            margin-bottom: 20px;
+            border-bottom: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
         }
         
         .close-cart {
-            background: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
             border: none;
-            font-size: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
             cursor: pointer;
-            color: #777;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            min-width: 44px;
+            min-height: 44px;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .close-cart:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .cart-header h3 {
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 0;
         }
         
         .cart-items {
             flex: 1;
             overflow-y: auto;
+            overflow-x: hidden;
+            padding: 20px;
+            background: #fafafa;
+            min-height: 0;
+            -webkit-overflow-scrolling: touch;
         }
         
         .cart-item {
@@ -270,8 +304,14 @@
         }
         
         .cart-footer {
-            padding-top: 20px;
+            padding: 25px 20px;
             border-top: 1px solid var(--gray);
+            background: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 10;
+            min-height: auto;
         }
         
         .cart-total {
@@ -284,19 +324,29 @@
         
         .checkout-btn {
             width: 100%;
-            padding: 15px;
-            background: var(--primary);
+            padding: 18px;
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 600;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+            min-height: 50px;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
-        
+
         .checkout-btn:hover {
-            background: #e55e5e;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(78, 205, 196, 0.4);
+            background: linear-gradient(135deg, #44A08D, #4ECDC4);
         }
         
         /* Product Section */
@@ -756,6 +806,44 @@
         }
         
         /* Responsive Design */
+        /* تحسينات للشاشات الكبيرة */
+        @media (min-width: 1200px) {
+            .cart-modal {
+                width: 450px;
+                right: -470px;
+            }
+
+            .cart-header {
+                padding: 30px 25px;
+            }
+
+            .cart-header h3 {
+                font-size: 1.5rem;
+            }
+
+            .close-cart {
+                width: 46px;
+                height: 46px;
+                min-width: 46px;
+                min-height: 46px;
+                font-size: 1.4rem;
+            }
+
+            .cart-items {
+                padding: 25px;
+            }
+
+            .cart-footer {
+                padding: 30px 25px;
+            }
+
+            .checkout-btn {
+                padding: 20px;
+                font-size: 1.2rem;
+                min-height: 56px;
+            }
+        }
+
         @media (max-width: 768px) {
             body {
                 padding-top: 70px;
@@ -785,6 +873,32 @@
             .cart-modal {
                 width: 100%;
                 right: -100%;
+                left: auto;
+                border-left: none;
+                border-radius: 0;
+            }
+
+            .cart-modal.active {
+                right: 0;
+                left: 0;
+                visibility: visible;
+            }
+
+            .cart-header {
+                padding: 20px 15px;
+                border-radius: 0;
+            }
+
+            .cart-header h3 {
+                font-size: 1.2rem;
+            }
+
+            .close-cart {
+                width: 42px;
+                height: 42px;
+                min-width: 42px;
+                min-height: 42px;
+                font-size: 1.1rem;
             }
         }
         
@@ -792,23 +906,100 @@
             .thumbnails {
                 flex-wrap: wrap;
             }
-            
+
             .section-title {
                 font-size: 24px;
             }
-            
+
             .logo {
                 font-size: 20px;
             }
-            
+
             .nav-links li {
                 margin-left: 15px;
             }
-            
+
+            .cart-modal {
+                width: 100%;
+            }
+
+            .cart-header {
+                padding: 18px 12px;
+            }
+
+            .cart-header h3 {
+                font-size: 1.1rem;
+            }
+
+            .close-cart {
+                width: 40px;
+                height: 40px;
+                min-width: 40px;
+                min-height: 40px;
+                font-size: 1.1rem;
+            }
+
+            .cart-items {
+                padding: 15px;
+            }
+
+            .cart-footer {
+                padding: 18px 12px;
+                position: sticky;
+                bottom: 0;
+                background: white;
+                border-top: 2px solid #e9ecef;
+                box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            .checkout-btn {
+                padding: 16px;
+                font-size: 1rem;
+                min-height: 52px;
+            }
+
+        }
+
+        @media (max-width: 360px) {
+            .cart-header {
+                padding: 15px 10px;
+            }
+
+            .cart-header h3 {
+                font-size: 1rem;
+            }
+
+            .close-cart {
+                width: 38px;
+                height: 38px;
+                min-width: 38px;
+                min-height: 38px;
+                font-size: 1rem;
+            }
+
+            .cart-items {
+                padding: 12px;
+            }
+
+            .cart-footer {
+                padding: 15px 10px;
+                position: sticky;
+                bottom: 0;
+                background: white;
+                border-top: 2px solid #e9ecef;
+                box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+            }
+
+            .checkout-btn {
+                padding: 14px;
+                font-size: 0.9rem;
+                min-height: 48px;
+            }
+
             .nav-links a {
                 font-size: 16px;
             }
-            
+
             .header-icons {
                 gap: 15px;
             }
@@ -937,7 +1128,7 @@
         <div class="cart-items" id="cartItems">
             <!-- Cart items will be added here dynamically -->
         </div>
-        <div class="cart-footer">
+        <div class="cart-footer" id="cartFooter">
             <div class="cart-summary">
                 <div class="cart-subtotal">
                     <span>المجموع:</span>
@@ -952,7 +1143,7 @@
                     <span id="cartTotal">0 ر.ع</span>
                 </div>
             </div>
-            <button class="checkout-btn">إتمام الشراء</button>
+            <button class="checkout-btn" id="checkoutBtn">إتمام الشراء</button>
         </div>
     </div>
     
@@ -1216,38 +1407,14 @@
         </div>
     </footer>
 
+    <!-- Include unified cart system -->
+    <script src="cart.js"></script>
     <script>
-        // Cart functionality
-        let cart = JSON.parse(localStorage.getItem('bandarStoreCart')) || [];
-        const cartIcon = document.getElementById('cartIcon');
-        const cartModal = document.getElementById('cartModal');
-        const closeCart = document.getElementById('closeCart');
-        const overlay = document.getElementById('overlay');
-        const cartItems = document.getElementById('cartItems');
-        const cartCount = document.querySelector('.cart-count');
-        const cartTotal = document.getElementById('cartTotal');
+        // Cart functionality - now using unified cart system
+        // Cart elements and event listeners - now handled by unified cart system
         const addToCartBtn = document.getElementById('addToCartBtn');
         
-        // Toggle cart modal
-        cartIcon.addEventListener('click', () => {
-            cartModal.classList.add('active');
-            overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-        
-        closeCart.addEventListener('click', () => {
-            cartModal.classList.remove('active');
-            overlay.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
-        
-        overlay.addEventListener('click', () => {
-            cartModal.classList.remove('active');
-            overlay.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
-        
-        // Add to cart function
+        // Add to cart function - now using unified cart system
         addToCartBtn.addEventListener('click', () => {
             const product = {
                 id: 1,
@@ -1256,96 +1423,22 @@
                 quantity: 1,
                 image: 'https://www.megadealsom.com/uploads/cashes/25-01-07-01-09-1-360x360.jpg'
             };
-            
-            // Check if product is already in cart
-            const existingItem = cart.find(item => item.id === product.id);
-            
-            if (existingItem) {
-                existingItem.quantity += product.quantity;
-            } else {
-                cart.push(product);
-            }
-            
-            updateCart();
-            
+
+            bandarCart.addToCart(product);
+
             // Show feedback
             addToCartBtn.innerHTML = '<i class="fas fa-check"></i> تمت الإضافة';
             addToCartBtn.style.backgroundColor = '#51cf66';
-            
+
             setTimeout(() => {
                 addToCartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> إضافة إلى السلة';
                 addToCartBtn.style.backgroundColor = '';
-                cartModal.classList.add('active');
-                overlay.classList.add('active');
+                bandarCart.toggleCart();
             }, 1000);
         });
         
-        // Update cart display
-        function updateCart() {
-            cartItems.innerHTML = '';
-            let total = 0;
-            let count = 0;
-            
-            if (cart.length === 0) {
-                cartItems.innerHTML = '<p style="text-align: center; padding: 20px;">سلة التسوق فارغة</p>';
-            } else {
-                cart.forEach(item => {
-                    const itemTotal = item.price * item.quantity;
-                    total += itemTotal;
-                    count += item.quantity;
-                    
-                    const cartItem = document.createElement('div');
-                    cartItem.className = 'cart-item';
-                    cartItem.innerHTML = `
-                        <div class="cart-item-img">
-                            <img src="${item.image}" alt="${item.name}">
-                        </div>
-                        <div class="cart-item-details">
-                            <div class="cart-item-name">${item.name}</div>
-                            <div class="cart-item-price">${item.price} ر.ع × ${item.quantity}</div>
-                            <div class="cart-item-actions">
-                                <div class="cart-item-qty">
-                                    <button class="cart-qty-btn" onclick="updateCartItem(${item.id}, -1)">-</button>
-                                    <span class="cart-qty-input">${item.quantity}</span>
-                                    <button class="cart-qty-btn" onclick="updateCartItem(${item.id}, 1)">+</button>
-                                </div>
-                                <button class="remove-item" onclick="removeCartItem(${item.id})">
-                                    <i class="fas fa-trash"></i> حذف
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    cartItems.appendChild(cartItem);
-                });
-            }
-            
-            cartCount.textContent = count;
-            const deliveryFee = 2;
-            document.getElementById('cartSubtotal').textContent = total.toFixed(2) + ' ر.ع';
-            document.getElementById('cartDeliveryLabel').textContent = 'التوصيل:';
-            document.getElementById('cartDeliveryAmount').textContent = deliveryFee.toFixed(2) + ' ر.ع';
-            const grandTotal = total + deliveryFee;
-            cartTotal.textContent = grandTotal.toFixed(2) + ' ر.ع';
-            localStorage.setItem('bandarStoreCart', JSON.stringify(cart));
-        }
-        
-        // Update cart item quantity
-        function updateCartItem(id, change) {
-            const item = cart.find(item => item.id === id);
-            if (item) {
-                item.quantity += change;
-                if (item.quantity < 1) {
-                    cart = cart.filter(item => item.id !== id);
-                }
-                updateCart();
-            }
-        }
-        
-        // Remove cart item
-        function removeCartItem(id) {
-            cart = cart.filter(item => item.id !== id);
-            updateCart();
-        }
+        // Cart management functions - now handled by unified cart system
+        // These functions are now defined in cart.js
         
         // Change main product image
         function changeImage(src) {
@@ -1431,8 +1524,7 @@
             });
         }
         
-        // Initialize the cart
-        updateCart();
+        // Cart is now automatically initialized by cart.js
 
         // ----------------- Related Products -----------------
         function renderRelatedProducts() {
@@ -1481,50 +1573,14 @@
             });
         }
 
-        // Minimal addToCart implementation for related cards
-        function addToCart(button) {
-            const card = button.closest('.product-card');
-            const id = Number(card.dataset.id);
-            const name = card.dataset.name;
-            const price = parseFloat(card.dataset.price);
-            const originalPrice = parseFloat(card.dataset.originalPrice);
-            const image = card.dataset.image;
-
-            const existingIndex = cart.findIndex(item => item.id === id);
-            if (existingIndex !== -1) {
-                cart[existingIndex].quantity += 1;
-            } else {
-                cart.push({ id, name, price, originalPrice, image, quantity: 1 });
-            }
-            localStorage.setItem('bandarStoreCart', JSON.stringify(cart));
-            updateCart();
-            // simple feedback
-            button.classList.add('added');
-            const originalHTML = button.innerHTML;
-            button.innerHTML = '<i class="fas fa-check"></i> تم الإضافة';
-            setTimeout(() => { button.innerHTML = originalHTML; button.classList.remove('added'); }, 1200);
-        }
+        // addToCart function for related cards - now using unified cart system
+        // This function is now defined globally in cart.js
 
         window.addEventListener('DOMContentLoaded', renderRelatedProducts);
     </script>
-<script>
-    document.addEventListener('DOMContentLoaded',function(){
-        const floatingCart=document.getElementById('floatingCart');
-        const cartModal=document.getElementById('cartModal');
-        const overlay=document.getElementById('overlay');
-        const closeCart=document.getElementById('closeCart');
-        if(floatingCart){
-            floatingCart.addEventListener('click',()=>{
-                if(cartModal){cartModal.classList.add('active');}
-                if(overlay){overlay.classList.add('active');}
-            });
-        }
-        if(closeCart){
-            closeCart.addEventListener('click',()=>{
-                if(cartModal){cartModal.classList.remove('active');}
-                if(overlay){overlay.classList.remove('active');}
-            });
-        }
-    });
+    <script>
+        // Additional cart event handlers - these are now handled by the unified cart system
+        // The floating cart and modal interactions are managed by cart.js
+    </script>
 </body>
 </html>
