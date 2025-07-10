@@ -917,10 +917,17 @@
                 0 8px 32px rgba(212, 175, 55, 0.1),
                 inset 0 1px 0 rgba(255, 255, 255, 1);
             border-color: rgba(212, 175, 55, 0.3);
+            cursor: pointer;
         }
 
         .product-card:hover::before {
             opacity: 1;
+        }
+
+        /* Add subtle click indication */
+        .product-card:active {
+            transform: translateY(-12px) scale(1.01);
+            transition: all 0.1s ease;
         }
         
         .product-badge {
@@ -975,40 +982,7 @@
             background: linear-gradient(to top, rgba(255, 255, 255, 0.8), transparent);
         }
 
-        .product-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
 
-        .product-card:hover .product-overlay {
-            opacity: 1;
-        }
-
-        .quick-view-btn {
-            background: white;
-            color: #2c3e50;
-            border: none;
-            padding: 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .quick-view-btn:hover {
-            background: #4ECDC4;
-            color: white;
-            transform: scale(1.1);
-        }
         
         .product-details {
             padding: 20px;
@@ -1706,7 +1680,7 @@
 تحتوي على بطارية قابلة لإعادة الشحن بقوة 8400 مللي أمبير في الساعة تتضمن منفذ USB لشحن الأجهزة بسرعة وكفاءة.
 
 سعة البطارية: 8400 مللي أمبير
-وقت الشحن: 4-5 ساعات
+
                     </div>
                     
                     <div class="product-features">
@@ -1753,79 +1727,6 @@
         </div>
     </section>
 
-
-    
-    <!-- Reviews Section -->
-    <section class="reviews-section">
-        <div class="container">
-            <h2 class="section-title">تقييمات العملاء</h2>
-            <div class="reviews-container">
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="review-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div>
-                            <div class="review-name">محمد أحمد</div>
-                            <div class="review-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="review-content">
-                        الساعة ممتازة جداً، البطارية تدوم أكثر من أسبوعين. التصميم جميل ومريح في الاستخدام. الشحن كان سريعاً والتغليف ممتاز.
-                    </p>
-                </div>
-                
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="review-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div>
-                            <div class="review-name">سارة خالد</div>
-                            <div class="review-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="review-content">
-                        جودة المنتج ممتازة، لكن حجم الشاشة صغير قليلاً. التطبيق سهل الاستخدام ويوفر بيانات دقيقة عن النشاط والصحة. أنصح بها.
-                    </p>
-                </div>
-                
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="review-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div>
-                            <div class="review-name">عبدالله سالم</div>
-                            <div class="review-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="review-content">
-                        أفضل ساعة ذكية جربتها. التصميم عصري، الخصائص كثيرة ومفيدة، خاصة تتبع النوم والتمارين. البطارية تدوم طويلاً كما وعدت الشركة.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
      <!-- Related Products -->
     <section class="related-section">
         <div class="container">
@@ -1835,7 +1736,7 @@
                     <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="سماعات لاسلكية" class="product-img">
                     <div class="product-info">
                         <h3 class="product-name">سماعات لاسلكية</h3>
-                        <div class="price">299 ر.س</div>
+                        <div class="price">297 ر.س</div>
                         <button class="add-to-cart-btn">إضافة إلى السلة</button>
                     </div>
                 </div>
@@ -1844,7 +1745,7 @@
                     <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="هاتف ذكي" class="product-img">
                     <div class="product-info">
                         <h3 class="product-name">هاتف ذكي متطور</h3>
-                        <div class="price">1899 ر.س</div>
+                        <div class="price">1897 ر.س</div>
                         <button class="add-to-cart-btn">إضافة إلى السلة</button>
                     </div>
                 </div>
@@ -1853,7 +1754,7 @@
                     <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="سماعات رأس" class="product-img">
                     <div class="product-info">
                         <h3 class="product-name">سماعات رأس</h3>
-                        <div class="price">399 ر.س</div>
+                        <div class="price">397 ر.س</div>
                         <button class="add-to-cart-btn">إضافة إلى السلة</button>
                     </div>
                 </div>
@@ -1862,7 +1763,7 @@
                     <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="كاميرا" class="product-img">
                     <div class="product-info">
                         <h3 class="product-name">كاميرا احترافية</h3>
-                        <div class="price">2499 ر.س</div>
+                        <div class="price">2497 ر.س</div>
                         <button class="add-to-cart-btn">إضافة إلى السلة</button>
                     </div>
                 </div>
@@ -1911,7 +1812,7 @@
                 <div class="footer-column">
                     <h3> تواصل معنا</h3>
                     <p><i class="fas fa-map-marker-alt"></i> سلطنة عمان </p>
-        <p><i class="fas fa-phone"></i> 96891800885+</p>
+        <p><i class="fas fa-phone"></i> 96894824226+</p>
         <p><i class="fas fa-envelope"></i> albandarstore799@gmail.com </p>
         <p><i class="fas fa-clock"></i> الأحد - السبت : 9 صباحًا - 10 مساءً</p>
                     
@@ -1919,8 +1820,10 @@
             </div>
             
             <div class="copyright">
-                © 2023 متجرنا. جميع الحقوق محفوظة.
+                © 2025 متجر البندر. جميع الحقوق محفوظة.
             </div>
+            <div class="copyright">
+تم التطوير بواسطة فريق متجر البندر            </div>
         </div>
     </footer>
 
@@ -2045,21 +1948,13 @@
 
         // ----------------- Related Products -----------------
         function getRelatedProductsData() {
-            // Try to get products from localStorage first (if user visited main page)
-            const storedProducts = JSON.parse(localStorage.getItem('bandarStoreProducts')) || [];
-
-            // If localStorage has products, use them
-            if (storedProducts.length > 0) {
-                return storedProducts.filter(p => p.category === 'car-care').slice(0, 6);
-            }
-
-            // Fallback: Real car care products from index.html catalog
+            // تجاهل بيانات localStorage دائماً واستخدم الأسعار الجديدة فقط
             return [
                 {
                     id: 1,
                     name: 'جهاز بدء تشغيل محمول 2 في 1 بقوة 800 أمبير ومضخة هواء',
-                    price: 22,
-                    originalPrice: 33.85,
+                    price: 20,
+                    originalPrice: 30.8,
                     discount: 35,
                     rating: 4.8,
                     reviews: 128,
@@ -2067,23 +1962,12 @@
                     image: 'https://www.megadealsom.com/uploads/cashes/25-01-07-01-09-1-360x360.jpg',
                     description: 'جهاز بدء تشغيل محمول متطور بقوة 800 أمبير مع مضخة هواء مدمجة، مثالي للطوارئ وصيانة السيارة'
                 },
-                {
-                    id: 9,
-                    name: 'مسدس رش طلاء كهربائي ٤٨ فولت',
-                    price: 15.9,
-                    originalPrice: 23.7,
-                    discount: 34,
-                    rating: 4.6,
-                    reviews: 98,
-                    category: 'car-care',
-                    image: 'https://www.megadealsom.com/uploads/cashes/25-04-26-03-47-1-360x360.jpg',
-                    description: 'مسدس رش طلاء كهربائي عالي الجودة بقوة 48 فولت، مثالي لأعمال الطلاء والتشطيب الاحترافية'
-                },
+                
                 {
                     id: 12,
                     name: 'مجموعة مسجل فيديو رقمي للسيارة بكاميرا مزدوجة',
-                    price: 12,
-                    originalPrice: 22.65,
+                    price: 10,
+                    originalPrice: 18.9,
                     discount: 47,
                     rating: 4.3,
                     reviews: 190,
@@ -2094,8 +1978,8 @@
                 {
                     id: 58,
                     name: 'منظم أنيق لظهر مقعد السيارة',
-                    price: 7.9,
-                    originalPrice: 11.6,
+                    price: 5.9,
+                    originalPrice: 5.9,
                     discount: 32,
                     rating: 4.6,
                     reviews: 325,
@@ -2106,8 +1990,8 @@
                 {
                     id: 67,
                     name: 'بخاخ طلاء نانو سيراميك للسيارات - اشترِ واحدًا واحصل على الثاني مجانًا',
-                    price: 9,
-                    originalPrice: 15.8,
+                    price: 7,
+                    originalPrice: 12.3,
                     discount: 43,
                     rating: 3.9,
                     reviews: 65,
@@ -2118,8 +2002,8 @@
                 {
                     id: 125,
                     name: 'مزيل خدوش السيارة الفوري وإصلاح الطلاء - اشترِ واحدًا واحصل على الثاني مجانًا',
-                    price: 8.4,
-                    originalPrice: 10.4,
+                    price: 6.4,
+                    originalPrice: 7.9,
                     discount: 19,
                     rating: 4.9,
                     reviews: 120,
@@ -2130,8 +2014,8 @@
                 {
                     id: 128,
                     name: 'مسدس غسيل هيدرو سوبر جيت',
-                    price: 9,
-                    originalPrice: 11.8,
+                    price: 7,
+                    originalPrice: 7,
                     discount: 24,
                     rating: 4.2,
                     reviews: 617,
@@ -2174,17 +2058,21 @@
                 card.dataset.originalPrice = product.originalPrice;
                 card.dataset.image = product.image;
 
+                // Make the entire card clickable
+                card.style.cursor = 'pointer';
+                card.onclick = function(e) {
+                    // Prevent card click when clicking on buttons
+                    if (e.target.closest('.add-to-cart-btn') || e.target.closest('.view-details-btn')) {
+                        return;
+                    }
+                    viewProductDetails(product.id, product.name, product.description || '', product.image, product.price, product.originalPrice, product.rating, product.reviews);
+                };
+
                 card.innerHTML = `
                     <div class="product-badge">
                         <i class="fas fa-tag"></i> خصم ${product.discount}%
                     </div>
-                    <div class="product-image" style="background-image: url('${product.image}');">
-                        <div class="product-overlay">
-                            <button class="quick-view-btn" onclick="quickView('${product.id}')">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
+                    <div class="product-image" style="background-image: url('${product.image}');"></div>
                     <div class="product-details">
                         <div class="product-name">${product.name}</div>
                         <div class="product-price">
@@ -2196,10 +2084,10 @@
                             <span><i class="fas fa-box" style="color: #28a745;"></i> متوفر</span>
                         </div>
                         <div class="product-actions">
-                            <button class="add-to-cart-btn" onclick="addToCart(this)">
+                            <button class="add-to-cart-btn" onclick="addToCart(this, event);">
                                 <i class="fas fa-cart-plus"></i> أضف للسلة
                             </button>
-                            <button class="view-details-btn" onclick="viewProductDetails('${product.id}', '${product.name}', '${product.description || ''}', '${product.image}', ${product.price}, ${product.originalPrice}, ${product.rating}, ${product.reviews})">
+                            <button class="view-details-btn" onclick="event.stopPropagation(); viewProductDetails('${product.id}', '${product.name}', '${product.description || ''}', '${product.image}', ${product.price}, ${product.originalPrice}, ${product.rating}, ${product.reviews});">
                                 <i class="fas fa-info-circle"></i>
                             </button>
                         </div>
@@ -2210,14 +2098,6 @@
         }
 
         // Enhanced product interaction functions
-        function quickView(productId) {
-            console.log('Quick view for product:', productId);
-            // Scroll to product details section smoothly
-            document.querySelector('.product-info').scrollIntoView({
-                behavior: 'smooth',
-                block: 'center'
-            });
-        }
 
         function viewProductDetails(id, name, description, image, price, originalPrice, rating, reviews) {
             // Check if product page exists, otherwise show modal
@@ -2319,7 +2199,13 @@
         }
 
         // Enhanced addToCart function for related products
-        function addToCart(button) {
+        function addToCart(button, event) {
+            // Prevent event bubbling to card click
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+
             const productCard = button.closest('.product-card');
             if (!productCard) return;
 
@@ -2335,12 +2221,15 @@
                 bandarCart.addToCart(productData);
 
                 // Visual feedback
+                const originalHTML = button.innerHTML;
+                const originalStyle = button.style.background;
+
                 button.innerHTML = '<i class="fas fa-check"></i> تم الإضافة';
                 button.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
 
                 setTimeout(() => {
-                    button.innerHTML = '<i class="fas fa-cart-plus"></i> أضف للسلة';
-                    button.style.background = '';
+                    button.innerHTML = originalHTML;
+                    button.style.background = originalStyle;
                 }, 2000);
 
                 // Show success message
