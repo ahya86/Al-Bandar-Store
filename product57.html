@@ -1,0 +1,2550 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر البندر </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        :root {
+            --primary: #4ecdc4;
+            --secondary: #ff6b6b;
+            --dark: #212529;
+            --light: #f7f9fc;
+            --darker-bg: #e9ecef;
+            --medium: #dee2e6;
+            --light-text: #495057;
+            --gray: #6c757d;
+            --success: #51cf66;
+            --discount: #e74c3c;
+            --cart-bg: #f8f9fa;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            direction: rtl;
+            margin: 0;
+            padding: 70px 0 0 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        html, body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+        }
+        /* Header Styles */
+        header {
+    background: white;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 18px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .header-icons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        /* Cart icon styles */
+        /* removed floating cart styles */
+        #floatingCart{
+            position:fixed;
+            top:10px;
+            left:15px;
+            z-index:1200;
+            cursor:pointer;
+        }
+        #floatingCart i{font-size:20px;color:var(--dark);position:relative;}
+        #floatingCart .cart-count{position:absolute;top:-8px;left:-8px;background:var(--primary);color:#fff;font-size:12px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+        /* remove old cart icon rule */
+        .header-icons i {
+            font-size: 20px;
+            color: var(--dark);
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            background: var(--primary);
+            color: white;
+            font-size: 12px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Cart Modal */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: -420px;
+            width: 420px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid rgba(0, 0, 0, 0.1);
+            visibility: hidden;
+            overflow: hidden;
+        }
+        
+        .cart-modal.active {
+            right: 0;
+            visibility: visible; /* Make visible when active */
+        }
+        
+        .cart-header {
+            padding: 25px 20px;
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+        }
+        
+        .close-cart {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            min-width: 44px;
+            min-height: 44px;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .close-cart:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .cart-header h3 {
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 20px;
+            background: #fafafa;
+            min-height: 0;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .cart-item-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .cart-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .cart-item-qty {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .cart-qty-btn {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: 1px solid var(--gray);
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .cart-qty-input {
+            width: 30px;
+            text-align: center;
+        }
+        
+        .remove-item {
+            color: #ff4d4d;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .cart-footer {
+            padding: 25px 20px;
+            border-top: 1px solid var(--gray);
+            background: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 10;
+            min-height: auto;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+            min-height: 50px;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(78, 205, 196, 0.4);
+            background: linear-gradient(135deg, #44A08D, #4ECDC4);
+        }
+        
+        /* Product Section */
+        .product-section {
+            padding: 40px 0;
+        }
+        
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .product-gallery {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .main-image {
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            touch-action: pan-y;
+        }
+        
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .thumbnails {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .thumbnail.active {
+            border-color: var(--primary);
+        }
+        
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-details {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .product-title {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .product-price {
+            font-size: 24px;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .product-description {
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .qty-btn {
+            width: 40px;
+            height: 40px;
+            background: var(--gray);
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .qty-input {
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            border: 1px solid var(--gray);
+            border-radius: 5px;
+            margin: 0 10px;
+            font-size: 18px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Reviews Section */
+        .reviews-section {
+            padding: 50px 0;
+            background: white;
+            margin: 40px 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 40px;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .reviews-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .review-card {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .review-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            font-size: 20px;
+            color: #777;
+        }
+        
+        .review-name {
+            font-weight: 600;
+        }
+        
+        .review-rating {
+            color: #ffc107;
+            margin: 10px 0;
+        }
+        
+        .review-content {
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        /* Luxurious Related Products Section */
+        .related-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #f8f9fa 100%);
+            margin-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .related-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+        }
+
+        .related-section .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 60px;
+            position: relative;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: -0.5px;
+        }
+
+        .related-section .section-title::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, #d4af37, #f4e4bc);
+            border-radius: 2px;
+        }
+
+        .related-section .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(135deg, #d4af37, #f4e4bc, #d4af37);
+            border-radius: 2px;
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 0 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Ensure grid works on all screen sizes */
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+                padding: 0 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 0 10px;
+            }
+        }
+
+        /* Luxurious Product Modal Styles */
+        .product-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .product-modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .product-modal {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 25px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                0 8px 32px rgba(212, 175, 55, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            transform: scale(0.8) translateY(50px);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .product-modal-overlay.show .product-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .product-modal-header {
+            padding: 25px 30px;
+            background: linear-gradient(135deg, #d4af37, #f4e4bc);
+            border-radius: 25px 25px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .product-modal-header h3 {
+            margin: 0;
+            color: #1a1a1a;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        .modal-close-btn {
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: #1a1a1a;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .modal-close-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(1.1);
+        }
+
+        .product-modal-content {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .modal-product-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-product-image img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-product-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .modal-product-info h4 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 0 0 15px 0;
+            line-height: 1.3;
+        }
+
+        .modal-product-price {
+            margin: 15px 0;
+        }
+
+        .modal-original-price {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 1rem;
+            margin-left: 10px;
+        }
+
+        .modal-discounted-price {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .modal-product-rating {
+            margin: 15px 0;
+            font-size: 1rem;
+            color: #6c757d;
+        }
+
+        .modal-product-description {
+            margin: 20px 0;
+            line-height: 1.6;
+            color: #4a4a4a;
+        }
+
+        .modal-add-to-cart-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #d4af37, #f4e4bc, #d4af37);
+            color: #1a1a1a;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow:
+                0 6px 24px rgba(212, 175, 55, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            margin-top: 20px;
+        }
+
+        .modal-add-to-cart-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow:
+                0 10px 40px rgba(212, 175, 55, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        /* Success Message Styles */
+        .success-message {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 25px;
+            box-shadow:
+                0 8px 32px rgba(40, 167, 69, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            transform: translateX(400px);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .success-message.show {
+            transform: translateX(0);
+        }
+
+        .success-message i {
+            font-size: 1.2rem;
+        }
+
+        /* Mobile Modal Responsive */
+        @media (max-width: 768px) {
+            .product-modal {
+                width: 95%;
+                margin: 20px;
+            }
+
+            .product-modal-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .modal-product-image img {
+                height: 200px;
+            }
+
+            .success-message {
+                right: 15px;
+                left: 15px;
+                transform: translateY(-100px);
+            }
+
+            .success-message.show {
+                transform: translateY(0);
+            }
+        }
+        
+        .product-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 20px;
+            overflow: hidden;
+            text-decoration: none;
+            color: var(--dark-text);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.08),
+                0 4px 16px rgba(0, 0, 0, 0.04),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.15),
+                0 8px 32px rgba(212, 175, 55, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
+            border-color: rgba(212, 175, 55, 0.3);
+            cursor: pointer;
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Add subtle click indication */
+        .product-card:active {
+            transform: translateY(-12px) scale(1.01);
+            transition: all 0.1s ease;
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #d4af37, #f4e4bc, #d4af37);
+            color: #1a1a1a;
+            padding: 10px 16px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            z-index: 3;
+            box-shadow:
+                0 4px 16px rgba(212, 175, 55, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(10px);
+            animation: luxuryPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes luxuryPulse {
+            0%, 100% {
+                box-shadow:
+                    0 4px 16px rgba(212, 175, 55, 0.4),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            }
+            50% {
+                box-shadow:
+                    0 6px 24px rgba(212, 175, 55, 0.6),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            }
+        }
+
+        .product-image {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            background-color: #f8f9fa;
+        }
+
+        .product-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(255, 255, 255, 0.8), transparent);
+        }
+
+
+        
+        .product-details {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        .product-price {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 10px 0 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .original-price {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 0.9rem;
+            font-weight: normal;
+        }
+
+        .discounted-price {
+            color: #4ECDC4;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0 20px;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .product-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .product-meta i {
+            color: #ffc107;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .add-to-cart-btn {
+            flex: 1;
+            background: linear-gradient(135deg, #d4af37, #f4e4bc, #d4af37);
+            color: #1a1a1a;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow:
+                0 4px 16px rgba(212, 175, 55, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .add-to-cart-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .add-to-cart-btn:hover::before {
+            left: 100%;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow:
+                0 8px 32px rgba(212, 175, 55, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            background: linear-gradient(135deg, #f4e4bc, #d4af37, #f4e4bc);
+        }
+
+        .view-details-btn {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            color: #d4af37;
+            border: 2px solid #d4af37;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 48px;
+            min-height: 48px;
+            font-size: 1.1rem;
+            box-shadow:
+                0 4px 16px rgba(212, 175, 55, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .view-details-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: linear-gradient(135deg, #d4af37, #f4e4bc);
+            border-radius: 50%;
+            transition: all 0.4s ease;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .view-details-btn:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .view-details-btn:hover {
+            color: #1a1a1a;
+            border-color: #f4e4bc;
+            transform: scale(1.15) rotate(360deg);
+            box-shadow:
+                0 8px 32px rgba(212, 175, 55, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
+        }
+        .original-price {
+            color: var(--gray);
+            text-decoration: line-through;
+            font-size: 1rem;
+        }
+        .discounted-price {
+            color: var(--secondary);
+        }
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .add-to-cart-btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex: 1;
+            font-size: 0.95rem;
+        }
+        .add-to-cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        /* Eye / details button */
+        .view-details-btn {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 12px 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+        .view-details-btn:hover {
+            background: var(--primary);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        /* Discount badge */
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+        .badge-discount{
+            background: var(--discount);
+            top:15px;
+            right:15px;
+            left:auto;
+            display:flex;
+            align-items:center;
+            gap:5px;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        /* Responsive Design */
+        /* تحسينات للشاشات الكبيرة */
+        @media (min-width: 1200px) {
+            .cart-modal {
+                width: 450px;
+                right: -470px;
+            }
+
+            .cart-header {
+                padding: 30px 25px;
+            }
+
+            .cart-header h3 {
+                font-size: 1.5rem;
+            }
+
+            .close-cart {
+                width: 46px;
+                height: 46px;
+                min-width: 46px;
+                min-height: 46px;
+                font-size: 1.4rem;
+            }
+
+            .cart-items {
+                padding: 25px;
+            }
+
+            .cart-footer {
+                padding: 30px 25px;
+            }
+
+            .checkout-btn {
+                padding: 20px;
+                font-size: 1.2rem;
+                min-height: 56px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                margin-top: 15px;
+            }
+            
+            .main-image {
+                height: 300px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .cart-modal {
+                width: 100%;
+                right: -100%;
+                left: auto;
+                border-left: none;
+                border-radius: 0;
+            }
+
+            .cart-modal.active {
+                right: 0;
+                left: 0;
+                visibility: visible;
+            }
+
+            .cart-header {
+                padding: 20px 15px;
+                border-radius: 0;
+            }
+
+            .cart-header h3 {
+                font-size: 1.2rem;
+            }
+
+            .close-cart {
+                width: 42px;
+                height: 42px;
+                min-width: 42px;
+                min-height: 42px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .thumbnails {
+                flex-wrap: wrap;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .nav-links li {
+                margin-left: 15px;
+            }
+
+            .cart-modal {
+                width: 100%;
+            }
+
+            .cart-header {
+                padding: 18px 12px;
+            }
+
+            .cart-header h3 {
+                font-size: 1.1rem;
+            }
+
+            .close-cart {
+                width: 40px;
+                height: 40px;
+                min-width: 40px;
+                min-height: 40px;
+                font-size: 1.1rem;
+            }
+
+            .cart-items {
+                padding: 15px;
+            }
+
+            .cart-footer {
+                padding: 18px 12px;
+                position: sticky;
+                bottom: 0;
+                background: white;
+                border-top: 2px solid #e9ecef;
+                box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            .checkout-btn {
+                padding: 16px;
+                font-size: 1rem;
+                min-height: 52px;
+            }
+
+        }
+
+        @media (max-width: 360px) {
+            .cart-header {
+                padding: 15px 10px;
+            }
+
+            .cart-header h3 {
+                font-size: 1rem;
+            }
+
+            .close-cart {
+                width: 38px;
+                height: 38px;
+                min-width: 38px;
+                min-height: 38px;
+                font-size: 1rem;
+            }
+
+            .cart-items {
+                padding: 12px;
+            }
+
+            .cart-footer {
+                padding: 15px 10px;
+                position: sticky;
+                bottom: 0;
+                background: white;
+                border-top: 2px solid #e9ecef;
+                box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+            }
+
+            .checkout-btn {
+                padding: 14px;
+                font-size: 0.9rem;
+                min-height: 48px;
+            }
+
+            .nav-links a {
+                font-size: 16px;
+            }
+
+            .header-icons {
+                gap: 15px;
+            }
+        }
+        
+        /* Overlay for cart modal */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+
+        .reviews-section {
+            display: none;
+        }
+        /* Hide old bullet list */
+        .product-features{display:none;}
+        body{margin:0;padding-top:90px;}
+        /* Why choose section */
+        .why-section{
+            background:#fff;
+            padding:60px 30px;
+            margin:50px 0;
+            border-radius:20px;
+            box-shadow:0 10px 20px rgba(0,0,0,0.05);
+        }
+        .why-title{
+            text-align:center;
+            font-size:2.5rem;
+            margin-bottom:40px;
+            background:linear-gradient(to right,var(--primary),var(--secondary));
+            -webkit-background-clip:text;
+            background-clip:text;
+            color:transparent;
+        }
+        .why-container{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+            gap:30px;
+        }
+        .why-card{
+            background:var(--light);
+            padding:40px 20px;
+            border-radius:15px;
+            text-align:center;
+            box-shadow:0 5px 15px rgba(0,0,0,0.05);
+            transition:all 0.3s;
+        }
+        .why-card:hover{transform:translateY(-8px);}
+        .why-icon{
+            font-size:40px;
+            color:var(--primary);
+            margin-bottom:15px;
+        }
+        .why-card h3{
+            font-size:1.2rem;
+            margin-bottom:10px;
+            color:var(--dark);
+        }
+        .why-card p{
+            color:var(--light-text);
+            font-size:0.95rem;
+            line-height:1.6;
+        }
+        body { margin: 0; padding-top: 0; }
+
+    </style>
+</head>
+<body>
+    
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/96894824226" class="whatsapp-button" target="_blank" style="position: fixed; bottom: 30px; left: 30px; z-index: 1000; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: all 0.3s ease;">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <!-- 100% Omani Store Badge -->
+    <div class="omni-badge" style="position: fixed; bottom: 30px; right: 30px; z-index: 1000; background: #fff; padding: 8px 15px; border-radius: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: flex; align-items: center; font-weight: bold; font-size: 14px; color: #d42026;">
+        <span style="margin-left: 8px;">100%</span>
+        <span>متجر عماني</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/125px-Flag_of_Oman.svg.png" alt="علم عمان" style="width: 20px; margin-right: 8px; margin-left: 5px;">
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <div class="logo-image">
+                        <img src="11zon_cropped.png" alt="شعار متجر البندر" style="height: 40px; width: 40px; object-fit: contain;">
+                    </div>
+                    <div class="logo">متجر البندر</div>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="https://wa.me/96894824226" target="_blank">الدعم</a></li>
+                </ul>
+                <div class="header-icons">
+                    <i class="fas fa-shopping-cart" id="cartIcon">
+                        <span class="cart-count">0</span>
+                    </i>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h3>سلة التسوق</h3>
+            <button class="close-cart" id="closeCart">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be added here dynamically -->
+        </div>
+        <div class="cart-footer" id="cartFooter">
+            <div class="cart-summary">
+                <div class="cart-subtotal">
+                    <span>المجموع:</span>
+                    <span id="cartSubtotal">0 ر.ع</span>
+                </div>
+                <div class="cart-delivery">
+                    <span id="cartDeliveryLabel">التوصيل:</span>
+                    <span id="cartDeliveryAmount">2.00 ر.ع</span>
+                </div>
+                <div class="cart-total">
+                    <span>الإجمالي:</span>
+                    <span id="cartTotal">0 ر.ع</span>
+                </div>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">إتمام الشراء</button>
+        </div>
+    </div>
+    
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Product Section -->
+    <section class="product-section">
+        <div class="container">
+            <div class="product-container">
+                <div class="product-gallery">
+                    <div class="main-image" id="mainImageContainer">
+                        <img id="mainImage" src="https://www.megadealsom.com/uploads/cashes/24-10-23-12-13-1-540x540.jpg" alt="فرشاة شعر مستقيمة ومجعدة مع 5 مستويات حرارة">
+                    </div>
+                    <div class="thumbnails">
+                        <div class="thumbnail active" onclick="changeImage('https://www.megadealsom.com/uploads/cashes/24-10-23-12-13-1-540x540.jpg')">
+                            <img src="https://www.megadealsom.com/uploads/cashes/24-10-23-12-13-1-540x540.jpg" alt="فرشاة شعر مستقيمة ومجعدة مع 5 مستويات حرارة">
+                        </div>
+                        <div class="thumbnail" onclick="changeImage('https://www.megadealsom.com/uploads/cashes/24-10-23-12-13-2-540x540.jpg')">
+                            <img src="https://www.megadealsom.com/uploads/cashes/24-10-23-12-13-2-540x540.jpg" alt="فرشاة شعر مستقيمة ومجعدة مع 5 مستويات حرارة">
+                        </div>
+                        <div class="thumbnail" onclick="changeImage('https://www.megadealsom.com/uploads/cashes/24-10-23-12-13-3-540x540.jpg')">
+                            <img src="https://www.megadealsom.com/uploads/cashes/24-10-23-12-13-3-540x540.jpg" alt="فرشاة شعر مستقيمة ومجعدة مع 5 مستويات حرارة">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-details">
+                    <h1 class="product-title">فرشاة شعر مستقيمة ومجعدة مع 5 مستويات حرارة</h1>
+                    <div class="product-price">
+                        <span class="original-price" style="text-decoration: line-through; color: #999; margin-left: 10px;">9.3 ر.ع</span>
+                        <span class="discounted-price" style="color: var(--primary); font-weight: bold;">7.3 ر.ع</span>
+                        <span class="discount-badge" style="background: var(--discount); color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; margin-right: 10px;">خصم 22%</span>
+                    </div>
+                    <p class="product-description">
+                        فرشاة شعر مستقيمة ومجعدة مع 5 مستويات حرارة - أداة تصفيف شعر متطورة ومبتكرة للحصول على شعر مستقيم أو مجعد بسهولة. تتميز بـ 5 مستويات حرارة قابلة للتعديل والتصميم المتطور للاستخدام الآمن والفعال.
+
+المميزات الرئيسية:
+- 5 مستويات حرارة قابلة للتعديل لجميع أنواع الشعر
+- تصفيف مزدوج: تمليس وتجعيد في أداة واحدة
+- تقنية السيراميك المتطورة لحماية الشعر من التلف
+- تسخين سريع وتوزيع حرارة متجانس
+- تصميم مريح ومقبض مضاد للانزلاق
+- مناسبة لجميع أطوال وأنواع الشعر
+- نتائج احترافية في المنزل بسهولة
+- آمنة للاستخدام مع نظام حماية من الحرارة الزائدة
+
+                    </div>
+                    
+                    <div class="product-features">
+                        <p><i class="fas fa-check-circle" style="color: var(--success);"></i> ضمان 14 يوم لاسترجاع المنتج</p>
+                        <p><i class="fas fa-check-circle" style="color: var(--success);"></i> توصيل سريع لجميع أنحاء السلطنة خلال 3-6 أيام عمل مع تتبع الشحنة</p>
+                    </div>
+                    
+                    <div class="action-buttons" style="margin-top:15px;">
+                        <button class="btn btn-primary" id="addToCartBtn">
+                            <i class="fas fa-shopping-cart"></i> إضافة إلى السلة
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Section -->
+    <section class="why-section">
+        <div class="container">
+            <h2 class="why-title">لماذا تختار <span>متجر البندر؟</span></h2>
+            <div class="why-container">
+                <div class="why-card">
+                    <i class="fas fa-truck-fast why-icon"></i>
+                    <h3>شحن سريع</h3>
+                    <p>توصيل سريع لجميع أنحاء السلطنة خلال 3-6 أيام عمل مع تتبع الشحنة</p>
+                </div>
+                <div class="why-card">
+                    <i class="fas fa-shield-halved why-icon"></i>
+                    <h3>ضمان للمنتجات</h3>
+                    <p>جميع منتجاتنا تأتي بضمان للمنتجات المكسورة أو التالفة مع استرداد المبلغ</p>
+                </div>
+                <div class="why-card">
+                    <i class="fas fa-rotate-left why-icon"></i>
+                    <h3>إرجاع سهل</h3>
+                    <p>إمكانية إرجاع المنتج خلال 14 يوماً من الاستلام مع استرجاع كامل المبلغ</p>
+                </div>
+                <div class="why-card">
+                    <i class="fas fa-headset why-icon"></i>
+                    <h3>دعم فني متكامل</h3>
+                    <p>فريق دعم فني متاح على مدار الساعة لمساعدتك في أي استفسار</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Related Products -->
+    <section class="related-section">
+        <div class="container">
+            <h2 class="section-title">منتجات ذات صلة</h2>
+            <div class="products-grid related-grid">
+                <!-- المنتجات ذات الصلة سيتم تحميلها ديناميكياً -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>متجر البندر</h3>
+                    <p> متجر البندر وجهتك الأولى للحصول على أحدث المنتجات بأفضل الأسعار وجودة لا تضاهى. نسعى دائمًا لتقديم تجربة تسوق استثنائية لعملائنا الكرام.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>
+          <li><a href="index.html#products"><i class="fas fa-chevron-left"></i> المنتجات</a></li>
+          <li><a href="index.html#products"><i class="fas fa-chevron-left"></i> العروض</a></li>
+          <li><a href="https://wa.me/96891800885" target="_blank"><i class="fas fa-chevron-left" ></i> اتصل بنا</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>فئات المنتجات</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html" > مستحضرات التجميل</a></li>
+                        <li><a href="index.html"> الكترونيات</a></li>
+                        <li><a href="index.html">الساعات</a></li>
+                        <li><a href="index.html">المطبخ</a></li>
+                        <li><a href="index.html"> للعناية بالسيارات</a></li>
+                        <li><a href="index.html">المنزل</a></li>
+                        <li><a href="index.html">اخرى</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3> تواصل معنا</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> سلطنة عمان </p>
+        <p><i class="fas fa-phone"></i> 96894824226+</p>
+        <p><i class="fas fa-envelope"></i> albandarstore799@gmail.com </p>
+        <p><i class="fas fa-clock"></i> الأحد - السبت : 9 صباحًا - 10 مساءً</p>
+                    
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2025 متجر البندر. جميع الحقوق محفوظة.
+            </div>
+            <div class="copyright">
+تم التطوير بواسطة فريق متجر البندر            </div>
+        </div>
+    </footer>
+
+    <!-- Include unified cart system -->
+    <script src="cart.js"></script>
+    <script>
+        // Cart functionality - now using unified cart system
+        // Cart elements and event listeners - now handled by unified cart system
+        const addToCartBtn = document.getElementById('addToCartBtn');
+        
+        // Add to cart function - now using unified cart system
+        addToCartBtn.addEventListener('click', () => {
+            const product = {
+                id: 57,
+                name: 'فرشاة شعر مستقيمة ومجعدة مع 5 مستويات حرارة',
+                price: 7.3,
+                quantity: 1,
+                image: 'https://www.megadealsom.com/uploads/cashes/24-10-23-12-13-1-540x540.jpg'
+            };
+
+            bandarCart.addToCart(product);
+
+            // Show feedback
+            addToCartBtn.innerHTML = '<i class="fas fa-check"></i> تمت الإضافة';
+            addToCartBtn.style.backgroundColor = '#51cf66';
+
+            setTimeout(() => {
+                addToCartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> إضافة إلى السلة';
+                addToCartBtn.style.backgroundColor = '';
+                bandarCart.toggleCart();
+            }, 1000);
+        });
+        
+        // Cart management functions - now handled by unified cart system
+        // These functions are now defined in cart.js
+        
+        // Change main product image
+        function changeImage(src) {
+            document.getElementById('mainImage').src = src;
+            
+            // Update active thumbnail
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            thumbnails.forEach(thumb => thumb.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+        
+        // Update quantity
+        function updateQuantity(change) {
+            const input = document.getElementById('quantity');
+            let value = parseInt(input.value) + change;
+            
+            if (value < 1) value = 1;
+            if (value > 10) value = 10;
+            
+            input.value = value;
+        }
+        
+        // Add swipe functionality for mobile
+        const mainImageContainer = document.getElementById('mainImageContainer');
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+        
+        mainImageContainer.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+        });
+        
+        mainImageContainer.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            currentX = e.touches[0].clientX;
+        });
+        
+        mainImageContainer.addEventListener('touchend', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            const diff = startX - currentX;
+            const threshold = 50;
+            
+            if (diff > threshold) {
+                // Swipe right
+                navigateGallery(1);
+            } else if (diff < -threshold) {
+                // Swipe left
+                navigateGallery(-1);
+            }
+        });
+        
+        // Gallery navigation
+        const images = [
+            'https://www.megadealsom.com/uploads/cashes/25-01-07-01-09-1-540x540.jpg',
+            'https://www.megadealsom.com/uploads/cashes/25-01-07-01-09-2-540x540.jpg',
+            'https://www.megadealsom.com/uploads/cashes/25-01-07-01-09-3-540x540.jpg'
+        ];
+        
+        let currentImageIndex = 0;
+        
+        function navigateGallery(direction) {
+            currentImageIndex += direction;
+            
+            if (currentImageIndex < 0) {
+                currentImageIndex = images.length - 1;
+            } else if (currentImageIndex >= images.length) {
+                currentImageIndex = 0;
+            }
+            
+            document.getElementById('mainImage').src = images[currentImageIndex];
+            
+            // Update active thumbnail
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            thumbnails.forEach((thumb, index) => {
+                if (index === currentImageIndex) {
+                    thumb.classList.add('active');
+                } else {
+                    thumb.classList.remove('active');
+                }
+            });
+        }
+        
+        // Cart is now automatically initialized by cart.js
+
+        // ----------------- Related Products -----------------
+        function getRelatedProductsData() {
+            // جميع منتجات مستحضرات التجميل والعناية الشخصية من الفهرس الرئيسي مع تخفيض 2 ريال
+            return [
+                {
+                    id: 8,
+                    name: 'حزام خصر نحيف قابل للتنفس للرجال',
+                    price: 5.5,  // تخفيض 2 ريال من 7.5
+                    originalPrice: 7.24,  // إعادة حساب للحفاظ على نسبة الخصم 24%
+                    discount: 24,
+                    rating: 4.2,
+                    reviews: 617,
+                    category: 'cosmetics',
+                    image: 'https://om.jetronics.ae/uploads/product_img/06_03_2022_00_07_54_4190444_id_6223c31a822b6.jpeg',
+                    description: 'حزام خصر نحيف قابل للتنفس للرجال لمظهر أنيق ومريح'
+                },
+                {
+                    id: 11,
+                    name: 'شامبو للعناية بفروة الرأس مضاد للحكة والقشرة',
+                    price: 6.5,  // تخفيض 2 ريال من 8.5
+                    originalPrice: 7.14,  // إعادة حساب للحفاظ على نسبة الخصم 9%
+                    discount: 9,
+                    rating: 4.1,
+                    reviews: 120,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/25-04-26-03-11-1-360x360.jpeg',
+                    description: 'شامبو طبيعي للعناية بفروة الرأس ومحاربة القشرة والحكة'
+                },
+                {
+                    id: 13,
+                    name: 'جهاز تدليك الرقبة والكتف والظهر بالحرارة',
+                    price: 10,  // تخفيض 2 ريال من 12
+                    originalPrice: 18.87,  // إعادة حساب للحفاظ على نسبة الخصم 47%
+                    discount: 47,
+                    rating: 4.7,
+                    reviews: 197,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/25-05-19-01-31-1-360x360.jpg',
+                    description: 'جهاز تدليك متطور بالحرارة للرقبة والكتف والظهر لتخفيف التوتر والألم'
+                },
+                {
+                    id: 15,
+                    name: 'مروحة الرقبة أركتيك إير ثلاثية السرعات قابلة لإعادة الشحن',
+                    price: 7.3,  // تخفيض 2 ريال من 9.3
+                    originalPrice: 9.86,  // إعادة حساب للحفاظ على نسبة الخصم 26%
+                    discount: 26,
+                    rating: 4.8,
+                    reviews: 96,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-05-21-12-40-1-360x360.jpg',
+                    description: 'مروحة رقبة محمولة ثلاثية السرعات قابلة لإعادة الشحن للراحة في الطقس الحار'
+                },
+                {
+                    id: 17,
+                    name: 'كريم الكلف الياباني',
+                    price: 6.8,  // تخفيض 2 ريال من 8.8
+                    originalPrice: 9.07,  // إعادة حساب للحفاظ على نسبة الخصم 25%
+                    discount: 25,
+                    rating: 4.8,
+                    reviews: 65,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-05-21-12-15-1-540x540.jpg',
+                    description: 'كريم الكلف الياباني الأصلي لعلاج تصبغات البشرة والكلف'
+                },
+                {
+                    id: 21,
+                    name: 'كريم سي سي الكوري لتصحيح اللون تلقائيًا',
+                    price: 7.3,  // تخفيض 2 ريال من 9.3
+                    originalPrice: 8.79,  // إعادة حساب للحفاظ على نسبة الخصم 17%
+                    discount: 17,
+                    rating: 4.8,
+                    reviews: 122,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-09-08-12-51-1-360x360.jpg',
+                    description: 'كريم سي سي الكوري لتصحيح اللون تلقائيًا وتوحيد لون البشرة'
+                },
+                {
+                    id: 23,
+                    name: 'سيروم زيت خلاصة الماكا من كارسيل',
+                    price: 7.9,  // تخفيض 2 ريال من 9.9
+                    originalPrice: 9.88,  // إعادة حساب للحفاظ على نسبة الخصم 20%
+                    discount: 20,
+                    rating: 4.5,
+                    reviews: 221,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-09-08-12-38-1-540x540.jpg',
+                    description: 'سيروم زيت خلاصة الماكا من كارسيل لتغذية وتقوية الشعر'
+                },
+                {
+                    id: 25,
+                    name: 'رف أطباق شديد التحمل مع غطاء إغلاق',
+                    price: 6,  // تخفيض 2 ريال من 8
+                    originalPrice: 7.69,  // إعادة حساب للحفاظ على نسبة الخصم 22%
+                    discount: 22,
+                    rating: 4.4,
+                    reviews: 98,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-05-21-12-48-1-540x540.jpg',
+                    description: 'رف أطباق شديد التحمل مع غطاء إغلاق للتنظيم والحماية'
+                },
+                {
+                    id: 27,
+                    name: 'قطعة من مناديل تنظيف البشرة بحمض الكوجيك والكركم',
+                    price: 6.5,  // تخفيض 2 ريال من 8.5
+                    originalPrice: 9.29,  // إعادة حساب للحفاظ على نسبة الخصم 30%
+                    discount: 30,
+                    rating: 4.9,
+                    reviews: 453,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/25-04-26-01-26-1-360x360.jpg',
+                    description: 'مناديل تنظيف البشرة بحمض الكوجيك والكركم لتفتيح وتنظيف البشرة'
+                },
+                {
+                    id: 29,
+                    name: 'مجموعة حشو نانو كولاجين عظم الغزال من جايسونغ',
+                    price: 6.3,  // تخفيض 2 ريال من 8.3
+                    originalPrice: 10.86,  // إعادة حساب للحفاظ على نسبة الخصم 42%
+                    discount: 42,
+                    rating: 4.7,
+                    reviews: 321,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-09-08-02-16-1-540x540.jpg',
+                    description: 'مجموعة حشو نانو كولاجين عظم الغزال من جايسونغ لتجديد البشرة'
+                },
+                {
+                    id: 31,
+                    name: '3 قطع من أحمر الخدود Pixi Blush On The Glow - فلور، جوسي، وروبي',
+                    price: 7.4,  // تخفيض 2 ريال من 9.4
+                    originalPrice: 11.04,  // إعادة حساب للحفاظ على نسبة الخصم 33%
+                    discount: 33,
+                    rating: 3.8,
+                    reviews: 98,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-09-08-01-10-1-540x540.jpg',
+                    description: '3 قطع من أحمر الخدود Pixi Blush On The Glow بألوان فلور، جوسي، وروبي'
+                },
+                {
+                    id: 39,
+                    name: 'كريم ريتينول للعناية بالبشرة ومضاد للشيخوخة',
+                    price: 6.3,  // تخفيض 2 ريال من 8.3
+                    originalPrice: 9.40,  // إعادة حساب للحفاظ على نسبة الخصم 33%
+                    discount: 33,
+                    rating: 4.5,
+                    reviews: 530,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/25-05-16-03-34-1-540x540.jpg',
+                    description: 'كريم ريتينول للعناية بالبشرة ومضاد للشيخوخة لبشرة شابة ونضرة'
+                },
+                {
+                    id: 41,
+                    name: 'كريم أساس سائل عالي الوضوح من FV Skin بتغطية كاملة وطويلة الأمد',
+                    price: 6.3,  // تخفيض 2 ريال من 8.3
+                    originalPrice: 8.29,  // إعادة حساب للحفاظ على نسبة الخصم 24%
+                    discount: 24,
+                    rating: 4.8,
+                    reviews: 154,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-05-21-12-08-2-360x360.jpg',
+                    description: 'كريم أساس سائل عالي الوضوح من FV Skin بتغطية كاملة وطويلة الأمد'
+                },
+                {
+                    id: 48,
+                    name: 'جهاز تدليك الاسترخاء والشد',
+                    price: 7.9,  // تخفيض 2 ريال من 9.9
+                    originalPrice: 11.62,  // إعادة حساب للحفاظ على نسبة الخصم 32%
+                    discount: 32,
+                    rating: 4.9,
+                    reviews: 145,
+                    category: 'cosmetics',
+                    image: 'https://om.jetronics.ae/uploads/product_img/16_05_2021_17_12_03_4797374_id_60a11a236fea9.jpeg',
+                    description: 'جهاز تدليك الاسترخاء والشد للعناية بالجسم والاسترخاء'
+                },
+                {
+                    id: 55,
+                    name: 'شامبو وبلسم ساكورا الياباني لنمو الشعر',
+                    price: 6.5,  // تخفيض 2 ريال من 8.5
+                    originalPrice: 10.16,  // إعادة حساب للحفاظ على نسبة الخصم 36%
+                    discount: 36,
+                    rating: 4.8,
+                    reviews: 675,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-09-11-11-14-1-540x540.jpg',
+                    description: 'شامبو وبلسم ساكورا الياباني الطبيعي لتحفيز نمو الشعر وتقويته'
+                },
+                {
+                    id: 57,
+                    name: 'فرشاة شعر مستقيمة ومجعدة مع 5 مستويات حرارة',
+                    price: 7.3,  // تخفيض 2 ريال من 9.3
+                    originalPrice: 14.6,  // إعادة حساب للحفاظ على نسبة الخصم 50%
+                    discount: 50,
+                    rating: 4.8,
+                    reviews: 342,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-10-23-12-13-1-540x540.jpg',
+                    description: 'فرشاة شعر كهربائية متعددة الوظائف للتمليس والتجعيد مع 5 مستويات حرارة'
+                },
+                {
+                    id: 62,
+                    name: 'فرشاة 3 في 1 بخطوة واحدة',
+                    price: 7,  // تخفيض 2 ريال من 9
+                    originalPrice: 9.33,  // إعادة حساب للحفاظ على نسبة الخصم 25%
+                    discount: 25,
+                    rating: 4.3,
+                    reviews: 962,
+                    category: 'cosmetics',
+                    image: 'https://om.jetronics.ae/uploads/product_img/16_05_2021_18_49_04_6816846_id_60a130e0921e2.jpeg',
+                    description: 'فرشاة 3 في 1 بخطوة واحدة للتصفيف والتجفيف والتمليس'
+                },
+                {
+                    id: 63,
+                    name: 'منظف ​​الوجه المُبيض، مُرطب، مُنظف، مُفتح للبشرة',
+                    price: 6.5,  // تخفيض 2 ريال من 8.5
+                    originalPrice: 13,  // إعادة حساب للحفاظ على نسبة الخصم 50%
+                    discount: 50,
+                    rating: 4.8,
+                    reviews: 341,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-01-11-01-24-7-540x540.jpeg',
+                    description: 'منظف ​​الوجه المُبيض، مُرطب، مُنظف، مُفتح للبشرة متعدد الفوائد'
+                },
+                {
+                    id: 64,
+                    name: 'مشط شعر يتم التحكم بدرجة حرارته',
+                    price: 6,  // تخفيض 2 ريال من 8
+                    originalPrice: 10,  // إعادة حساب للحفاظ على نسبة الخصم 40%
+                    discount: 40,
+                    rating: 4.4,
+                    reviews: 19,
+                    category: 'cosmetics',
+                    image: 'https://om.jetronics.ae/uploads/product_img/17_03_2022_11_09_56_6586010_id_6232dec4f1f3d.jpeg',
+                    description: 'مشط شعر كهربائي يتم التحكم بدرجة حرارته للتصفيف المثالي'
+                },
+                {
+                    id: 79,
+                    name: 'جهاز شد الوجه بالموجات فوق الصوتية',
+                    price: 7.7,  // تخفيض 2 ريال من 9.7
+                    originalPrice: 11.85,  // إعادة حساب للحفاظ على نسبة الخصم 35%
+                    discount: 35,
+                    rating: 5,
+                    reviews: 476,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-07-16-04-12-1-540x540.jpg',
+                    description: 'جهاز شد الوجه بالموجات فوق الصوتية لمحاربة علامات التقدم في السن'
+                },
+                {
+                    id: 80,
+                    name: 'بخاخ بارد فعال لعلاج آلام الرقبة',
+                    price: 6.4,  // تخفيض 2 ريال من 8.4
+                    originalPrice: 12.08,  // إعادة حساب للحفاظ على نسبة الخصم 47%
+                    discount: 47,
+                    rating: 4.7,
+                    reviews: 321,
+                    category: 'cosmetics',
+                    image: 'https://om.jetronics.ae/uploads/product_img/25_06_2023_15_42_58_4224130_id_649828428d719.jpeg',
+                    description: 'بخاخ بارد فعال لعلاج آلام الرقبة والتخفيف من التوتر العضلي'
+                },
+                {
+                    id: 81,
+                    name: 'جهاز إزالة الشعر القابل لإعادة الشحن Finishing Touch',
+                    price: 6.4,  // تخفيض 2 ريال من 8.4
+                    originalPrice: 7.71,  // إعادة حساب للحفاظ على نسبة الخصم 17%
+                    discount: 17,
+                    rating: 4.8,
+                    reviews: 122,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-07-16-04-06-1-540x540.jpg',
+                    description: 'جهاز إزالة الشعر الكهربائي القابل لإعادة الشحن من Finishing Touch'
+                },
+                {
+                    id: 82,
+                    name: 'قلم تلوين الشعر هيرلاين ماجيك',
+                    price: 5.3,  // تخفيض 2 ريال من 7.3
+                    originalPrice: 6.63,  // إعادة حساب للحفاظ على نسبة الخصم 20%
+                    discount: 20,
+                    rating: 4.9,
+                    reviews: 980,
+                    category: 'cosmetics',
+                    image: 'https://om.jetronics.ae/uploads/product_img/17_07_2023_10_27_51_2738680_id_64b4df6772e89.jpeg',
+                    description: 'قلم تلوين الشعر السحري هيرلاين ماجيك لإخفاء الشيب والفراغات'
+                },
+                {
+                    id: 88,
+                    name: 'بخاخ ضغط بارد لألم الكعب',
+                    price: 7.4,  // تخفيض 2 ريال من 9.4
+                    originalPrice: 12.13,  // إعادة حساب للحفاظ على نسبة الخصم 39%
+                    discount: 39,
+                    rating: 5,
+                    reviews: 632,
+                    category: 'cosmetics',
+                    image: 'https://om.jetronics.ae/uploads/product_img/09_07_2023_00_14_19_8083265_id_64a9c39b7fe6e.jpeg',
+                    description: 'بخاخ ضغط بارد فعال لعلاج ألم الكعب والتخفيف من الالتهابات'
+                },
+                {
+                    id: 91,
+                    name: 'زيت الباتانا لنمو الشعر',
+                    price: 7.6,  // تخفيض 2 ريال من 9.6
+                    originalPrice: 11.34,  // إعادة حساب للحفاظ على نسبة الخصم 33%
+                    discount: 33,
+                    rating: 3.8,
+                    reviews: 98,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-09-08-11-49-1-540x540.jpg',
+                    description: 'زيت الباتانا الطبيعي لتحفيز نمو الشعر وتقويته من الجذور'
+                },
+                {
+                    id: 103,
+                    name: 'مزيل العلامات والشامات',
+                    price: 6.4,  // تخفيض 2 ريال من 8.4
+                    originalPrice: 8.53,  // إعادة حساب للحفاظ على نسبة الخصم 25%
+                    discount: 25,
+                    rating: 5,
+                    reviews: 178,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-05-03-05-24-1-540x540.jpg',
+                    description: 'مزيل العلامات والشامات الطبيعي والآمن للبشرة'
+                },
+                {
+                    id: 107,
+                    name: 'جهاز مكافحة القمل',
+                    price: 7.4,  // تخفيض 2 ريال من 9.4
+                    originalPrice: 14.8,  // إعادة حساب للحفاظ على نسبة الخصم 50%
+                    discount: 50,
+                    rating: 4.8,
+                    reviews: 342,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-02-11-03-26-1-540x540.jpg',
+                    description: 'جهاز مكافحة القمل الكهربائي الآمن والفعال للأطفال والكبار'
+                },
+                {
+                    id: 112,
+                    name: 'مكواة فرد الشعر الاحترافية باللون الوردي من HTC',
+                    price: 7.4,  // تخفيض 2 ريال من 9.4
+                    originalPrice: 10.57,  // إعادة حساب للحفاظ على نسبة الخصم 30%
+                    discount: 30,
+                    rating: 4.7,
+                    reviews: 190,
+                    category: 'cosmetics',
+                    image: 'https://om.jetronics.ae/uploads/product_img/16_05_2021_22_37_20_1261326_id_60a16660c077c.jpeg',
+                    description: 'مكواة فرد الشعر الاحترافية باللون الوردي من HTC لشعر ناعم ولامع'
+                },
+                {
+                    id: 117,
+                    name: 'جهاز إزالة مسامير القدم القابل لإعادة الشحن',
+                    price: 6.5,  // تخفيض 2 ريال من 8.5
+                    originalPrice: 13,  // إعادة حساب للحفاظ على نسبة الخصم 50%
+                    discount: 50,
+                    rating: 4.8,
+                    reviews: 342,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-05-15-02-11-1-540x540.jpg',
+                    description: 'جهاز إزالة مسامير القدم الكهربائي القابل لإعادة الشحن'
+                },
+                {
+                    id: 123,
+                    name: 'قناع الشاي الأخضر الأصلي - اشتري واحد واحصل على الثاني مجانًا',
+                    price: 6.4,  // تخفيض 2 ريال من 8.4
+                    originalPrice: 9.14,  // إعادة حساب للحفاظ على نسبة الخصم 30%
+                    discount: 30,
+                    rating: 4.8,
+                    reviews: 341,
+                    category: 'cosmetics',
+                    image: 'https://www.megadealsom.com/uploads/cashes/23-11-24-05-13-1-540x540.jpg',
+                    description: 'قناع الشاي الأخضر الأصلي للعناية بالبشرة وتنظيفها بعمق'
+                },
+                {
+                    id: 135,
+                    name: 'جهاز إزالة مسامير القدم القابل لإعادة الشحن المحسن',
+                    price: 6.9,  // تخفيض 2 ريال من 8.9
+                    originalPrice: 9.32,  // إعادة حساب للحفاظ على نسبة الخصم 26%
+                    discount: 26,
+                    rating: 4.8,
+                    reviews: 96,
+                    category: 'cosmetics',
+                    image: 'https://om.jetronics.ae/uploads/product_img/18_05_2021_21_40_56_4279145_id_60a3fc2887436.jpeg',
+                    description: 'جهاز إزالة مسامير القدم القابل لإعادة الشحن بتقنية محسنة'
+                }
+            ];
+        }
+
+        function renderRelatedProducts() {
+            const grid = document.querySelector('.related-section .related-grid');
+            if (!grid) return;
+
+            // Clear any static placeholder cards
+            grid.innerHTML = '';
+
+            // Get related products data (from localStorage or fallback)
+            const relatedProducts = getRelatedProductsData();
+
+            // If no products available, show a message
+            if (relatedProducts.length === 0) {
+                grid.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #6c757d; grid-column: 1 / -1;">
+                        <i class="fas fa-box-open" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.5;"></i>
+                        <p>لا توجد منتجات ذات صلة متاحة حالياً</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Render each product
+            relatedProducts.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.dataset.category = product.category;
+                card.dataset.id = product.id;
+                card.dataset.name = product.name;
+                card.dataset.price = product.price;
+                card.dataset.originalPrice = product.originalPrice;
+                card.dataset.image = product.image;
+
+                // Make the entire card clickable
+                card.style.cursor = 'pointer';
+                card.onclick = function(e) {
+                    // Prevent card click when clicking on buttons
+                    if (e.target.closest('.add-to-cart-btn') || e.target.closest('.view-details-btn')) {
+                        return;
+                    }
+                    viewProductDetails(product.id, product.name, product.description || '', product.image, product.price, product.originalPrice, product.rating, product.reviews);
+                };
+
+                card.innerHTML = `
+                    <div class="product-badge">
+                        <i class="fas fa-tag"></i> خصم ${product.discount}%
+                    </div>
+                    <div class="product-image" style="background-image: url('${product.image}');"></div>
+                    <div class="product-details">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-price">
+                            <span class="original-price">${product.originalPrice} ريال</span>
+                            <span class="discounted-price">${product.price} ريال</span>
+                        </div>
+                        <div class="product-meta">
+                            <span><i class="fas fa-star" style="color: #d4af37;"></i> ${product.rating} (${product.reviews} تقييم)</span>
+                            <span><i class="fas fa-box" style="color: #28a745;"></i> متوفر</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn" onclick="addToCart(this, event);">
+                                <i class="fas fa-cart-plus"></i> أضف للسلة
+                            </button>
+                            <button class="view-details-btn" onclick="event.stopPropagation(); viewProductDetails('${product.id}', '${product.name}', '${product.description || ''}', '${product.image}', ${product.price}, ${product.originalPrice}, ${product.rating}, ${product.reviews});">
+                                <i class="fas fa-info-circle"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Enhanced product interaction functions
+
+        function viewProductDetails(id, name, description, image, price, originalPrice, rating, reviews) {
+            // Check if product page exists, otherwise show modal
+            const productPageUrl = `product${id}.html`;
+
+            // Try to navigate to product page first
+            fetch(productPageUrl, { method: 'HEAD' })
+                .then(response => {
+                    if (response.ok) {
+                        // Product page exists, navigate to it
+                        window.location.href = productPageUrl;
+                    } else {
+                        // Product page doesn't exist, show modal
+                        showProductModal(id, name, description, image, price, originalPrice, rating, reviews);
+                    }
+                })
+                .catch(() => {
+                    // Error checking, show modal as fallback
+                    showProductModal(id, name, description, image, price, originalPrice, rating, reviews);
+                });
+        }
+
+        function showProductModal(id, name, description, image, price, originalPrice, rating, reviews) {
+            // Create modal HTML
+            const modalHTML = `
+                <div class="product-modal-overlay" id="productModalOverlay">
+                    <div class="product-modal">
+                        <div class="product-modal-header">
+                            <h3>تفاصيل المنتج</h3>
+                            <button class="modal-close-btn" onclick="closeProductModal()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="product-modal-content">
+                            <div class="modal-product-image">
+                                <img src="${image}" alt="${name}" />
+                            </div>
+                            <div class="modal-product-info">
+                                <h4>${name}</h4>
+                                <div class="modal-product-price">
+                                    <span class="modal-original-price">${originalPrice} ريال</span>
+                                    <span class="modal-discounted-price">${price} ريال</span>
+                                </div>
+                                <div class="modal-product-rating">
+                                    <span><i class="fas fa-star" style="color: #d4af37;"></i> ${rating} (${reviews} تقييم)</span>
+                                </div>
+                                <div class="modal-product-description">
+                                    <p>${description || 'منتج عالي الجودة من مجموعة العناية بالسيارات المتميزة.'}</p>
+                                </div>
+                                <div class="modal-product-actions">
+                                    <button class="modal-add-to-cart-btn" onclick="addToCartFromModal('${id}', '${name}', ${price}, '${image}')">
+                                        <i class="fas fa-cart-plus"></i> أضف للسلة
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Add modal to page
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+            // Show modal with animation
+            setTimeout(() => {
+                document.getElementById('productModalOverlay').classList.add('show');
+            }, 10);
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('productModalOverlay');
+            if (modal) {
+                modal.classList.remove('show');
+                setTimeout(() => {
+                    modal.remove();
+                }, 300);
+            }
+        }
+
+        function addToCartFromModal(id, name, price, image) {
+            const productData = {
+                id: id,
+                name: name,
+                price: parseFloat(price),
+                image: image,
+                quantity: 1
+            };
+
+            if (typeof bandarCart !== 'undefined' && bandarCart.addToCart) {
+                bandarCart.addToCart(productData);
+                closeProductModal();
+
+                // Show success message
+                showSuccessMessage(`تم إضافة ${name} إلى السلة بنجاح!`);
+            } else {
+                alert(`تم إضافة ${name} إلى السلة!`);
+                closeProductModal();
+            }
+        }
+
+        // Enhanced addToCart function for related products
+        function addToCart(button, event) {
+            // Prevent event bubbling to card click
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+
+            const productCard = button.closest('.product-card');
+            if (!productCard) return;
+
+            const productData = {
+                id: productCard.dataset.id || Date.now().toString(),
+                name: productCard.dataset.name || productCard.querySelector('.product-name')?.textContent || 'منتج',
+                price: parseFloat(productCard.dataset.price || productCard.querySelector('.discounted-price')?.textContent?.replace(/[^\d.]/g, '') || '0'),
+                image: productCard.dataset.image || 'https://via.placeholder.com/300',
+                quantity: 1
+            };
+
+            if (typeof bandarCart !== 'undefined' && bandarCart.addToCart) {
+                bandarCart.addToCart(productData);
+
+                // Visual feedback
+                const originalHTML = button.innerHTML;
+                const originalStyle = button.style.background;
+
+                button.innerHTML = '<i class="fas fa-check"></i> تم الإضافة';
+                button.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.style.background = originalStyle;
+                }, 2000);
+
+                // Show success message
+                showSuccessMessage(`تم إضافة ${productData.name} إلى السلة بنجاح!`);
+            } else {
+                // Fallback for when cart system is not available
+                alert(`تم إضافة ${productData.name} إلى السلة!`);
+            }
+        }
+
+        function showSuccessMessage(message) {
+            const successHTML = `
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+
+            document.body.insertAdjacentHTML('beforeend', successHTML);
+
+            setTimeout(() => {
+                const successEl = document.getElementById('successMessage');
+                if (successEl) {
+                    successEl.classList.add('show');
+                }
+            }, 10);
+
+            setTimeout(() => {
+                const successEl = document.getElementById('successMessage');
+                if (successEl) {
+                    successEl.classList.remove('show');
+                    setTimeout(() => successEl.remove(), 300);
+                }
+            }, 3000);
+        }
+
+        // addToCart function for related cards - now using unified cart system
+        // This function is now defined globally in cart.js
+
+        window.addEventListener('DOMContentLoaded', renderRelatedProducts);
+    </script>
+    <script>
+        // Additional cart event handlers - these are now handled by the unified cart system
+        // The floating cart and modal interactions are managed by cart.js
+    </script>
+</body>
+</html>
