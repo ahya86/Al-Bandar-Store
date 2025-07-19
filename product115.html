@@ -1,0 +1,2489 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر البندر </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        :root {
+            --primary: #4ecdc4;
+            --secondary: #ff6b6b;
+            --dark: #212529;
+            --light: #f7f9fc;
+            --darker-bg: #e9ecef;
+            --medium: #dee2e6;
+            --light-text: #495057;
+            --gray: #6c757d;
+            --success: #51cf66;
+            --discount: #e74c3c;
+            --cart-bg: #f8f9fa;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            direction: rtl;
+            margin: 0;
+            padding: 70px 0 0 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        html, body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+        }
+        /* Header Styles */
+        header {
+    background: white;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 25px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 18px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .header-icons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        /* Cart icon styles */
+        /* removed floating cart styles */
+        #floatingCart{
+            position:fixed;
+            top:10px;
+            left:15px;
+            z-index:1200;
+            cursor:pointer;
+        }
+        #floatingCart i{font-size:20px;color:var(--dark);position:relative;}
+        #floatingCart .cart-count{position:absolute;top:-8px;left:-8px;background:var(--primary);color:#fff;font-size:12px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+        /* remove old cart icon rule */
+        .header-icons i {
+            font-size: 20px;
+            color: var(--dark);
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            background: var(--primary);
+            color: white;
+            font-size: 12px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Cart Modal */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: -420px;
+            width: 420px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid rgba(0, 0, 0, 0.1);
+            visibility: hidden;
+            overflow: hidden;
+        }
+        
+        .cart-modal.active {
+            right: 0;
+            visibility: visible; /* Make visible when active */
+        }
+        
+        .cart-header {
+            padding: 25px 20px;
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+        }
+        
+        .close-cart {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            min-width: 44px;
+            min-height: 44px;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .close-cart:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .cart-header h3 {
+            color: white;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 20px;
+            background: #fafafa;
+            min-height: 0;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .cart-item-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .cart-item-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .cart-item-qty {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .cart-qty-btn {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: 1px solid var(--gray);
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .cart-qty-input {
+            width: 30px;
+            text-align: center;
+        }
+        
+        .remove-item {
+            color: #ff4d4d;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .cart-footer {
+            padding: 25px 20px;
+            border-top: 1px solid var(--gray);
+            background: white;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
+            position: relative;
+            z-index: 10;
+            min-height: auto;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+            min-height: 50px;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(78, 205, 196, 0.4);
+            background: linear-gradient(135deg, #44A08D, #4ECDC4);
+        }
+        
+        /* Product Section */
+        .product-section {
+            padding: 40px 0;
+        }
+        
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .product-gallery {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .main-image {
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            touch-action: pan-y;
+        }
+        
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .thumbnails {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .thumbnail.active {
+            border-color: var(--primary);
+        }
+        
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-details {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .product-title {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .product-price {
+            font-size: 24px;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .product-description {
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .qty-btn {
+            width: 40px;
+            height: 40px;
+            background: var(--gray);
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .qty-input {
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            border: 1px solid var(--gray);
+            border-radius: 5px;
+            margin: 0 10px;
+            font-size: 18px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Reviews Section */
+        .reviews-section {
+            padding: 50px 0;
+            background: white;
+            margin: 40px 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 40px;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .reviews-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .review-card {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .review-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            font-size: 20px;
+            color: #777;
+        }
+        
+        .review-name {
+            font-weight: 600;
+        }
+        
+        .review-rating {
+            color: #ffc107;
+            margin: 10px 0;
+        }
+        
+        .review-content {
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        /* Luxurious Related Products Section */
+        .related-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #f8f9fa 100%);
+            margin-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .related-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+        }
+
+        .related-section .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 60px;
+            position: relative;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: -0.5px;
+        }
+
+        .related-section .section-title::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, #d4af37, #f4e4bc);
+            border-radius: 2px;
+        }
+
+        .related-section .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(135deg, #d4af37, #f4e4bc, #d4af37);
+            border-radius: 2px;
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 0 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Ensure grid works on all screen sizes */
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+                padding: 0 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 0 10px;
+            }
+        }
+
+        /* Luxurious Product Modal Styles */
+        .product-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .product-modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .product-modal {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 25px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                0 8px 32px rgba(212, 175, 55, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            transform: scale(0.8) translateY(50px);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .product-modal-overlay.show .product-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .product-modal-header {
+            padding: 25px 30px;
+            background: linear-gradient(135deg, #d4af37, #f4e4bc);
+            border-radius: 25px 25px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .product-modal-header h3 {
+            margin: 0;
+            color: #1a1a1a;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        .modal-close-btn {
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: #1a1a1a;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .modal-close-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(1.1);
+        }
+
+        .product-modal-content {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .modal-product-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-product-image img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-product-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .modal-product-info h4 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 0 0 15px 0;
+            line-height: 1.3;
+        }
+
+        .modal-product-price {
+            margin: 15px 0;
+        }
+
+        .modal-original-price {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 1rem;
+            margin-left: 10px;
+        }
+
+        .modal-discounted-price {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .modal-product-rating {
+            margin: 15px 0;
+            font-size: 1rem;
+            color: #6c757d;
+        }
+
+        .modal-product-description {
+            margin: 20px 0;
+            line-height: 1.6;
+            color: #4a4a4a;
+        }
+
+        .modal-add-to-cart-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #d4af37, #f4e4bc, #d4af37);
+            color: #1a1a1a;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow:
+                0 6px 24px rgba(212, 175, 55, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            margin-top: 20px;
+        }
+
+        .modal-add-to-cart-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow:
+                0 10px 40px rgba(212, 175, 55, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        /* Success Message Styles */
+        .success-message {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 25px;
+            box-shadow:
+                0 8px 32px rgba(40, 167, 69, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            transform: translateX(400px);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .success-message.show {
+            transform: translateX(0);
+        }
+
+        .success-message i {
+            font-size: 1.2rem;
+        }
+
+        /* Mobile Modal Responsive */
+        @media (max-width: 768px) {
+            .product-modal {
+                width: 95%;
+                margin: 20px;
+            }
+
+            .product-modal-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .modal-product-image img {
+                height: 200px;
+            }
+
+            .success-message {
+                right: 15px;
+                left: 15px;
+                transform: translateY(-100px);
+            }
+
+            .success-message.show {
+                transform: translateY(0);
+            }
+        }
+        
+        .product-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 20px;
+            overflow: hidden;
+            text-decoration: none;
+            color: var(--dark-text);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.08),
+                0 4px 16px rgba(0, 0, 0, 0.04),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.15),
+                0 8px 32px rgba(212, 175, 55, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
+            border-color: rgba(212, 175, 55, 0.3);
+            cursor: pointer;
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Add subtle click indication */
+        .product-card:active {
+            transform: translateY(-12px) scale(1.01);
+            transition: all 0.1s ease;
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #d4af37, #f4e4bc, #d4af37);
+            color: #1a1a1a;
+            padding: 10px 16px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            z-index: 3;
+            box-shadow:
+                0 4px 16px rgba(212, 175, 55, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(10px);
+            animation: luxuryPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes luxuryPulse {
+            0%, 100% {
+                box-shadow:
+                    0 4px 16px rgba(212, 175, 55, 0.4),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            }
+            50% {
+                box-shadow:
+                    0 6px 24px rgba(212, 175, 55, 0.6),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            }
+        }
+
+        .product-image {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            background-color: #f8f9fa;
+        }
+
+        .product-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(255, 255, 255, 0.8), transparent);
+        }
+
+
+        
+        .product-details {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        .product-price {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 10px 0 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .original-price {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 0.9rem;
+            font-weight: normal;
+        }
+
+        .discounted-price {
+            color: #4ECDC4;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0 20px;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .product-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .product-meta i {
+            color: #ffc107;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .add-to-cart-btn {
+            flex: 1;
+            background: linear-gradient(135deg, #d4af37, #f4e4bc, #d4af37);
+            color: #1a1a1a;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow:
+                0 4px 16px rgba(212, 175, 55, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .add-to-cart-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .add-to-cart-btn:hover::before {
+            left: 100%;
+        }
+
+        .add-to-cart-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow:
+                0 8px 32px rgba(212, 175, 55, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            background: linear-gradient(135deg, #f4e4bc, #d4af37, #f4e4bc);
+        }
+
+        .view-details-btn {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            color: #d4af37;
+            border: 2px solid #d4af37;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 48px;
+            min-height: 48px;
+            font-size: 1.1rem;
+            box-shadow:
+                0 4px 16px rgba(212, 175, 55, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .view-details-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: linear-gradient(135deg, #d4af37, #f4e4bc);
+            border-radius: 50%;
+            transition: all 0.4s ease;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .view-details-btn:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .view-details-btn:hover {
+            color: #1a1a1a;
+            border-color: #f4e4bc;
+            transform: scale(1.15) rotate(360deg);
+            box-shadow:
+                0 8px 32px rgba(212, 175, 55, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
+        }
+        .original-price {
+            color: var(--gray);
+            text-decoration: line-through;
+            font-size: 1rem;
+        }
+        .discounted-price {
+            color: var(--secondary);
+        }
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 10px;
+            margin-bottom: 15px;
+        }
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .add-to-cart-btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex: 1;
+            font-size: 0.95rem;
+        }
+        .add-to-cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        /* Eye / details button */
+        .view-details-btn {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 12px 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+        .view-details-btn:hover {
+            background: var(--primary);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        /* Discount badge */
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+        .badge-discount{
+            background: var(--discount);
+            top:15px;
+            right:15px;
+            left:auto;
+            display:flex;
+            align-items:center;
+            gap:5px;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        /* Responsive Design */
+        /* تحسينات للشاشات الكبيرة */
+        @media (min-width: 1200px) {
+            .cart-modal {
+                width: 450px;
+                right: -470px;
+            }
+
+            .cart-header {
+                padding: 30px 25px;
+            }
+
+            .cart-header h3 {
+                font-size: 1.5rem;
+            }
+
+            .close-cart {
+                width: 46px;
+                height: 46px;
+                min-width: 46px;
+                min-height: 46px;
+                font-size: 1.4rem;
+            }
+
+            .cart-items {
+                padding: 25px;
+            }
+
+            .cart-footer {
+                padding: 30px 25px;
+            }
+
+            .checkout-btn {
+                padding: 20px;
+                font-size: 1.2rem;
+                min-height: 56px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                margin-top: 15px;
+            }
+            
+            .main-image {
+                height: 300px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .cart-modal {
+                width: 100%;
+                right: -100%;
+                left: auto;
+                border-left: none;
+                border-radius: 0;
+            }
+
+            .cart-modal.active {
+                right: 0;
+                left: 0;
+                visibility: visible;
+            }
+
+            .cart-header {
+                padding: 20px 15px;
+                border-radius: 0;
+            }
+
+            .cart-header h3 {
+                font-size: 1.2rem;
+            }
+
+            .close-cart {
+                width: 42px;
+                height: 42px;
+                min-width: 42px;
+                min-height: 42px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .thumbnails {
+                flex-wrap: wrap;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .nav-links li {
+                margin-left: 15px;
+            }
+
+            .cart-modal {
+                width: 100%;
+            }
+
+            .cart-header {
+                padding: 18px 12px;
+            }
+
+            .cart-header h3 {
+                font-size: 1.1rem;
+            }
+
+            .close-cart {
+                width: 40px;
+                height: 40px;
+                min-width: 40px;
+                min-height: 40px;
+                font-size: 1.1rem;
+            }
+
+            .cart-items {
+                padding: 15px;
+            }
+
+            .cart-footer {
+                padding: 18px 12px;
+                position: sticky;
+                bottom: 0;
+                background: white;
+                border-top: 2px solid #e9ecef;
+                box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            .checkout-btn {
+                padding: 16px;
+                font-size: 1rem;
+                min-height: 52px;
+            }
+
+        }
+
+        @media (max-width: 360px) {
+            .cart-header {
+                padding: 15px 10px;
+            }
+
+            .cart-header h3 {
+                font-size: 1rem;
+            }
+
+            .close-cart {
+                width: 38px;
+                height: 38px;
+                min-width: 38px;
+                min-height: 38px;
+                font-size: 1rem;
+            }
+
+            .cart-items {
+                padding: 12px;
+            }
+
+            .cart-footer {
+                padding: 15px 10px;
+                position: sticky;
+                bottom: 0;
+                background: white;
+                border-top: 2px solid #e9ecef;
+                box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+            }
+
+            .checkout-btn {
+                padding: 14px;
+                font-size: 0.9rem;
+                min-height: 48px;
+            }
+
+            .nav-links a {
+                font-size: 16px;
+            }
+
+            .header-icons {
+                gap: 15px;
+            }
+        }
+        
+        /* Overlay for cart modal */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+
+        .reviews-section {
+            display: none;
+        }
+        /* Hide old bullet list */
+        .product-features{display:none;}
+        body{margin:0;padding-top:90px;}
+        /* Why choose section */
+        .why-section{
+            background:#fff;
+            padding:60px 30px;
+            margin:50px 0;
+            border-radius:20px;
+            box-shadow:0 10px 20px rgba(0,0,0,0.05);
+        }
+        .why-title{
+            text-align:center;
+            font-size:2.5rem;
+            margin-bottom:40px;
+            background:linear-gradient(to right,var(--primary),var(--secondary));
+            -webkit-background-clip:text;
+            background-clip:text;
+            color:transparent;
+        }
+        .why-container{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+            gap:30px;
+        }
+        .why-card{
+            background:var(--light);
+            padding:40px 20px;
+            border-radius:15px;
+            text-align:center;
+            box-shadow:0 5px 15px rgba(0,0,0,0.05);
+            transition:all 0.3s;
+        }
+        .why-card:hover{transform:translateY(-8px);}
+        .why-icon{
+            font-size:40px;
+            color:var(--primary);
+            margin-bottom:15px;
+        }
+        .why-card h3{
+            font-size:1.2rem;
+            margin-bottom:10px;
+            color:var(--dark);
+        }
+        .why-card p{
+            color:var(--light-text);
+            font-size:0.95rem;
+            line-height:1.6;
+        }
+        body { margin: 0; padding-top: 0; }
+
+    </style>
+</head>
+<body>
+    
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/96894824226" class="whatsapp-button" target="_blank" style="position: fixed; bottom: 30px; left: 30px; z-index: 1000; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: all 0.3s ease;">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <!-- 100% Omani Store Badge -->
+    <div class="omni-badge" style="position: fixed; bottom: 30px; right: 30px; z-index: 1000; background: #fff; padding: 8px 15px; border-radius: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: flex; align-items: center; font-weight: bold; font-size: 14px; color: #d42026;">
+        <span style="margin-left: 8px;">100%</span>
+        <span>متجر عماني</span>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/125px-Flag_of_Oman.svg.png" alt="علم عمان" style="width: 20px; margin-right: 8px; margin-left: 5px;">
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <div class="logo-image">
+                        <img src="11zon_cropped.png" alt="شعار متجر البندر" style="height: 40px; width: 40px; object-fit: contain;">
+                    </div>
+                    <div class="logo">متجر البندر</div>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="https://wa.me/96894824226" target="_blank">الدعم</a></li>
+                </ul>
+                <div class="header-icons">
+                    <i class="fas fa-shopping-cart" id="cartIcon">
+                        <span class="cart-count">0</span>
+                    </i>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h3>سلة التسوق</h3>
+            <button class="close-cart" id="closeCart">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be added here dynamically -->
+        </div>
+        <div class="cart-footer" id="cartFooter">
+            <div class="cart-summary">
+                <div class="cart-subtotal">
+                    <span>المجموع:</span>
+                    <span id="cartSubtotal">0 ر.ع</span>
+                </div>
+                <div class="cart-delivery">
+                    <span id="cartDeliveryLabel">التوصيل:</span>
+                    <span id="cartDeliveryAmount">2.00 ر.ع</span>
+                </div>
+                <div class="cart-total">
+                    <span>الإجمالي:</span>
+                    <span id="cartTotal">0 ر.ع</span>
+                </div>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">إتمام الشراء</button>
+        </div>
+    </div>
+    
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Product Section -->
+    <section class="product-section">
+        <div class="container">
+            <div class="product-container">
+                <div class="product-gallery">
+                    <div class="main-image" id="mainImageContainer">
+                        <img id="mainImage" src="https://www.megadealsom.com/uploads/cashes/24-05-16-02-30-1-540x540.jpg" alt="مكنسة كهربائية محمولة 3 في 1 لاسلكية">
+                    </div>
+                    <div class="thumbnails">
+                        <div class="thumbnail active" onclick="changeImage('https://www.megadealsom.com/uploads/cashes/24-05-16-02-30-1-540x540.jpg')">
+                            <img src="https://www.megadealsom.com/uploads/cashes/24-05-16-02-30-1-540x540.jpg" alt="مكنسة كهربائية محمولة 3 في 1 لاسلكية">
+                        </div>
+                        <div class="thumbnail" onclick="changeImage('https://www.megadealsom.com/uploads/cashes/24-05-16-02-30-2-540x540.jpg')">
+                            <img src="https://www.megadealsom.com/uploads/cashes/24-05-16-02-30-2-540x540.jpg" alt="مكنسة كهربائية محمولة 3 في 1 لاسلكية">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-details">
+                    <h1 class="product-title">مكنسة كهربائية محمولة 3 في 1 لاسلكية</h1>
+                    <div class="product-price">
+                        <span class="original-price" style="text-decoration: line-through; color: #999; margin-left: 10px;">10 ر.ع</span>
+                        <span class="discounted-price" style="color: var(--primary); font-weight: bold;">8 ر.ع</span>
+                        <span class="discount-badge" style="background: var(--discount); color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; margin-right: 10px;">خصم 20%</span>
+                    </div>
+                    <p class="product-description">
+                        مكنسة كهربائية محمولة 3 في 1 لاسلكية - جهاز تنظيف متطور ومبتكر للمنزل والسيارة. تتميز بالتصميم اللاسلكي المحمول والوظائف المتعددة 3 في 1 لتنظيف شامل وفعال في جميع الأماكن.
+
+المميزات الرئيسية:
+- تصميم لاسلكي محمول للحرية الكاملة في التنظيف
+- وظائف متعددة 3 في 1: مكنسة عادية، منفاخ، ومكنسة يدوية
+- قوة شفط عالية لإزالة الأتربة والحطام بفعالية
+- بطارية قابلة لإعادة الشحن تدوم لفترة طويلة
+- مناسبة للمنزل والسيارة والمكتب والأماكن الضيقة
+- فلاتر قابلة للغسل وإعادة الاستخدام
+- تصميم خفيف الوزن وسهل الاستخدام
+- ملحقات متنوعة للوصول لجميع الزوايا والأسطح
+
+حل مثالي للتنظيف السريع والفعال في المنزل والسيارة.
+
+                    </div>
+                    
+                    <div class="product-features">
+                        <p><i class="fas fa-check-circle" style="color: var(--success);"></i> ضمان 14 يوم لاسترجاع المنتج</p>
+                        <p><i class="fas fa-check-circle" style="color: var(--success);"></i> توصيل سريع لجميع أنحاء السلطنة خلال 3-6 أيام عمل مع تتبع الشحنة</p>
+                    </div>
+                    
+                    <div class="action-buttons" style="margin-top:15px;">
+                        <button class="btn btn-primary" id="addToCartBtn">
+                            <i class="fas fa-shopping-cart"></i> إضافة إلى السلة
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Section -->
+    <section class="why-section">
+        <div class="container">
+            <h2 class="why-title">لماذا تختار <span>متجر البندر؟</span></h2>
+            <div class="why-container">
+                <div class="why-card">
+                    <i class="fas fa-truck-fast why-icon"></i>
+                    <h3>شحن سريع</h3>
+                    <p>توصيل سريع لجميع أنحاء السلطنة خلال 3-6 أيام عمل مع تتبع الشحنة</p>
+                </div>
+                <div class="why-card">
+                    <i class="fas fa-shield-halved why-icon"></i>
+                    <h3>ضمان للمنتجات</h3>
+                    <p>جميع منتجاتنا تأتي بضمان للمنتجات المكسورة أو التالفة مع استرداد المبلغ</p>
+                </div>
+                <div class="why-card">
+                    <i class="fas fa-rotate-left why-icon"></i>
+                    <h3>إرجاع سهل</h3>
+                    <p>إمكانية إرجاع المنتج خلال 14 يوماً من الاستلام مع استرجاع كامل المبلغ</p>
+                </div>
+                <div class="why-card">
+                    <i class="fas fa-headset why-icon"></i>
+                    <h3>دعم فني متكامل</h3>
+                    <p>فريق دعم فني متاح على مدار الساعة لمساعدتك في أي استفسار</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Related Products -->
+    <section class="related-section">
+        <div class="container">
+            <h2 class="section-title">منتجات ذات صلة</h2>
+            <div class="products-grid related-grid">
+                <!-- المنتجات ذات الصلة سيتم تحميلها ديناميكياً -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>متجر البندر</h3>
+                    <p> متجر البندر وجهتك الأولى للحصول على أحدث المنتجات بأفضل الأسعار وجودة لا تضاهى. نسعى دائمًا لتقديم تجربة تسوق استثنائية لعملائنا الكرام.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>
+          <li><a href="index.html#products"><i class="fas fa-chevron-left"></i> المنتجات</a></li>
+          <li><a href="index.html#products"><i class="fas fa-chevron-left"></i> العروض</a></li>
+          <li><a href="https://wa.me/96891800885" target="_blank"><i class="fas fa-chevron-left" ></i> اتصل بنا</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>فئات المنتجات</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html" > مستحضرات التجميل</a></li>
+                        <li><a href="index.html"> الكترونيات</a></li>
+                        <li><a href="index.html">الساعات</a></li>
+                        <li><a href="index.html">المطبخ</a></li>
+                        <li><a href="index.html"> للعناية بالسيارات</a></li>
+                        <li><a href="index.html">المنزل</a></li>
+                        <li><a href="index.html">اخرى</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3> تواصل معنا</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> سلطنة عمان </p>
+        <p><i class="fas fa-phone"></i> 96894824226+</p>
+        <p><i class="fas fa-envelope"></i> albandarstore799@gmail.com </p>
+        <p><i class="fas fa-clock"></i> الأحد - السبت : 9 صباحًا - 10 مساءً</p>
+                    
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2025 متجر البندر. جميع الحقوق محفوظة.
+            </div>
+            <div class="copyright">
+تم التطوير بواسطة فريق متجر البندر            </div>
+        </div>
+    </footer>
+
+    <!-- Include unified cart system -->
+    <script src="cart.js"></script>
+    <script>
+        // Cart functionality - now using unified cart system
+        // Cart elements and event listeners - now handled by unified cart system
+        const addToCartBtn = document.getElementById('addToCartBtn');
+        
+        // Add to cart function - now using unified cart system
+        addToCartBtn.addEventListener('click', () => {
+            const product = {
+                id: 115,
+                name: 'مكنسة كهربائية محمولة 3 في 1 لاسلكية',
+                price: 8,
+                quantity: 1,
+                image: 'https://www.megadealsom.com/uploads/cashes/24-05-16-02-30-1-540x540.jpg'
+            };
+
+            bandarCart.addToCart(product);
+
+            // Show feedback
+            addToCartBtn.innerHTML = '<i class="fas fa-check"></i> تمت الإضافة';
+            addToCartBtn.style.backgroundColor = '#51cf66';
+
+            setTimeout(() => {
+                addToCartBtn.innerHTML = '<i class="fas fa-shopping-cart"></i> إضافة إلى السلة';
+                addToCartBtn.style.backgroundColor = '';
+                bandarCart.toggleCart();
+            }, 1000);
+        });
+        
+        // Cart management functions - now handled by unified cart system
+        // These functions are now defined in cart.js
+        
+        // Change main product image
+        function changeImage(src) {
+            document.getElementById('mainImage').src = src;
+            
+            // Update active thumbnail
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            thumbnails.forEach(thumb => thumb.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+        
+        // Update quantity
+        function updateQuantity(change) {
+            const input = document.getElementById('quantity');
+            let value = parseInt(input.value) + change;
+            
+            if (value < 1) value = 1;
+            if (value > 10) value = 10;
+            
+            input.value = value;
+        }
+        
+        // Add swipe functionality for mobile
+        const mainImageContainer = document.getElementById('mainImageContainer');
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+        
+        mainImageContainer.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+        });
+        
+        mainImageContainer.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            currentX = e.touches[0].clientX;
+        });
+        
+        mainImageContainer.addEventListener('touchend', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            const diff = startX - currentX;
+            const threshold = 50;
+            
+            if (diff > threshold) {
+                // Swipe right
+                navigateGallery(1);
+            } else if (diff < -threshold) {
+                // Swipe left
+                navigateGallery(-1);
+            }
+        });
+        
+        // Gallery navigation
+        const images = [
+            'https://www.megadealsom.com/uploads/cashes/25-01-07-01-09-1-540x540.jpg',
+            'https://www.megadealsom.com/uploads/cashes/25-01-07-01-09-2-540x540.jpg',
+            'https://www.megadealsom.com/uploads/cashes/25-01-07-01-09-3-540x540.jpg'
+        ];
+        
+        let currentImageIndex = 0;
+        
+        function navigateGallery(direction) {
+            currentImageIndex += direction;
+            
+            if (currentImageIndex < 0) {
+                currentImageIndex = images.length - 1;
+            } else if (currentImageIndex >= images.length) {
+                currentImageIndex = 0;
+            }
+            
+            document.getElementById('mainImage').src = images[currentImageIndex];
+            
+            // Update active thumbnail
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            thumbnails.forEach((thumb, index) => {
+                if (index === currentImageIndex) {
+                    thumb.classList.add('active');
+                } else {
+                    thumb.classList.remove('active');
+                }
+            });
+        }
+        
+        // Cart is now automatically initialized by cart.js
+
+        // ----------------- Related Products -----------------
+        function getRelatedProductsData() {
+            // جميع منتجات المنزل من الفهرس الرئيسي مع تخفيض 2 ريال
+            return [
+                {
+                    id: 9,
+                    name: 'مسدس رش طلاء كهربائي ٤٨ فولت',
+                    price: 13.9,  // تخفيض 2 ريال من 15.9
+                    originalPrice: 21.06,  // إعادة حساب للحفاظ على نسبة الخصم 34%
+                    discount: 34,
+                    rating: 4.6,
+                    reviews: 98,
+                    category: 'Home',
+                    image: 'https://www.megadealsom.com/uploads/cashes/25-04-26-03-47-1-360x360.jpg',
+                    description: 'مسدس رش طلاء كهربائي عالي الجودة بقوة 48 فولت، مثالي لأعمال الطلاء والتشطيب الاحترافية'
+                },
+                {
+                    id: 10,
+                    name: 'حبوب غسيل الملابس 12 قطعة',
+                    price: 4.9,  // تخفيض 2 ريال من 6.9
+                    originalPrice: 5.83,  // إعادة حساب للحفاظ على نسبة الخصم 16%
+                    discount: 16,
+                    rating: 4.8,
+                    reviews: 116,
+                    category: 'Home',
+                    image: 'https://om.jetronics.ae/uploads/product_img/01_02_2022_14_35_06_1294833_id_61f90cda802c7.jpeg',
+                    description: 'حبوب غسيل الملابس عالية الجودة، 12 قطعة لتنظيف فعال ونتائج مثالية'
+                },
+                {
+                    id: 14,
+                    name: 'فرشاة تنظيف قابلة لإعادة الشحن 9 في 1',
+                    price: 8.9,  // تخفيض 2 ريال من 10.9
+                    originalPrice: 13.69,  // إعادة حساب للحفاظ على نسبة الخصم 35%
+                    discount: 35,
+                    rating: 4.3,
+                    reviews: 107,
+                    category: 'Home',
+                    image: 'https://om.jetronics.ae/uploads/product_img/28_05_2025_00_31_07_4587023_id_6836210b4babd.jpeg',
+                    description: 'فرشاة تنظيف قابلة لإعادة الشحن 9 في 1 متعددة الاستخدامات للتنظيف الشامل'
+                },
+                {
+                    id: 18,
+                    name: 'مصابيح LED كبيرة تعمل بالطاقة الشمسية',
+                    price: 7.8,  // تخفيض 2 ريال من 9.8
+                    originalPrice: 10.68,  // إعادة حساب للحفاظ على نسبة الخصم 27%
+                    discount: 27,
+                    rating: 4.9,
+                    reviews: 178,
+                    category: 'Home',
+                    image: 'https://om.jetronics.ae/uploads/product_img/24_04_2021_13_42_37_6446744_id_6083d2f50c003.jpeg',
+                    description: 'مصابيح LED كبيرة تعمل بالطاقة الشمسية لإضاءة خارجية صديقة للبيئة'
+                },
+                {
+                    id: 19,
+                    name: 'كاميرا على شكل مصباح 5G واي فاي بدقة 1080 بكسل، صوت ثنائي الاتجاه، ليلي',
+                    price: 10,  // تخفيض 2 ريال من 12
+                    originalPrice: 15.38,  // إعادة حساب للحفاظ على نسبة الخصم 35%
+                    discount: 35,
+                    rating: 5,
+                    reviews: 476,
+                    category: 'Home',
+                    image: 'https://www.megadealsom.com/uploads/cashes/23-12-10-07-30-1-540x540.jpg',
+                    description: 'كاميرا مراقبة مبتكرة على شكل مصباح مع واي فاي 5G وصوت ثنائي الاتجاه'
+                },
+                {
+                    id: 30,
+                    name: 'جهاز رش الطلاء الكهربائي زووم',
+                    price: 11,  // تخفيض 2 ريال من 13
+                    originalPrice: 42.31,  // إعادة حساب للحفاظ على نسبة الخصم 74%
+                    discount: 74,
+                    rating: 5,
+                    reviews: 652,
+                    category: 'Home',
+                    image: 'https://om.jetronics.ae/uploads/product_img/16_05_2021_15_51_47_4551440_id_60a10753c88f2.jpeg',
+                    description: 'جهاز رش الطلاء الكهربائي زووم عالي الكفاءة لأعمال الطلاء الاحترافية'
+                },
+                {
+                    id: 33,
+                    name: 'ممسحة رذاذ من الألياف الدقيقة مع زجاجة قابلة لإعادة التعبئة للأرضيات والجدران',
+                    price: 8,  // تخفيض 2 ريال من 10
+                    originalPrice: 11.94,  // إعادة حساب للحفاظ على نسبة الخصم 33%
+                    discount: 33,
+                    rating: 5,
+                    reviews: 325,
+                    category: 'Home',
+                    image: 'https://www.megadealsom.com/uploads/cashes/25-05-16-02-45-1-540x540.jpg',
+                    description: 'ممسحة رذاذ من الألياف الدقيقة مع زجاجة قابلة لإعادة التعبئة للأرضيات والجدران'
+                },
+                {
+                    id: 34,
+                    name: 'مصباح LED يعمل بالطاقة الشمسية مع خاصية كشف الحركة لهاتف HTC 20',
+                    price: 6.6,  // تخفيض 2 ريال من 8.6
+                    originalPrice: 11.79,  // إعادة حساب للحفاظ على نسبة الخصم 44%
+                    discount: 44,
+                    rating: 4.3,
+                    reviews: 107,
+                    category: 'Home',
+                    image: 'https://om.jetronics.ae/uploads/product_img/24_04_2021_13_26_39_9152190_id_6083cf37499b8.jpeg',
+                    description: 'مصباح LED يعمل بالطاقة الشمسية مع خاصية كشف الحركة لهاتف HTC 20'
+                },
+                {
+                    id: 45,
+                    name: 'ترقية مسدس رش عالي الضغط مع فوهة مياه معدنية نحاسية قابلة للتعديل',
+                    price: 6.5,  // تخفيض 2 ريال من 8.5
+                    originalPrice: 10.16,  // إعادة حساب للحفاظ على نسبة الخصم 36%
+                    discount: 36,
+                    rating: 4.8,
+                    reviews: 675,
+                    category: 'Home',
+                    image: 'https://www.megadealsom.com/uploads/cashes/23-11-25-07-53-1-540x540.jpg',
+                    description: 'ترقية مسدس رش عالي الضغط مع فوهة مياه معدنية نحاسية قابلة للتعديل'
+                },
+                {
+                    id: 46,
+                    name: 'مسدس مسامير خرسانية شديد التحمل',
+                    price: 7.5,  // تخفيض 2 ريال من 9.5
+                    originalPrice: 13.64,  // إعادة حساب للحفاظ على نسبة الخصم 45%
+                    discount: 45,
+                    rating: 4.9,
+                    reviews: 296,
+                    category: 'Home',
+                    image: 'https://om.jetronics.ae/uploads/product_img/19_05_2023_15_42_16_6169999_id_646760983c4af.jpeg',
+                    description: 'مسدس مسامير خرسانية شديد التحمل لأعمال البناء والتثبيت'
+                },
+                {
+                    id: 56,
+                    name: 'غسالة سايبر القابلة للطي',
+                    price: 7.3,  // تخفيض 2 ريال من 9.3
+                    originalPrice: 13.27,  // إعادة حساب للحفاظ على نسبة الخصم 45%
+                    discount: 45,
+                    rating: 4.9,
+                    reviews: 296,
+                    category: 'Home',
+                    image: 'https://om.jetronics.ae/uploads/product_img/17_05_2023_01_07_11_6700574_id_6463f07fd3a04.jpeg',
+                    description: 'غسالة سايبر القابلة للطي لتوفير المساحة والراحة في الاستخدام'
+                },
+                {
+                    id: 65,
+                    name: 'مكنسة كهربائية قابلة لإعادة الشحن من الجيل الرابع بمحرك بدون فرشاة 9000 باسكال',
+                    price: 7.3,  // تخفيض 2 ريال من 9.3
+                    originalPrice: 9.01,  // إعادة حساب للحفاظ على نسبة الخصم 19%
+                    discount: 19,
+                    rating: 4.9,
+                    reviews: 120,
+                    category: 'Home',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-01-24-03-15-1-540x540.jpg',
+                    description: 'مكنسة كهربائية قابلة لإعادة الشحن من الجيل الرابع بمحرك بدون فرشاة 9000 باسكال'
+                },
+                {
+                    id: 71,
+                    name: 'مصباح شارع LED يعمل بالطاقة الشمسية مع مستشعر حركة PIR ومصباح حائطي مقاوم للماء',
+                    price: 8.5,  // تخفيض 2 ريال من 10.5
+                    originalPrice: 9.34,  // إعادة حساب للحفاظ على نسبة الخصم 9%
+                    discount: 9,
+                    rating: 4.1,
+                    reviews: 120,
+                    category: 'Home',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-05-16-02-42-1-540x540.jpg',
+                    description: 'مصباح شارع LED يعمل بالطاقة الشمسية مع مستشعر حركة PIR ومصباح حائطي مقاوم للماء'
+                },
+                {
+                    id: 72,
+                    name: 'قضيب معدني مع 4 عجلات متحركة',
+                    price: 6,  // تخفيض 2 ريال من 8
+                    originalPrice: 11.32,  // إعادة حساب للحفاظ على نسبة الخصم 47%
+                    discount: 47,
+                    rating: 4.3,
+                    reviews: 190,
+                    category: 'Home',
+                    image: 'https://om.jetronics.ae/uploads/product_img/21_02_2022_23_03_55_7183983_id_6213e21b54252.jpeg',
+                    description: 'قضيب معدني مع 4 عجلات متحركة لسهولة النقل والحركة'
+                },
+                {
+                    id: 77,
+                    name: 'إصلاح تسربات المياه الفورية للخرسانة والبلاستيك والفولاذ وغيرها',
+                    price: 6.4,  // تخفيض 2 ريال من 8.4
+                    originalPrice: 8.53,  // إعادة حساب للحفاظ على نسبة الخصم 25%
+                    discount: 25,
+                    rating: 4.8,
+                    reviews: 65,
+                    category: 'Home',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-07-16-04-52-1-540x540.jpg',
+                    description: 'إصلاح تسربات المياه الفورية للخرسانة والبلاستيك والفولاذ وغيرها'
+                },
+                {
+                    id: 85,
+                    name: 'كشاف LED قوي متعدد الاستخدامات وقابل لإعادة الشحن مع بنك طاقة',
+                    price: 9,  // تخفيض 2 ريال من 11
+                    originalPrice: 11.54,  // إعادة حساب للحفاظ على نسبة الخصم 22%
+                    discount: 22,
+                    rating: 4.4,
+                    reviews: 98,
+                    category: 'Home',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-07-28-03-30-1-540x540.JPG',
+                    description: 'كشاف LED قوي متعدد الاستخدامات وقابل لإعادة الشحن مع بنك طاقة'
+                },
+                {
+                    id: 96,
+                    name: 'ملاءة سرير مزدوجة ناعمة ومريحة بحجم كينج',
+                    price: 9.4,  // تخفيض 2 ريال من 11.4
+                    originalPrice: 15.16,  // إعادة حساب للحفاظ على نسبة الخصم 38%
+                    discount: 38,
+                    rating: 4.6,
+                    reviews: 349,
+                    category: 'Home',
+                    image: 'https://om.jetronics.ae/uploads/product_img/27_02_2024_22_46_40_8588425_id_65de2e10036dc.jpeg',
+                    description: 'ملاءة سرير مزدوجة ناعمة ومريحة بحجم كينج لراحة مثالية'
+                },
+                {
+                    id: 97,
+                    name: 'ماكينة خياطة كهربائية صغيرة',
+                    price: 7.3,  // تخفيض 2 ريال من 9.3
+                    originalPrice: 9.73,  // إعادة حساب للحفاظ على نسبة الخصم 25%
+                    discount: 25,
+                    rating: 4.9,
+                    reviews: 1906,
+                    category: 'Home',
+                    image: 'https://www.megadealsom.com/uploads/cashes/25-02-04-02-17-1-540x540.jpg',
+                    description: 'ماكينة خياطة كهربائية صغيرة لأعمال الخياطة المنزلية'
+                },
+                {
+                    id: 105,
+                    name: 'كاميرا A9 صغيرة قابلة لإعادة الشحن بدقة 1080 بكسل وواي فاي',
+                    price: 6.5,  // تخفيض 2 ريال من 8.5
+                    originalPrice: 10.16,  // إعادة حساب للحفاظ على نسبة الخصم 36%
+                    discount: 36,
+                    rating: 4.8,
+                    reviews: 675,
+                    category: 'Home',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-01-28-05-00-1-540x540.jpg',
+                    description: 'كاميرا A9 صغيرة قابلة لإعادة الشحن بدقة 1080 بكسل وواي فاي'
+                },
+                {
+                    id: 111,
+                    name: 'لاصق شفاف متعدد الأغراض، مقاوم للماء، غراء شفاف قوي مع فرشاة',
+                    price: 7,  // تخفيض 2 ريال من 9
+                    originalPrice: 9.21,  // إعادة حساب للحفاظ على نسبة الخصم 24%
+                    discount: 24,
+                    rating: 4.8,
+                    reviews: 154,
+                    category: 'Home',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-05-11-09-59-1-540x540.png',
+                    description: 'لاصق شفاف متعدد الأغراض، مقاوم للماء، غراء شفاف قوي مع فرشاة'
+                },
+                {
+                    id: 113,
+                    name: 'جل للقضاء على الصراصير آمن وغير سام',
+                    price: 7.4,  // تخفيض 2 ريال من 9.4
+                    originalPrice: 9.87,  // إعادة حساب للحفاظ على نسبة الخصم 25%
+                    discount: 25,
+                    rating: 5,
+                    reviews: 178,
+                    category: 'Home',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-05-11-09-02-1-540x540.jpg',
+                    description: 'جل للقضاء على الصراصير آمن وغير سام لحماية المنزل'
+                },
+                {
+                    id: 115,
+                    name: 'مكنسة كهربائية محمولة 3 في 1 لاسلكية',
+                    price: 8,  // تخفيض 2 ريال من 10
+                    originalPrice: 12.5,  // إعادة حساب للحفاظ على نسبة الخصم 36%
+                    discount: 36,
+                    rating: 4.8,
+                    reviews: 675,
+                    category: 'Home',
+                    image: 'https://www.megadealsom.com/uploads/cashes/24-05-16-02-30-1-540x540.jpg',
+                    description: 'مكنسة كهربائية محمولة 3 في 1 لاسلكية لتنظيف شامل'
+                },
+                {
+                    id: 118,
+                    name: 'مثقاب كهربائي قابل لإعادة الشحن ببطارية مزدوجة',
+                    price: 13,  // تخفيض 2 ريال من 15
+                    originalPrice: 19.12,  // إعادة حساب للحفاظ على نسبة الخصم 32%
+                    discount: 32,
+                    rating: 4.6,
+                    reviews: 325,
+                    category: 'Home',
+                    image: 'https://om.jetronics.ae/uploads/product_img/02_09_2024_20_03_39_6910900_id_66d5e1dbb4f07.jpeg',
+                    description: 'مثقاب كهربائي قابل لإعادة الشحن ببطارية مزدوجة لأعمال البناء'
+                },
+                {
+                    id: 124,
+                    name: 'ناموسية بحجم سرير مزدوج كبير',
+                    price: 7.6,  // تخفيض 2 ريال من 9.6
+                    originalPrice: 12.67,  // إعادة حساب للحفاظ على نسبة الخصم 40%
+                    discount: 40,
+                    rating: 4.4,
+                    reviews: 19,
+                    category: 'Home',
+                    image: 'https://om.jetronics.ae/uploads/product_img/30_05_2024_11_32_38_5286641_id_66582b962e619.jpeg',
+                    description: 'ناموسية بحجم سرير مزدوج كبير لحماية من الحشرات'
+                },
+                {
+                    id: 134,
+                    name: 'مكبر صوت حائطي للقرآن الكريم',
+                    price: 10.3,  // تخفيض 2 ريال من 12.3
+                    originalPrice: 15.85,  // إعادة حساب للحفاظ على نسبة الخصم 35%
+                    discount: 35,
+                    rating: 4.3,
+                    reviews: 107,
+                    category: 'Home',
+                    image: 'https://om.jetronics.ae/uploads/product_img/18_06_2025_01_24_34_9659366_id_6851dd120a83b.jpeg',
+                    description: 'مكبر صوت حائطي للقرآن الكريم بجودة صوت عالية'
+                },
+                {
+                    id: 140,
+                    name: 'سرير هوائي قابل للنفخ مع مضخة هوائية مدمجة',
+                    price: 20,  // تخفيض 2 ريال من 22
+                    originalPrice: 37.74,  // إعادة حساب للحفاظ على نسبة الخصم 47%
+                    discount: 47,
+                    rating: 4.7,
+                    reviews: 321,
+                    category: 'Home',
+                    image: 'https://om.jetronics.ae/uploads/product_img/19_06_2025_23_25_13_3706648_id_68546419b7f49.jpeg',
+                    description: 'سرير هوائي قابل للنفخ مع مضخة هوائية مدمجة للراحة والاستخدام المؤقت'
+                }
+            ];
+        }
+
+        function renderRelatedProducts() {
+            const grid = document.querySelector('.related-section .related-grid');
+            if (!grid) return;
+
+            // Clear any static placeholder cards
+            grid.innerHTML = '';
+
+            // Get related products data (from localStorage or fallback)
+            const relatedProducts = getRelatedProductsData();
+
+            // If no products available, show a message
+            if (relatedProducts.length === 0) {
+                grid.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #6c757d; grid-column: 1 / -1;">
+                        <i class="fas fa-box-open" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.5;"></i>
+                        <p>لا توجد منتجات ذات صلة متاحة حالياً</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Render each product
+            relatedProducts.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.dataset.category = product.category;
+                card.dataset.id = product.id;
+                card.dataset.name = product.name;
+                card.dataset.price = product.price;
+                card.dataset.originalPrice = product.originalPrice;
+                card.dataset.image = product.image;
+
+                // Make the entire card clickable
+                card.style.cursor = 'pointer';
+                card.onclick = function(e) {
+                    // Prevent card click when clicking on buttons
+                    if (e.target.closest('.add-to-cart-btn') || e.target.closest('.view-details-btn')) {
+                        return;
+                    }
+                    viewProductDetails(product.id, product.name, product.description || '', product.image, product.price, product.originalPrice, product.rating, product.reviews);
+                };
+
+                card.innerHTML = `
+                    <div class="product-badge">
+                        <i class="fas fa-tag"></i> خصم ${product.discount}%
+                    </div>
+                    <div class="product-image" style="background-image: url('${product.image}');"></div>
+                    <div class="product-details">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-price">
+                            <span class="original-price">${product.originalPrice} ريال</span>
+                            <span class="discounted-price">${product.price} ريال</span>
+                        </div>
+                        <div class="product-meta">
+                            <span><i class="fas fa-star" style="color: #d4af37;"></i> ${product.rating} (${product.reviews} تقييم)</span>
+                            <span><i class="fas fa-box" style="color: #28a745;"></i> متوفر</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn" onclick="addToCart(this, event);">
+                                <i class="fas fa-cart-plus"></i> أضف للسلة
+                            </button>
+                            <button class="view-details-btn" onclick="event.stopPropagation(); viewProductDetails('${product.id}', '${product.name}', '${product.description || ''}', '${product.image}', ${product.price}, ${product.originalPrice}, ${product.rating}, ${product.reviews});">
+                                <i class="fas fa-info-circle"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Enhanced product interaction functions
+
+        function viewProductDetails(id, name, description, image, price, originalPrice, rating, reviews) {
+            // Check if product page exists, otherwise show modal
+            const productPageUrl = `product${id}.html`;
+
+            // Try to navigate to product page first
+            fetch(productPageUrl, { method: 'HEAD' })
+                .then(response => {
+                    if (response.ok) {
+                        // Product page exists, navigate to it
+                        window.location.href = productPageUrl;
+                    } else {
+                        // Product page doesn't exist, show modal
+                        showProductModal(id, name, description, image, price, originalPrice, rating, reviews);
+                    }
+                })
+                .catch(() => {
+                    // Error checking, show modal as fallback
+                    showProductModal(id, name, description, image, price, originalPrice, rating, reviews);
+                });
+        }
+
+        function showProductModal(id, name, description, image, price, originalPrice, rating, reviews) {
+            // Create modal HTML
+            const modalHTML = `
+                <div class="product-modal-overlay" id="productModalOverlay">
+                    <div class="product-modal">
+                        <div class="product-modal-header">
+                            <h3>تفاصيل المنتج</h3>
+                            <button class="modal-close-btn" onclick="closeProductModal()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="product-modal-content">
+                            <div class="modal-product-image">
+                                <img src="${image}" alt="${name}" />
+                            </div>
+                            <div class="modal-product-info">
+                                <h4>${name}</h4>
+                                <div class="modal-product-price">
+                                    <span class="modal-original-price">${originalPrice} ريال</span>
+                                    <span class="modal-discounted-price">${price} ريال</span>
+                                </div>
+                                <div class="modal-product-rating">
+                                    <span><i class="fas fa-star" style="color: #d4af37;"></i> ${rating} (${reviews} تقييم)</span>
+                                </div>
+                                <div class="modal-product-description">
+                                    <p>${description || 'منتج عالي الجودة من مجموعة العناية بالسيارات المتميزة.'}</p>
+                                </div>
+                                <div class="modal-product-actions">
+                                    <button class="modal-add-to-cart-btn" onclick="addToCartFromModal('${id}', '${name}', ${price}, '${image}')">
+                                        <i class="fas fa-cart-plus"></i> أضف للسلة
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Add modal to page
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+            // Show modal with animation
+            setTimeout(() => {
+                document.getElementById('productModalOverlay').classList.add('show');
+            }, 10);
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('productModalOverlay');
+            if (modal) {
+                modal.classList.remove('show');
+                setTimeout(() => {
+                    modal.remove();
+                }, 300);
+            }
+        }
+
+        function addToCartFromModal(id, name, price, image) {
+            const productData = {
+                id: id,
+                name: name,
+                price: parseFloat(price),
+                image: image,
+                quantity: 1
+            };
+
+            if (typeof bandarCart !== 'undefined' && bandarCart.addToCart) {
+                bandarCart.addToCart(productData);
+                closeProductModal();
+
+                // Show success message
+                showSuccessMessage(`تم إضافة ${name} إلى السلة بنجاح!`);
+            } else {
+                alert(`تم إضافة ${name} إلى السلة!`);
+                closeProductModal();
+            }
+        }
+
+        // Enhanced addToCart function for related products
+        function addToCart(button, event) {
+            // Prevent event bubbling to card click
+            if (event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+
+            const productCard = button.closest('.product-card');
+            if (!productCard) return;
+
+            const productData = {
+                id: productCard.dataset.id || Date.now().toString(),
+                name: productCard.dataset.name || productCard.querySelector('.product-name')?.textContent || 'منتج',
+                price: parseFloat(productCard.dataset.price || productCard.querySelector('.discounted-price')?.textContent?.replace(/[^\d.]/g, '') || '0'),
+                image: productCard.dataset.image || 'https://via.placeholder.com/300',
+                quantity: 1
+            };
+
+            if (typeof bandarCart !== 'undefined' && bandarCart.addToCart) {
+                bandarCart.addToCart(productData);
+
+                // Visual feedback
+                const originalHTML = button.innerHTML;
+                const originalStyle = button.style.background;
+
+                button.innerHTML = '<i class="fas fa-check"></i> تم الإضافة';
+                button.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.style.background = originalStyle;
+                }, 2000);
+
+                // Show success message
+                showSuccessMessage(`تم إضافة ${productData.name} إلى السلة بنجاح!`);
+            } else {
+                // Fallback for when cart system is not available
+                alert(`تم إضافة ${productData.name} إلى السلة!`);
+            }
+        }
+
+        function showSuccessMessage(message) {
+            const successHTML = `
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+
+            document.body.insertAdjacentHTML('beforeend', successHTML);
+
+            setTimeout(() => {
+                const successEl = document.getElementById('successMessage');
+                if (successEl) {
+                    successEl.classList.add('show');
+                }
+            }, 10);
+
+            setTimeout(() => {
+                const successEl = document.getElementById('successMessage');
+                if (successEl) {
+                    successEl.classList.remove('show');
+                    setTimeout(() => successEl.remove(), 300);
+                }
+            }, 3000);
+        }
+
+        // addToCart function for related cards - now using unified cart system
+        // This function is now defined globally in cart.js
+
+        window.addEventListener('DOMContentLoaded', renderRelatedProducts);
+    </script>
+    <script>
+        // Additional cart event handlers - these are now handled by the unified cart system
+        // The floating cart and modal interactions are managed by cart.js
+    </script>
+</body>
+</html>
