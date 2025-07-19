@@ -1,21 +1,5 @@
 @media (max-width: 768px) {
   .cart-footer {
-    position: sticky !important;
-    bottom: 0;
-    background: white;
-    z-index: 100;
-    border-top: 2px solid #e9ecef;
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  .checkout-btn {
-    min-height: 56px;
-    font-size: 1.1rem;
-    padding: 16px;
-  }
-}
-@media (max-width: 768px) {
-  .cart-footer {
     position: fixed !important;
     bottom: 0;
     right: 0;
@@ -23,17 +7,21 @@
     background: white;
     z-index: 1001;
     padding: 15px;
-    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+    border-top: 2px solid #e9ecef;
   }
 
   .cart-items {
-    padding-bottom: 100px; /* مساحة كافية تحت المحتوى لرؤية كل العناصر فوق الزر */
+    padding-bottom: 120px !important; /* لتجنب اختفاء آخر منتج خلف الزر */
+    overflow-y: auto;
+    max-height: calc(100vh - 160px); /* الارتفاع الكامل ناقص الزر والرأس */
   }
 
   .checkout-btn {
     width: 100%;
     padding: 16px;
     font-size: 1.1rem;
+    min-height: 56px;
     border-radius: 12px;
   }
 }
