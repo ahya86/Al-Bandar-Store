@@ -146,27 +146,54 @@ class BandarCart {
     }
 
     addToCart(productData) {
+        // Ensure product ID is properly formatted for consistent matching
         const product = {
-            id: productData.id,
+            id: String(productData.id).trim(), // Convert to string and trim for consistent comparison
             name: productData.name,
-            price: productData.price,
-            originalPrice: productData.originalPrice || productData.price,
+            price: parseFloat(productData.price) || 0,
+            originalPrice: parseFloat(productData.originalPrice) || parseFloat(productData.price) || 0,
             image: productData.image,
-            quantity: productData.quantity || 1
+            quantity: parseInt(productData.quantity) || 1
         };
 
-        const existingItemIndex = this.cart.findIndex(item => item.id === product.id);
-        
-        if (existingItemIndex !== -1) {
-            this.cart[existingItemIndex].quantity += product.quantity;
-        } else {
-            this.cart.push(product);
+        // Validate required fields
+        if (!product.id || !product.name || product.price <= 0) {
+            console.error('Invalid product data:', productData);
+            this.showToast(this.isArabic ? 'خطأ في بيانات المنتج' : 'Invalid product data');
+            return;
         }
 
-        this.saveCart();
-        this.updateCartDisplay();
-        this.updateCartBadge();
-        this.showToast(this.isArabic ? 'تم إضافة المنتج للسلة بنجاح!' : 'Product added to cart successfully!');
+        const existingItemIndex = this.cart.findIndex(item => String(item.id).trim() === product.id);
+
+        if (existingItemIndex !== -1) {
+            // Product already exists, increase quantity
+            const oldQuantity = this.cart[existingItemIndex].quantity;
+            this.cart[existingItemIndex].quantity += product.quantity;
+            const newQuantity = this.cart[existingItemIndex].quantity;
+
+            this.saveCart();
+            this.updateCartDisplay();
+            this.updateCartBadge();
+
+            // Enhanced feedback for quantity increase
+            this.showToast(this.isArabic ?
+                `تم زيادة كمية "${product.name}" من ${oldQuantity} إلى ${newQuantity} قطع` :
+                `"${product.name}" quantity increased from ${oldQuantity} to ${newQuantity} items`);
+
+            console.log(`Product ${product.id} quantity increased from ${oldQuantity} to ${newQuantity}`);
+        } else {
+            // New product, add to cart
+            this.cart.push(product);
+            this.saveCart();
+            this.updateCartDisplay();
+            this.updateCartBadge();
+
+            this.showToast(this.isArabic ?
+                `تم إضافة "${product.name}" للسلة بنجاح!` :
+                `"${product.name}" added to cart successfully!`);
+
+            console.log(`New product ${product.id} added to cart`);
+        }
     }
 
     removeFromCart(productId) {
@@ -431,30 +458,25 @@ class BandarCart {
     }
 
     checkout() {
-        if (this.cart.length === 0) return;
-
-        const subtotal = this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        const deliveryFee = this.getCurrentDeliveryFee();
-        const total = subtotal + deliveryFee;
-        let message = `${this.isArabic ? 'السلام عليكم، أريد طلب المنتجات التالية:' : 'Hello, I want to order the following products:'}\n\n`;
-        
-        this.cart.forEach((item, index) => {
-            message += `${index + 1}. ${item.name}\n`;
-            message += `   ${this.isArabic ? 'الكمية:' : 'Quantity:'} ${item.quantity}\n`;
-            message += `   ${this.isArabic ? 'السعر:' : 'Price:'} ${item.price} ${this.isArabic ? 'ريال' : 'SAR'}\n\n`;
-        });
-
-        // Add delivery information
-        if (this.isEligibleForFreeShipping()) {
-            message += `${this.isArabic ? 'التوصيل: مجاني 🎉' : 'Delivery: Free 🎉'}\n`;
-        } else {
-            message += `${this.isArabic ? 'التوصيل:' : 'Delivery:'} ${deliveryFee.toFixed(2)} ${this.isArabic ? 'ريال' : 'SAR'}\n`;
+        if (this.cart.length === 0) {
+            this.showToast(this.isArabic ? 'السلة فارغة! أضف منتجات أولاً' : 'Cart is empty! Add products first');
+            return;
         }
 
-        message += `${this.isArabic ? 'المجموع الكلي:' : 'Total:'} ${total.toFixed(2)} ${this.isArabic ? 'ريال' : 'SAR'}`;
+        // Store cart data in sessionStorage for checkout page
+        const checkoutData = {
+            cart: this.cart,
+            subtotal: this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+            deliveryFee: this.getCurrentDeliveryFee(),
+            total: this.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) + this.getCurrentDeliveryFee(),
+            isFreeShipping: this.isEligibleForFreeShipping(),
+            timestamp: new Date().toISOString()
+        };
 
-        const whatsappUrl = `https://wa.me/96891800885?text=${encodeURIComponent(message)}`;
-        window.open(whatsappUrl, '_blank');
+        sessionStorage.setItem('checkoutData', JSON.stringify(checkoutData));
+
+        // Redirect to checkout page
+        window.location.href = 'checkout.html';
     }
 
     showToast(message) {
@@ -500,28 +522,46 @@ if (document.readyState === 'loading') {
 // Global functions for backward compatibility
 function addToCart(button) {
     const productCard = button.closest('.product-card');
-    if (!productCard) return;
+    if (!productCard) {
+        console.error('Product card not found for add to cart button');
+        return;
+    }
 
+    // Extract product data with enhanced error handling
     const productData = {
-        id: productCard.dataset.id,
-        name: productCard.dataset.name,
-        price: parseFloat(productCard.querySelector('.discounted-price')?.textContent.replace(/[^\d.]/g, '')) || parseFloat(productCard.dataset.price),
-        originalPrice: parseFloat(productCard.querySelector('.original-price')?.textContent.replace(/[^\d.]/g, '')) || parseFloat(productCard.dataset.originalPrice),
-        image: productCard.dataset.image,
+        id: productCard.dataset.id || productCard.getAttribute('data-id'),
+        name: productCard.dataset.name || productCard.getAttribute('data-name') || productCard.querySelector('.product-name')?.textContent?.trim(),
+        price: parseFloat(productCard.querySelector('.discounted-price')?.textContent.replace(/[^\d.]/g, '')) ||
+               parseFloat(productCard.dataset.price) ||
+               parseFloat(productCard.getAttribute('data-price')) || 0,
+        originalPrice: parseFloat(productCard.querySelector('.original-price')?.textContent.replace(/[^\d.]/g, '')) ||
+                      parseFloat(productCard.dataset.originalPrice) ||
+                      parseFloat(productCard.getAttribute('data-original-price')) || 0,
+        image: productCard.dataset.image || productCard.getAttribute('data-image') || 'https://via.placeholder.com/300',
         quantity: 1
     };
 
+    // Validate product data
+    if (!productData.id || !productData.name || productData.price <= 0) {
+        console.error('Invalid product data extracted:', productData);
+        alert('خطأ في بيانات المنتج');
+        return;
+    }
+
+    console.log('Adding product to cart:', productData);
     bandarCart.addToCart(productData);
 
-    // Visual feedback
+    // Enhanced visual feedback
     button.classList.add('added');
     const originalText = button.innerHTML;
     button.innerHTML = '<i class="fas fa-check"></i> تم الإضافة';
-    
+    button.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+
     setTimeout(() => {
         button.classList.remove('added');
         button.innerHTML = originalText;
-    }, 1500);
+        button.style.background = '';
+    }, 2000);
 }
 
 // Legacy function aliases for compatibility
