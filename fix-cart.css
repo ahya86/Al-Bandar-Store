@@ -14,3 +14,26 @@
     padding: 16px;
   }
 }
+@media (max-width: 768px) {
+  .cart-footer {
+    position: fixed !important;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: white;
+    z-index: 1001;
+    padding: 15px;
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .cart-items {
+    padding-bottom: 100px; /* مساحة كافية تحت المحتوى لرؤية كل العناصر فوق الزر */
+  }
+
+  .checkout-btn {
+    width: 100%;
+    padding: 16px;
+    font-size: 1.1rem;
+    border-radius: 12px;
+  }
+}
