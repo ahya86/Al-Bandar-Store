@@ -12,10 +12,14 @@
   }
 
   .cart-items {
-    padding-bottom: 340px !important; /* مساحة كبيرة لتجنب تغطية الزر لأي منتج */
+    padding-bottom: 200px !important; /* تقليله قليلاً لرفع المنتج الأخير */
     overflow-y: auto !important;
-    max-height: 100vh !important; /* السماح بتمرير كامل داخل السلة */
+    max-height: 100vh !important;
     box-sizing: border-box;
+  }
+
+  .cart-item {
+    margin-bottom: 12px !important; /* رفع كل منتج قليلاً */
   }
 
   .checkout-btn {
