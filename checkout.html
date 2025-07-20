@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إتمام الشراء - متجر بندر</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #d4af37;
+            --secondary: #f4e4bc;
+            --success: #28a745;
+            --danger: #dc3545;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            direction: rtl;
+            padding: 20px 0;
+        }
+
+        .checkout-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .checkout-header {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .checkout-header h1 {
+            color: var(--dark);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .checkout-header p {
+            color: #6c757d;
+            font-size: 1.1rem;
+        }
+
+        .checkout-content {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .checkout-form {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section h3 {
+            color: var(--dark);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--dark);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .order-summary {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 20px;
+        }
+
+        .order-summary h3 {
+            color: var(--dark);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            object-fit: cover;
+            background: #f8f9fa;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            line-height: 1.3;
+        }
+
+        .item-price {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .item-quantity {
+            background: var(--light);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .order-totals {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid var(--primary);
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .total-row.final {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            padding-top: 10px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .free-shipping {
+            color: var(--success) !important;
+            font-weight: 700;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--dark);
+            border: none;
+            padding: 18px;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .back-btn:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+
+        .empty-cart i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            .checkout-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .order-summary {
+                position: static;
+                order: -1;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .checkout-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="checkout-container">
+        <div class="checkout-header">
+            <h1><i class="fas fa-shopping-bag"></i> إتمام الشراء</h1>
+            <p>أكمل بياناتك لإتمام عملية الشراء</p>
+        </div>
+
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-right"></i>
+            العودة للتسوق
+        </a>
+
+        <div id="checkoutContent">
+            <!-- Content will be loaded here -->
+        </div>
+    </div>
+
+    <script src="cart.js"></script>
+    <script>
+        class CheckoutPage {
+            constructor() {
+                this.checkoutData = null;
+                this.init();
+            }
+
+            init() {
+                this.loadCheckoutData();
+                this.renderCheckoutPage();
+            }
+
+            loadCheckoutData() {
+                const data = sessionStorage.getItem('checkoutData');
+                if (data) {
+                    this.checkoutData = JSON.parse(data);
+                } else {
+                    // Redirect back if no checkout data
+                    window.location.href = 'index.html';
+                }
+            }
+
+            renderCheckoutPage() {
+                const container = document.getElementById('checkoutContent');
+                
+                if (!this.checkoutData || this.checkoutData.cart.length === 0) {
+                    container.innerHTML = this.renderEmptyCart();
+                    return;
+                }
+
+                container.innerHTML = `
+                    <div class="checkout-content">
+                        <div class="checkout-form">
+                            ${this.renderCustomerForm()}
+                        </div>
+                        <div class="order-summary">
+                            ${this.renderOrderSummary()}
+                        </div>
+                    </div>
+                `;
+
+                this.attachEventListeners();
+            }
+
+            renderEmptyCart() {
+                return `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>السلة فارغة</h3>
+                        <p>لا توجد منتجات في سلة التسوق</p>
+                        <a href="index.html" class="submit-btn" style="display: inline-block; text-decoration: none; margin-top: 20px;">
+                            العودة للتسوق
+                        </a>
+                    </div>
+                `;
+            }
+
+            renderCustomerForm() {
+                return `
+                    <form id="checkoutForm">
+                        <div class="form-section">
+                            <h3><i class="fas fa-user"></i> معلومات العميل</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">الاسم الأول *</label>
+                                    <input type="text" id="firstName" name="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">اسم العائلة *</label>
+                                    <input type="text" id="lastName" name="lastName" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">البريد الإلكتروني *</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">رقم الهاتف *</label>
+                                    <input type="tel" id="phone" name="phone" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3><i class="fas fa-map-marker-alt"></i> عنوان التوصيل</h3>
+                            <div class="form-group">
+                                <label for="address">العنوان التفصيلي *</label>
+                                <textarea id="address" name="address" rows="3" required placeholder="اكتب عنوانك التفصيلي هنا..."></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city">المدينة *</label>
+                                    <select id="city" name="city" required>
+                                        <option value="">اختر المدينة</option>
+                                        <option value="muscat">مسقط</option>
+                                        <option value="salalah">صلالة</option>
+                                        <option value="nizwa">نزوى</option>
+                                        <option value="sohar">صحار</option>
+                                        <option value="sur">صور</option>
+                                        <option value="other">أخرى</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="postalCode">الرمز البريدي</label>
+                                    <input type="text" id="postalCode" name="postalCode">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3><i class="fas fa-credit-card"></i> طريقة الدفع</h3>
+                            <div class="form-group">
+                                <label for="paymentMethod">اختر طريقة الدفع *</label>
+                                <select id="paymentMethod" name="paymentMethod" required>
+                                    <option value="">اختر طريقة الدفع</option>
+                                    <option value="cod">الدفع عند الاستلام</option>
+                                    <option value="bank_transfer">تحويل بنكي</option>
+                                    <option value="online">دفع إلكتروني</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3><i class="fas fa-comment"></i> ملاحظات إضافية</h3>
+                            <div class="form-group">
+                                <label for="notes">ملاحظات الطلب</label>
+                                <textarea id="notes" name="notes" rows="3" placeholder="أي ملاحظات خاصة بطلبك..."></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-check"></i>
+                            تأكيد الطلب
+                        </button>
+                    </form>
+                `;
+            }
+
+            renderOrderSummary() {
+                const { cart, subtotal, deliveryFee, total, isFreeShipping } = this.checkoutData;
+                
+                let cartItemsHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}" class="item-image" onerror="this.style.display='none'">
+                        <div class="item-details">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-price">${item.price} ريال</div>
+                        </div>
+                        <div class="item-quantity">×${item.quantity}</div>
+                    </div>
+                `).join('');
+
+                return `
+                    <h3>ملخص الطلب</h3>
+                    <div class="cart-items">
+                        ${cartItemsHTML}
+                    </div>
+                    <div class="order-totals">
+                        <div class="total-row">
+                            <span>المجموع الفرعي:</span>
+                            <span>${subtotal.toFixed(2)} ريال</span>
+                        </div>
+                        <div class="total-row">
+                            <span>التوصيل:</span>
+                            <span class="${isFreeShipping ? 'free-shipping' : ''}">${isFreeShipping ? 'مجاني 🎉' : deliveryFee.toFixed(2) + ' ريال'}</span>
+                        </div>
+                        <div class="total-row final">
+                            <span>المجموع الكلي:</span>
+                            <span>${total.toFixed(2)} ريال</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            attachEventListeners() {
+                const form = document.getElementById('checkoutForm');
+                if (form) {
+                    form.addEventListener('submit', (e) => this.handleSubmit(e));
+                }
+            }
+
+            handleSubmit(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(e.target);
+                const orderData = {
+                    customer: Object.fromEntries(formData),
+                    cart: this.checkoutData.cart,
+                    totals: {
+                        subtotal: this.checkoutData.subtotal,
+                        deliveryFee: this.checkoutData.deliveryFee,
+                        total: this.checkoutData.total,
+                        isFreeShipping: this.checkoutData.isFreeShipping
+                    },
+                    orderDate: new Date().toISOString()
+                };
+
+                this.processOrder(orderData);
+            }
+
+            processOrder(orderData) {
+                // Create WhatsApp message
+                let message = `🛍️ طلب جديد من متجر بندر\n\n`;
+                message += `👤 معلومات العميل:\n`;
+                message += `الاسم: ${orderData.customer.firstName} ${orderData.customer.lastName}\n`;
+                message += `الهاتف: ${orderData.customer.phone}\n`;
+                message += `البريد: ${orderData.customer.email}\n`;
+                message += `العنوان: ${orderData.customer.address}\n`;
+                message += `المدينة: ${orderData.customer.city}\n\n`;
+
+                message += `🛒 تفاصيل الطلب:\n`;
+                orderData.cart.forEach((item, index) => {
+                    message += `${index + 1}. ${item.name}\n`;
+                    message += `   الكمية: ${item.quantity}\n`;
+                    message += `   السعر: ${item.price} ريال\n\n`;
+                });
+
+                message += `💰 ملخص المبالغ:\n`;
+                message += `المجموع الفرعي: ${orderData.totals.subtotal.toFixed(2)} ريال\n`;
+                message += `التوصيل: ${orderData.totals.isFreeShipping ? 'مجاني 🎉' : orderData.totals.deliveryFee.toFixed(2) + ' ريال'}\n`;
+                message += `المجموع الكلي: ${orderData.totals.total.toFixed(2)} ريال\n\n`;
+
+                message += `💳 طريقة الدفع: ${orderData.customer.paymentMethod}\n`;
+                
+                if (orderData.customer.notes) {
+                    message += `📝 ملاحظات: ${orderData.customer.notes}\n`;
+                }
+
+                // Clear cart and redirect to WhatsApp
+                if (typeof bandarCart !== 'undefined') {
+                    bandarCart.cart = [];
+                    bandarCart.saveCart();
+                    bandarCart.updateCartDisplay();
+                    bandarCart.updateCartBadge();
+                }
+                
+                sessionStorage.removeItem('checkoutData');
+                
+                const whatsappUrl = `https://wa.me/96891800885?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+                
+                // Redirect to success page or home
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1000);
+            }
+        }
+
+        // Initialize checkout page
+        document.addEventListener('DOMContentLoaded', () => {
+            new CheckoutPage();
+        });
+    </script>
+</body>
+</html>
