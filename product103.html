@@ -1862,6 +1862,7 @@
         
         // Add swipe functionality for mobile
         const mainImageContainer = document.getElementById('mainImageContainer');
+        mainImageContainer.replaceWith(mainImageContainer.cloneNode(true));
         let startX = 0;
         let currentX = 0;
         let isDragging = false;
