@@ -19,7 +19,7 @@
   }
 
   .cart-item {
-    margin-bottom: 30px !important; /* رفع كل منتج قليلاً */
+    margin-bottom: 0px !important; /* رفع كل منتج قليلاً */
   }
 
   .checkout-btn {
