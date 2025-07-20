@@ -1819,6 +1819,75 @@ body.cart-open {
 
 
 </style>
+
+<style>
+.categories-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 15px;
+  padding: 20px;
+  justify-items: center;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.category-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  max-width: 120px;
+  height: 120px;
+  transition: transform 0.3s ease;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #333;
+  justify-content: center;
+}
+
+.category-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.category-btn i {
+  font-size: 2.4rem;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+@media (max-width: 768px) {
+  .categories-container {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    padding: 10px;
+  }
+
+  .category-btn {
+    max-width: 100px;
+    height: 100px;
+    font-size: 0.75rem;
+    padding: 15px;
+  }
+
+  .category-btn i {
+    font-size: 2rem;
+    margin-bottom: 6px;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <!-- Cart backdrop overlay -->
@@ -2238,13 +2307,13 @@ body.cart-open {
       { id: 32, category: 'other', name: 'جهاز قياس ضغط الدم الأوتوماتيكي', price: 9.2, originalPrice: 14, image: 'https://om.jetronics.ae/uploads/product_img/16_05_2021_15_46_35_0867927_id_60a1061b35889.jpeg', discount: 36, rating: 4.9, reviews: 67 },
       { id: 33, category: 'Home', name: 'ممسحة رذاذ من الألياف الدقيقة مع زجاجة قابلة لإعادة التعبئة للأرضيات والجدران', price: 10, originalPrice: 15, image: 'https://www.megadealsom.com/uploads/cashes/25-05-16-02-45-1-540x540.jpg', discount: 33, rating: 5, reviews: 325 },
       { id: 34, category: 'Home', name: 'مصباح LED يعمل بالطاقة الشمسية مع خاصية كشف الحركة لهاتف HTC 20', price: 8.6, originalPrice: 15.4, image: 'https://om.jetronics.ae/uploads/product_img/24_04_2021_13_26_39_9152190_id_6083cf37499b8.jpeg', discount: 44, rating: 4.3, reviews: 107 },
-      { id: 35, category: 'electronics', name: 'أفضل منتجين: ماكينة تشذيب T9 وماكينة حلاقة توربو  ', price: 9.2, originalPrice: 10.3, image: 'https://www.megadealsom.com/uploads/cashes/23-11-29-11-51-1-360x360.jpg', discount: 21, rating: 5, reviews: 76 },
+      { id: 35, category: 'electronics', name: 'أفضل منتجين: ماكينة تشذيب T9 وماكينة حلاقة توربو - توصيل مجاني', price: 9.2, originalPrice: 10.3, image: 'https://www.megadealsom.com/uploads/cashes/23-11-29-11-51-1-360x360.jpg', discount: 21, rating: 5, reviews: 76 },
       { id: 36, category: 'electronics', name: 'جهاز عرض قابل لإعادة الشحن مع جهاز تحكم عن بعد', price: 11.4, originalPrice: 18.4, image: 'https://om.jetronics.ae/uploads/product_img/31_08_2022_17_49_50_4432612_id_630f66feae317.jpeg', discount: 38, rating: 4.6, reviews: 349 },
       { id: 37, category: 'electronics', name: 'ماكينة حلاقة شعر عتيقة قابلة لإعادة الشحن من الفولاذ المقاوم للصدأ (اشترِ واحدة واحصل على واحدة مجانًا)', price: 8.7, originalPrice: 11.6, image: 'https://www.megadealsom.com/uploads/cashes/24-01-15-02-23-1-540x540.jpg', discount: 25, rating: 4.9, reviews: 1906 },
       { id: 38, category: 'electronics', name: 'وسادة تدليك بـ 8 رؤوس للمنزل والسيارة', price: 9.9, originalPrice: 17.4, image: 'https://om.jetronics.ae/uploads/product_img/16_05_2021_16_02_17_5857393_id_60a109c970e39.jpeg', discount: 43, rating: 5, reviews: 167 },
       { id: 39, category: 'cosmetics', name: 'كريم ريتينول للعناية بالبشرة ومضاد للشيخوخة', price: 8.3, originalPrice: 12.4, image: 'https://www.megadealsom.com/uploads/cashes/25-05-16-03-34-1-540x540.jpg', discount: 33, rating: 4.5, reviews: 530 },
       { id: 40, category: 'kitchen', name: 'غلاية كهربائية Cyber ​​2L وعصارة HTC', price: 10, originalPrice: 18.9, image: 'https://om.jetronics.ae/uploads/product_img/05_11_2022_22_02_21_8703231_id_6366a52d6d68b.jpeg', discount: 47, rating: 4.9, reviews: 296 },
-      { id: 41, category: 'cosmetics', name: 'كريم أساس سائل عالي الوضوح من FV Skin بتغطية كاملة وطويلة الأمد   ', price: 8.3, originalPrice: 10.9, image: 'https://www.megadealsom.com/uploads/cashes/24-05-21-12-08-2-360x360.jpg', discount: 24, rating: 4.8, reviews: 154 },
+      { id: 41, category: 'cosmetics', name: 'كريم أساس سائل عالي الوضوح من FV Skin بتغطية كاملة وطويلة الأمد - توصيل مجاني', price: 8.3, originalPrice: 10.9, image: 'https://www.megadealsom.com/uploads/cashes/24-05-21-12-08-2-360x360.jpg', discount: 24, rating: 4.8, reviews: 154 },
       { id: 42, category: 'other', name: 'جهاز تدليك البندقية الأصلي ذو 4 رؤوس', price: 9.4, originalPrice: 13.4, image: 'https://om.jetronics.ae/uploads/product_img/16_05_2021_15_54_59_3929207_id_60a10813b2f16.jpeg', discount: 30, rating: 4.7, reviews: 190 },
       { id: 43, category: 'electronics', name: 'مرطب هواء بمروحة تبريد كهربائية USB', price: 9, originalPrice: 12, image: 'https://www.megadealsom.com/uploads/cashes/24-05-08-11-10-1-360x360.jpg', discount: 25, rating: 5, reviews: 178 },
       { id: 44, category: 'watches', name: 'ساعة كرونو العسكرية "فقط الشجعان"', price: 8.5, originalPrice: 14.2, image: 'https://om.jetronics.ae/uploads/product_img/15_08_2022_17_02_56_4489719_id_62fa4400c9842.jpeg', discount: 40, rating: 4.9, reviews: 296 },
@@ -2280,11 +2349,11 @@ body.cart-open {
       { id: 68, category: 'other', name: 'مضخة مياه قابلة لإعادة الشحن', price: 8.6, originalPrice: 11.3, image: 'https://om.jetronics.ae/uploads/product_img/16_05_2021_19_02_00_4845811_id_60a133e8623be.jpeg', discount: 24, rating: 4.2, reviews: 617 },
       { id: 69, category: 'electronics', name: 'جهاز قياس ضغط الدم الذكي الآلي من مايكرو حاسب آلي', price: 8.4, originalPrice: 12.7, image: 'https://www.megadealsom.com/uploads/cashes/24-05-11-07-59-1-540x540.jpeg', discount: 34, rating: 4.6, reviews: 98 },
       { id: 70, category: 'electronics', name: 'ميكروفون K8 Lavalier 2 في 1 الأصلي', price: 9.4, originalPrice: 11.2, image: 'https://om.jetronics.ae/uploads/product_img/16_09_2022_18_01_17_2066321_id_632481adca723.jpeg', discount: 16, rating: 4.8, reviews: 116 },
-      { id: 71, category: 'Home', name: 'مصباح شارع LED يعمل بالطاقة الشمسية مع مستشعر حركة PIR ومصباح حائطي مقاوم للماء - اشترِ واحدًا واحصل على الثاني مجانًا  ', price: 10.5, originalPrice: 11.5, image: 'https://www.megadealsom.com/uploads/cashes/24-05-16-02-42-1-540x540.jpg', discount: 9, rating: 4.1, reviews: 120 },
+      { id: 71, category: 'Home', name: 'مصباح شارع LED يعمل بالطاقة الشمسية مع مستشعر حركة PIR ومصباح حائطي مقاوم للماء - اشترِ واحدًا واحصل على الثاني مجانًا - توصيل مجاني', price: 10.5, originalPrice: 11.5, image: 'https://www.megadealsom.com/uploads/cashes/24-05-16-02-42-1-540x540.jpg', discount: 9, rating: 4.1, reviews: 120 },
       { id: 72, category: 'Home', name: 'قضيب معدني مع 4 عجلات متحركة', price: 8, originalPrice: 15, image: 'https://om.jetronics.ae/uploads/product_img/21_02_2022_23_03_55_7183983_id_6213e21b54252.jpeg', discount: 47, rating: 4.3, reviews: 190 },
       { id: 73, category: 'electronics', name: 'مصباح LED للقضاء على البعوض والآفات بمنفذ USB', price: 8.6, originalPrice: 16.2, image: 'https://www.megadealsom.com/uploads/cashes/24-05-11-08-30-1-540x540.jpg', discount: 47, rating: 4.7, reviews: 197 },
       { id: 74, category: 'other', name: '11 قطعة من أشرطة المقاومة - حقيبة مجانية', price: 8.6, originalPrice: 13.2, image: 'https://om.jetronics.ae/uploads/product_img/16_05_2021_19_14_04_4863933_id_60a136bc5727c.jpeg', discount: 35, rating: 4.3, reviews: 107 },
-      { id: 75, category: 'other', name: 'مصباح ليزر P90 معدني قابل لإعادة الشحن  ', price: 9, originalPrice: 12.7, image: 'https://www.megadealsom.com/uploads/cashes/24-05-16-02-53-1-540x540.jpg', discount: 26, rating: 4.8, reviews: 96 },
+      { id: 75, category: 'other', name: 'مصباح ليزر P90 معدني قابل لإعادة الشحن - توصيل مجاني', price: 9, originalPrice: 12.7, image: 'https://www.megadealsom.com/uploads/cashes/24-05-16-02-53-1-540x540.jpg', discount: 26, rating: 4.8, reviews: 96 },
       { id: 76, category: 'electronics', name: 'كاميرا فيديو يدوية بدقة 16 ميجابكسل', price: 17, originalPrice: 19.5, image: 'https://om.jetronics.ae/uploads/product_img/16_05_2021_19_05_16_4692898_id_60a134acc929f.jpeg', discount: 13, rating: 4.4, reviews: 93 },
       { id: 77, category: 'Home', name: 'إصلاح تسربات المياه الفورية للخرسانة والبلاستيك والفولاذ وغيرها', price: 8.4, originalPrice: 11.2, image: 'https://www.megadealsom.com/uploads/cashes/24-07-16-04-52-1-540x540.jpg', discount: 25, rating: 4.8, reviews: 65 },
       { id: 78, category: 'kitchen', name: 'عصارة جيت ميني القابلة لإعادة الشحن', price: 8.6, originalPrice: 11.8, image: 'https://om.jetronics.ae/uploads/product_img/01_05_2023_23_58_12_2948597_id_645019d4b8e70.jpeg', discount: 27, rating: 4.9, reviews: 178 },
@@ -2314,7 +2383,7 @@ body.cart-open {
       { id: 96,  category: 'Home',        name: 'ملاءة سرير مزدوجة ناعمة ومريحة بحجم كينج',                                             price: 11.4, originalPrice: 18.4, image: 'https://om.jetronics.ae/uploads/product_img/27_02_2024_22_46_40_8588425_id_65de2e10036dc.jpeg', discount: 38, rating: 4.6, reviews: 349 },
       { id: 97,  category: 'Home',        name: 'ماكينة خياطة كهربائية صغيرة',                                                            price: 9.3,  originalPrice: 12.4, image: 'https://www.megadealsom.com/uploads/cashes/25-02-04-02-17-1-540x540.jpg',   discount: 25, rating: 4.9, reviews: 1906 },
       { id: 98,  category: 'kitchen',     name: 'رف معدني عالي التحمل لفرن الميكروويف',                                                   price: 10.7, originalPrice: 18.8, image: 'https://om.jetronics.ae/uploads/product_img/28_12_2023_22_48_00_7798349_id_658dc2e041e33.jpeg', discount: 43, rating: 5,   reviews: 167 },
-      { id: 99,  category: 'watches',     name: 'ساعة G9 Ultra Max الذكية باللون الذهبي  ',                                    price: 10.9, originalPrice: 16.3, image: 'https://www.megadealsom.com/uploads/cashes/23-12-18-01-32-1-540x540.jpeg', discount: 33, rating: 4.5, reviews: 530 },
+      { id: 99,  category: 'watches',     name: 'ساعة G9 Ultra Max الذكية باللون الذهبي - توصيل مجاني',                                    price: 10.9, originalPrice: 16.3, image: 'https://www.megadealsom.com/uploads/cashes/23-12-18-01-32-1-540x540.jpeg', discount: 33, rating: 4.5, reviews: 530 },
       { id: 100, category: 'kitchen',     name: 'صفيحة تسخين مزدوجة Cyber 814',                                                          price: 11.6, originalPrice: 22,   image: 'https://om.jetronics.ae/uploads/product_img/16_05_2021_21_32_36_6596420_id_60a1573465524.jpeg', discount: 47, rating: 4.9, reviews: 296 },
       { id: 101, category: 'electronics', name: 'طائرة بدون طيار G3 Pro مزدوجة الكاميرا مع تحديد المواقع البصرية',                         price: 20,   originalPrice: 26.3, image: 'https://www.megadealsom.com/uploads/cashes/24-01-10-03-27-3-540x540.jpg',   discount: 24, rating: 4.8, reviews: 154 },
       { id: 102, category: 'kitchen',     name: 'خلاط يدوي من HTC مع وعاء فولاذي',                                                        price: 11.5, originalPrice: 16.4, image: 'https://om.jetronics.ae/uploads/product_img/16_05_2021_19_57_19_9030423_id_60a140dfe2dce.jpeg', discount: 30, rating: 4.7, reviews: 190 },
