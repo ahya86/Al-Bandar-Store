@@ -1,0 +1,28 @@
+@media (max-width: 768px) {
+  .cart-footer {
+    position: fixed !important;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: white;
+    z-index: 1001;
+    padding: 15px;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+    border-top: 2px solid #e9ecef;
+  }
+
+  .cart-items {
+    padding-bottom: 200px !important; /* زيادة واضحة لضمان عدم الاختفاء */
+    overflow-y: auto !important;
+    max-height: calc(100vh - 140px) !important; /* تقليل الفرق لتوفير مساحة */
+    box-sizing: border-box;
+  }
+
+  .checkout-btn {
+    width: 100%;
+    padding: 16px;
+    font-size: 1.1rem;
+    min-height: 56px;
+    border-radius: 12px;
+  }
+}
