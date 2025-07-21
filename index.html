@@ -701,6 +701,58 @@
     .category-btn i {
       font-size: 1.1rem;
     }
+
+    /* Omani Badge Styles - Fixed positioning regardless of language */
+    .omani-badge {
+      position: fixed !important;
+      bottom: 30px !important;
+      left: 30px !important;
+      z-index: 1000 !important;
+      background: #fff !important;
+      padding: 8px 15px !important;
+      border-radius: 30px !important;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+      display: flex !important;
+      align-items: center !important;
+      font-weight: bold !important;
+      font-size: 14px !important;
+      color: #d42026 !important;
+      direction: ltr !important; /* Force left-to-right direction */
+    }
+
+    .omani-badge img {
+      width: 20px !important;
+      margin-right: 8px !important;
+    }
+
+    /* WhatsApp Button Styles - Fixed positioning regardless of language */
+    .whatsapp-button {
+      position: fixed !important;
+      bottom: 20px !important;
+      right: 20px !important;
+      z-index: 1000 !important;
+      background: #25d366 !important;
+      color: #fff !important;
+      width: 60px !important;
+      height: 60px !important;
+      border-radius: 50% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 28px !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3) !important;
+      text-decoration: none !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .whatsapp-button:hover {
+      transform: scale(1.1) !important;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4) !important;
+    }
+
+    .whatsapp-button i {
+      font-size: 28px !important;
+    }
     
     /* قسم المنتجات */
     .section-title {
@@ -1140,34 +1192,7 @@
       font-size: 1.1rem;
     }
     
-    /* زر الواتساب الثابت */
-    .whatsapp-button {
-      position: fixed;
-      bottom: 30px;
-      left: 30px;
-      z-index: 1000;
-      width: 60px;
-      height: 60px;
-      background-color: #25D366;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      transition: all 0.3s ease;
-      text-decoration: none;
-    }
-    
-    .whatsapp-button:hover {
-      background-color: #128C7E;
-      transform: translateY(-5px);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-    }
-    
-    .whatsapp-button i {
-      font-size: 36px;
-      color: white;
-    }
+    /* زر الواتساب الثابت - Using main .whatsapp-button class defined above */
 
     /* Toast Notification */
     .toast {
@@ -1195,11 +1220,7 @@
       font-size: 1.2rem;
     }
     
-    /* عند تغيير اللغة إلى الإنجليزية (ltr) */
-    [dir="ltr"] .whatsapp-button {
-      right: 30px;
-      left: auto;
-    }
+    /* عند تغيير اللغة إلى الإنجليزية (ltr) - Removed language-specific positioning */
 
     [dir="ltr"] .cart-dropdown {
       left: 0;
@@ -1314,14 +1335,27 @@
       }
       
       .whatsapp-button {
-        width: 50px;
-        height: 50px;
-        bottom: 20px;
-        left: 20px;
+        width: 50px !important;
+        height: 50px !important;
+        bottom: 15px !important;
+        right: 15px !important;
+        font-size: 24px !important;
       }
-      
+
       .whatsapp-button i {
-        font-size: 28px;
+        font-size: 24px !important;
+      }
+
+      .omani-badge {
+        bottom: 20px !important;
+        left: 20px !important;
+        padding: 6px 12px !important;
+        font-size: 12px !important;
+      }
+
+      .omani-badge img {
+        width: 16px !important;
+        margin-right: 6px !important;
       }
 
       .cart-dropdown {
@@ -1412,14 +1446,14 @@
       }
       
       .whatsapp-button {
-        width: 45px;
-        height: 45px;
-        bottom: 15px;
-        left: 15px;
+        width: 45px !important;
+        height: 45px !important;
+        bottom: 15px !important;
+        right: 15px !important;
       }
-      
+
       .whatsapp-button i {
-        font-size: 24px;
+        font-size: 20px !important;
       }
 
       .cart-dropdown {
@@ -1893,16 +1927,17 @@ body.cart-open {
   background: white;
   border-radius: 50%;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 25px;
   width: 100%;
-  max-width: 120px;
-  height: 120px;
+  max-width: 140px;
+  height: 140px;
   transition: transform 0.3s ease;
   border: none;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: bold;
   color: #333;
   justify-content: center;
+  cursor: pointer;
 }
 
 .category-btn:hover {
@@ -1911,9 +1946,9 @@ body.cart-open {
 }
 
 .category-btn i {
-  font-size: 2.4rem;
+  font-size: 2.8rem;
   color: var(--primary);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 @media (max-width: 768px) {
@@ -1924,15 +1959,15 @@ body.cart-open {
   }
 
   .category-btn {
-    max-width: 100px;
-    height: 100px;
-    font-size: 0.75rem;
-    padding: 15px;
+    max-width: 110px;
+    height: 110px;
+    font-size: 0.8rem;
+    padding: 18px;
   }
 
   .category-btn i {
-    font-size: 2rem;
-    margin-bottom: 6px;
+    font-size: 2.2rem;
+    margin-bottom: 8px;
   }
 
   .products-grid {
@@ -1960,7 +1995,7 @@ body.cart-open {
 <a href="#"><i class="fas fa-home"></i> الرئيسية</a>
 <a href="#products"><i class="fas fa-box-open"></i> المنتجات</a>
 <a href="#products"><i class="fas fa-percent"></i> العروض</a>
-<a href="https://wa.me/96891800885" target="_blank"><i class="fas fa-headset"></i> الدعم</a>
+<a href="https://wa.me/96894824226" target="_blank"><i class="fas fa-headset"></i> الدعم</a>
 <a href="#footer"><i class="fas fa-address-card"></i> من نحن</a>
 </div>
 <div class="nav-icons">
@@ -2209,13 +2244,13 @@ body.cart-open {
 <li><a href="#"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>
 <li><a href="#products"><i class="fas fa-chevron-left"></i> المنتجات</a></li>
 <li><a href="#products"><i class="fas fa-chevron-left"></i> العروض</a></li>
-<li><a href="https://wa.me/96891800885" target="_blank"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
+<li><a href="https://wa.me/96894824226" target="_blank"><i class="fas fa-chevron-left"></i> اتصل بنا</a></li>
 </ul>
 </div>
 <div class="footer-contact">
 <h3>تواصل معنا</h3>
 <p><i class="fas fa-map-marker-alt"></i> سلطنة عمان </p>
-<p><i class="fas fa-phone"></i> 96891800885+</p>
+<p><i class="fas fa-phone"></i> 96894824226+</p>
 <p><i class="fas fa-envelope"></i> albandarstore799@gmail.com </p>
 <p><i class="fas fa-clock"></i> الأحد - السبت : 9 صباحًا - 10 مساءً</p>
 </div>
@@ -2233,13 +2268,15 @@ body.cart-open {
 </div>
 </footer>
 <!-- زر الواتساب الثابت -->
-<a class="whatsapp-button" href="https://wa.me/96891800885" style="position:fixed;bottom:20px;right:20px;background:#25d366;color:#fff;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 2px 6px rgba(0,0,0,0.3);z-index:1000;" target="_blank">
+<a class="whatsapp-button" href="https://wa.me/96894824226" target="_blank">
 <i class="fab fa-whatsapp"></i>
 </a>
-<!-- ختم المتجر العماني -->
-<div class="omani-seal" style="position:fixed;bottom:100px;left:20px;width:90px;height:90px;border-radius:50%;border:3px solid var(--primary);background:#fff;color:var(--primary);display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:.65rem;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,0.2);transform:rotate(-8deg);z-index:1000;">
-    100% متجر عماني
-  </div>
+<!-- 100% Omani Store Badge -->
+<div class="omani-badge">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Oman.svg/125px-Flag_of_Oman.svg.png" alt="علم عمان">
+    <span>متجر عماني</span>
+    <span style="margin-right: 8px;">100%</span>
+</div>
 <!-- Include unified cart system -->
 <script src="cart.js"></script>
 <script>
@@ -2814,7 +2851,7 @@ window.addEventListener('load', () => {
           else if (index === 3) link.innerHTML = "<i class='fas fa-chevron-right'></i> Contact Us";
         });
         document.querySelector('.footer-contact p:nth-child(2)').innerHTML = "<i class='fas fa-map-marker-alt'></i> Sultanate of Oman";
-        document.querySelector('.footer-contact p:nth-child(3)').innerHTML = "<i class='fas fa-phone'></i> +96891800885";
+        document.querySelector('.footer-contact p:nth-child(3)').innerHTML = "<i class='fas fa-phone'></i> +96894824226";
         document.querySelector('.footer-contact p:nth-child(4)').innerHTML = "<i class='fas fa-envelope'></i> albandarstore799@gmail.com";
         document.querySelector('.footer-contact p:nth-child(5)').innerHTML = "<i class='fas fa-clock'></i> Sunday - Saturday: 9 AM - 10 PM";
         
@@ -2896,7 +2933,7 @@ window.addEventListener('load', () => {
           else if (index === 3) link.innerHTML = "<i class='fas fa-chevron-left'></i> اتصل بنا";
         });
         document.querySelector('.footer-contact p:nth-child(2)').innerHTML = "<i class='fas fa-map-marker-alt'></i> سلطنة عمان";
-        document.querySelector('.footer-contact p:nth-child(3)').innerHTML = "<i class='fas fa-phone'></i> 96891800885+";
+        document.querySelector('.footer-contact p:nth-child(3)').innerHTML = "<i class='fas fa-phone'></i> 96894824226+";
         document.querySelector('.footer-contact p:nth-child(4)').innerHTML = "<i class='fas fa-envelope'></i> albandarstore799@gmail.com";
         document.querySelector('.footer-contact p:nth-child(5)').innerHTML = "<i class='fas fa-clock'></i> الأحد - السبت : 9 صباحًا - 10 مساءً";
         
