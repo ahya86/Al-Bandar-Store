@@ -22,10 +22,10 @@ class BandarCart {
     }
 
     startAutoRefresh() {
-        // Auto-refresh cart every 500ms to detect changes from other pages
+        // Auto-refresh cart every 300ms for faster response
         setInterval(() => {
             this.checkForCartUpdates();
-        }, 500);
+        }, 300);
     }
 
     checkForCartUpdates() {
