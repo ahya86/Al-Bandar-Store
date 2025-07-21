@@ -9,6 +9,7 @@ class BandarCart {
         this.isArabic = true;
         this.baseDeliveryFee = 2;
         this.freeShippingThreshold = 5; // Free shipping when 5+ items
+        this.lastCartState = JSON.stringify(this.cart); // Track cart state for auto-refresh
         this.init();
     }
 
@@ -17,6 +18,28 @@ class BandarCart {
         this.updateCartBadge();
         this.attachEventListeners();
         this.ensureCartClosed(); // Ensure cart is closed on page load
+        this.startAutoRefresh(); // Start automatic cart refresh
+    }
+
+    startAutoRefresh() {
+        // Auto-refresh cart every 500ms to detect changes from other pages
+        setInterval(() => {
+            this.checkForCartUpdates();
+        }, 500);
+    }
+
+    checkForCartUpdates() {
+        const currentCartData = localStorage.getItem('bandarStoreCart');
+        const currentCartState = currentCartData || '[]';
+
+        // Only update if cart state has changed
+        if (currentCartState !== this.lastCartState) {
+            this.cart = JSON.parse(currentCartData) || [];
+            this.lastCartState = currentCartState;
+            this.updateCartDisplay();
+            this.updateCartBadge();
+            console.log('Cart auto-refreshed from localStorage');
+        }
     }
 
     attachEventListeners() {
@@ -220,7 +243,9 @@ class BandarCart {
     // clearCart method removed
 
     saveCart() {
-        localStorage.setItem('bandarStoreCart', JSON.stringify(this.cart));
+        const cartData = JSON.stringify(this.cart);
+        localStorage.setItem('bandarStoreCart', cartData);
+        this.lastCartState = cartData; // Update last known state
     }
 
     updateCartBadge() {
