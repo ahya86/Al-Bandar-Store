@@ -13,13 +13,14 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;margin:0;padding:0;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إتمام الشراء - متجر بندر</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         :root {
-            --primary: #d4af37;
-            --secondary: #f4e4bc;
+            --primary: #4ecdc4;
+            --secondary: #ff6b6b;
             --success: #28a745;
             --danger: #dc3545;
-            --dark: #1a1a1a;
+            --dark: #212529;
             --light: #f8f9fa;
         }
 
@@ -31,7 +32,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;margin:0;padding:0;
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
             min-height: 100vh;
             direction: rtl;
             padding: 20px 0;
@@ -120,7 +121,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;margin:0;padding:0;
         .form-group textarea:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.1);
         }
 
         .form-row {
@@ -236,7 +237,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;margin:0;padding:0;
 
         .submit-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
         }
 
         .back-btn {
@@ -313,7 +314,13 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;margin:0;padding:0;
         class CheckoutPage {
             constructor() {
                 this.checkoutData = null;
+                this.initEmailJS();
                 this.init();
+            }
+
+            initEmailJS() {
+                // Initialize EmailJS with your public key
+                emailjs.init('C9H8ZBxk60Yn6CXXt');
             }
 
             init() {
@@ -395,26 +402,29 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;margin:0;padding:0;
 
                         <div class="form-section">
                             <h3><i class="fas fa-map-marker-alt"></i> عنوان التوصيل</h3>
-                            <div class="form-group">
-                                <label for="address">العنوان التفصيلي *</label>
-                                <textarea id="address" name="address" rows="3" required placeholder="اكتب عنوانك التفصيلي هنا..."></textarea>
-                            </div>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="city">المدينة *</label>
-                                    <select id="city" name="city" required>
-                                        <option value="">اختر المدينة</option>
-                                        <option value="muscat">مسقط</option>
-                                        <option value="salalah">صلالة</option>
-                                        <option value="nizwa">نزوى</option>
-                                        <option value="sohar">صحار</option>
-                                        <option value="sur">صور</option>
-                                        <option value="other">أخرى</option>
+                                    <label for="governorate">المحافظة *</label>
+                                    <select id="governorate" name="governorate" required>
+                                        <option value="">اختر المحافظة</option>
+                                        <option value="muscat">محافظة مسقط</option>
+                                        <option value="dhofar">محافظة ظفار</option>
+                                        <option value="musandam">محافظة مسندم</option>
+                                        <option value="alburaimi">محافظة البريمي</option>
+                                        <option value="addakhiliyah">محافظة الداخلية</option>
+                                        <option value="northbatinah">محافظة شمال الباطنة</option>
+                                        <option value="southbatinah">محافظة جنوب الباطنة</option>
+                                        <option value="northsharqiyah">محافظة شمال الشرقية</option>
+                                        <option value="southsharqiyah">محافظة جنوب الشرقية</option>
+                                        <option value="addhahirah">محافظة الظاهرة</option>
+                                        <option value="alwusta">محافظة الوسطى</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="postalCode">الرمز البريدي</label>
-                                    <input type="text" id="postalCode" name="postalCode">
+                                    <label for="wilayat">الولاية *</label>
+                                    <select id="wilayat" name="wilayat" required disabled>
+                                        <option value="">اختر المحافظة أولاً</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -427,7 +437,6 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;margin:0;padding:0;
                                     <option value="">اختر طريقة الدفع</option>
                                     <option value="cod">الدفع عند الاستلام</option>
                                     <option value="bank_transfer">تحويل بنكي</option>
-                                    <option value="online">دفع إلكتروني</option>
                                 </select>
                             </div>
                         </div>
@@ -489,6 +498,118 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;margin:0;padding:0;
                 if (form) {
                     form.addEventListener('submit', (e) => this.handleSubmit(e));
                 }
+
+                // Add governorate change listener
+                const governorateSelect = document.getElementById('governorate');
+                if (governorateSelect) {
+                    governorateSelect.addEventListener('change', (e) => this.updateWilayat(e.target.value));
+                }
+            }
+
+            updateWilayat(governorate) {
+                const wilayatSelect = document.getElementById('wilayat');
+                if (!wilayatSelect) return;
+
+                // Wilayat data organized by governorate
+                const wilayatData = {
+                    muscat: [
+                        { value: 'muscat', text: 'مسقط' },
+                        { value: 'muttrah', text: 'مطرح' },
+                        { value: 'bowsher', text: 'بوشر' },
+                        { value: 'seeb', text: 'السيب' },
+                        { value: 'quriyat', text: 'قريات' },
+                        { value: 'amerat', text: 'العامرات' }
+                    ],
+                    dhofar: [
+                        { value: 'salalah', text: 'صلالة' },
+                        { value: 'taqah', text: 'طاقة' },
+                        { value: 'mirbat', text: 'مرباط' },
+                        { value: 'sadah', text: 'سدح' },
+                        { value: 'rakhyut', text: 'رخيوت' },
+                        { value: 'thumrait', text: 'ثمريت' },
+                        { value: 'shaleem', text: 'شليم وجزر الحلانيات' },
+                        { value: 'masirah', text: 'مصيرة' }
+                    ],
+                    addakhiliyah: [
+                        { value: 'nizwa', text: 'نزوى' },
+                        { value: 'samail', text: 'سمائل' },
+                        { value: 'bahla', text: 'بهلاء' },
+                        { value: 'adam', text: 'آدم' },
+                        { value: 'alhamra', text: 'الحمراء' },
+                        { value: 'izki', text: 'إزكي' },
+                        { value: 'manah', text: 'منح' }
+                    ],
+                    northbatinah: [
+                        { value: 'sohar', text: 'صحار' },
+                        { value: 'shinas', text: 'شناص' },
+                        { value: 'liwa', text: 'لوى' },
+                        { value: 'saham', text: 'صحم' },
+                        { value: 'alkhaburah', text: 'الخابورة' },
+                        { value: 'swayq', text: 'السويق' }
+                    ],
+                    southbatinah: [
+                        { value: 'nakhal', text: 'نخل' },
+                        { value: 'wadi', text: 'وادي المعاول' },
+                        { value: 'rustaq', text: 'الرستاق' },
+                        { value: 'awabi', text: 'العوابي' },
+                        { value: 'barka', text: 'بركاء' },
+                        { value: 'musannah', text: 'المصنعة' }
+                    ],
+                    northsharqiyah: [
+                        { value: 'sur', text: 'صور' },
+                        { value: 'alkamil', text: 'الكامل والوافي' },
+                        { value: 'jaalan', text: 'جعلان بني بو علي' },
+                        { value: 'jaalan2', text: 'جعلان بني بو حسن' },
+                        { value: 'masirah2', text: 'مصيرة' }
+                    ],
+                    southsharqiyah: [
+                        { value: 'ibra', text: 'إبراء' },
+                        { value: 'almudhaybi', text: 'المضيبي' },
+                        { value: 'wadi2', text: 'وادي بني خالد' },
+                        { value: 'bidiyah', text: 'بدية' },
+                        { value: 'demayt', text: 'دماء والطائيين' }
+                    ],
+                    addhahirah: [
+                        { value: 'ibri', text: 'عبري' },
+                        { value: 'yanqul', text: 'ينقل' },
+                        { value: 'dhank', text: 'ضنك' }
+                    ],
+                    alwusta: [
+                        { value: 'haima', text: 'هيماء' },
+                        { value: 'mahout', text: 'محوت' },
+                        { value: 'duqm', text: 'الدقم' },
+                        { value: 'jazer', text: 'الجازر' }
+                    ],
+                    musandam: [
+                        { value: 'khasab', text: 'خصب' },
+                        { value: 'daba', text: 'دبا' },
+                        { value: 'bukha', text: 'بخاء' },
+                        { value: 'madha', text: 'مدحاء' }
+                    ],
+                    alburaimi: [
+                        { value: 'alburaimi2', text: 'البريمي' },
+                        { value: 'mahdah', text: 'محضة' },
+                        { value: 'sunainah', text: 'السنينة' }
+                    ]
+                };
+
+                // Clear current options
+                wilayatSelect.innerHTML = '<option value="">اختر الولاية</option>';
+
+                if (governorate && wilayatData[governorate]) {
+                    // Enable the select and populate with relevant wilayat
+                    wilayatSelect.disabled = false;
+                    wilayatData[governorate].forEach(wilayat => {
+                        const option = document.createElement('option');
+                        option.value = wilayat.value;
+                        option.textContent = wilayat.text;
+                        wilayatSelect.appendChild(option);
+                    });
+                } else {
+                    // Disable if no governorate selected
+                    wilayatSelect.disabled = true;
+                    wilayatSelect.innerHTML = '<option value="">اختر المحافظة أولاً</option>';
+                }
             }
 
             handleSubmit(e) {
@@ -511,50 +632,129 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;margin:0;padding:0;
             }
 
             processOrder(orderData) {
-                // Create WhatsApp message
-                let message = `🛍️ طلب جديد من متجر بندر\n\n`;
-                message += `👤 معلومات العميل:\n`;
-                message += `الاسم: ${orderData.customer.firstName} ${orderData.customer.lastName}\n`;
-                message += `الهاتف: ${orderData.customer.phone}\n`;
-                message += `البريد: ${orderData.customer.email}\n`;
-                message += `العنوان: ${orderData.customer.address}\n`;
-                message += `المدينة: ${orderData.customer.city}\n\n`;
+                // Show loading state
+                const submitBtn = document.querySelector('.submit-btn');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري إرسال الطلب...';
+                submitBtn.disabled = true;
 
-                message += `🛒 تفاصيل الطلب:\n`;
+                // Send email via EmailJS
+                this.sendOrderEmail(orderData).then(() => {
+                    // Create WhatsApp message
+                    let message = `🛍️ طلب جديد من متجر بندر\n\n`;
+                    message += `👤 معلومات العميل:\n`;
+                    message += `الاسم: ${orderData.customer.firstName} ${orderData.customer.lastName}\n`;
+                    message += `الهاتف: ${orderData.customer.phone}\n`;
+                    message += `البريد: ${orderData.customer.email}\n`;
+                    message += `المحافظة: ${orderData.customer.governorate}\n`;
+                    message += `الولاية: ${orderData.customer.wilayat}\n\n`;
+
+                    message += `🛒 تفاصيل الطلب:\n`;
+                    orderData.cart.forEach((item, index) => {
+                        message += `${index + 1}. ${item.name}\n`;
+                        message += `   الكمية: ${item.quantity}\n`;
+                        message += `   السعر: ${item.price} ريال\n\n`;
+                    });
+
+                    message += `💰 ملخص المبالغ:\n`;
+                    message += `المجموع الفرعي: ${orderData.totals.subtotal.toFixed(2)} ريال\n`;
+                    message += `التوصيل: ${orderData.totals.isFreeShipping ? 'مجاني 🎉' : orderData.totals.deliveryFee.toFixed(2) + ' ريال'}\n`;
+                    message += `المجموع الكلي: ${orderData.totals.total.toFixed(2)} ريال\n\n`;
+
+                    message += `💳 طريقة الدفع: ${orderData.customer.paymentMethod}\n`;
+
+                    if (orderData.customer.notes) {
+                        message += `📝 ملاحظات: ${orderData.customer.notes}\n`;
+                    }
+
+                    // Clear cart and redirect to WhatsApp
+                    if (typeof bandarCart !== 'undefined') {
+                        bandarCart.cart = [];
+                        bandarCart.saveCart();
+                        bandarCart.updateCartDisplay();
+                        bandarCart.updateCartBadge();
+                    }
+
+                    sessionStorage.removeItem('checkoutData');
+
+                    const whatsappUrl = `https://wa.me/96891800885?text=${encodeURIComponent(message)}`;
+                    window.open(whatsappUrl, '_blank');
+
+                    // Redirect to success page or home
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1000);
+                }).catch((error) => {
+                    console.error('Email sending failed:', error);
+                    // Reset button state
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    alert('حدث خطأ في إرسال الطلب. يرجى المحاولة مرة أخرى.');
+                });
+            }
+
+            sendOrderEmail(orderData) {
+                // Prepare email template parameters
+                const templateParams = {
+                    order_id: 'ORD-' + Date.now(),
+                    order_date: new Date().toLocaleDateString('ar-SA'),
+                    customer_name: `${orderData.customer.firstName} ${orderData.customer.lastName}`,
+                    customer_email: orderData.customer.email,
+                    customer_phone: orderData.customer.phone,
+                    customer_governorate: orderData.customer.governorate,
+                    customer_wilayat: orderData.customer.wilayat,
+                    payment_method: orderData.customer.paymentMethod === 'cod' ? 'الدفع عند الاستلام' : 'تحويل بنكي',
+                    order_notes: orderData.customer.notes || 'لا توجد ملاحظات',
+                    subtotal: orderData.totals.subtotal.toFixed(2),
+                    delivery_fee: orderData.totals.isFreeShipping ? 'مجاني' : orderData.totals.deliveryFee.toFixed(2),
+                    total_amount: orderData.totals.total.toFixed(2),
+                    items_count: orderData.cart.length,
+                    order_items: this.formatOrderItems(orderData.cart),
+                    order_summary: this.createOrderSummary(orderData)
+                };
+
+                // Send email using EmailJS
+                return emailjs.send('service_7wwxt9m', 'template_2b9oic8', templateParams);
+            }
+
+            formatOrderItems(cart) {
+                return cart.map((item, index) =>
+                    `${index + 1}. ${item.name} - الكمية: ${item.quantity} - السعر: ${item.price} ريال`
+                ).join('\n');
+            }
+
+            createOrderSummary(orderData) {
+                let summary = `🛍️ طلب جديد من متجر البندر\n\n`;
+                summary += `📅 تاريخ الطلب: ${new Date().toLocaleDateString('ar-SA')}\n`;
+                summary += `🆔 رقم الطلب: ORD-${Date.now()}\n\n`;
+
+                summary += `👤 معلومات العميل:\n`;
+                summary += `الاسم: ${orderData.customer.firstName} ${orderData.customer.lastName}\n`;
+                summary += `الهاتف: ${orderData.customer.phone}\n`;
+                summary += `البريد الإلكتروني: ${orderData.customer.email}\n`;
+                summary += `المحافظة: ${orderData.customer.governorate}\n`;
+                summary += `الولاية: ${orderData.customer.wilayat}\n\n`;
+
+                summary += `🛒 تفاصيل الطلب:\n`;
                 orderData.cart.forEach((item, index) => {
-                    message += `${index + 1}. ${item.name}\n`;
-                    message += `   الكمية: ${item.quantity}\n`;
-                    message += `   السعر: ${item.price} ريال\n\n`;
+                    summary += `${index + 1}. ${item.name}\n`;
+                    summary += `   الكمية: ${item.quantity}\n`;
+                    summary += `   السعر الواحد: ${item.price} ريال\n`;
+                    summary += `   المجموع: ${(item.price * item.quantity).toFixed(2)} ريال\n\n`;
                 });
 
-                message += `💰 ملخص المبالغ:\n`;
-                message += `المجموع الفرعي: ${orderData.totals.subtotal.toFixed(2)} ريال\n`;
-                message += `التوصيل: ${orderData.totals.isFreeShipping ? 'مجاني 🎉' : orderData.totals.deliveryFee.toFixed(2) + ' ريال'}\n`;
-                message += `المجموع الكلي: ${orderData.totals.total.toFixed(2)} ريال\n\n`;
+                summary += `💰 ملخص المبالغ:\n`;
+                summary += `المجموع الفرعي: ${orderData.totals.subtotal.toFixed(2)} ريال\n`;
+                summary += `رسوم التوصيل: ${orderData.totals.isFreeShipping ? 'مجاني 🎉' : orderData.totals.deliveryFee.toFixed(2) + ' ريال'}\n`;
+                summary += `المجموع الكلي: ${orderData.totals.total.toFixed(2)} ريال\n\n`;
 
-                message += `💳 طريقة الدفع: ${orderData.customer.paymentMethod}\n`;
-                
+                summary += `💳 طريقة الدفع: ${orderData.customer.paymentMethod === 'cod' ? 'الدفع عند الاستلام' : 'تحويل بنكي'}\n`;
+
                 if (orderData.customer.notes) {
-                    message += `📝 ملاحظات: ${orderData.customer.notes}\n`;
+                    summary += `📝 ملاحظات العميل: ${orderData.customer.notes}\n`;
                 }
 
-                // Clear cart and redirect to WhatsApp
-                if (typeof bandarCart !== 'undefined') {
-                    bandarCart.cart = [];
-                    bandarCart.saveCart();
-                    bandarCart.updateCartDisplay();
-                    bandarCart.updateCartBadge();
-                }
-                
-                sessionStorage.removeItem('checkoutData');
-                
-                const whatsappUrl = `https://wa.me/96891800885?text=${encodeURIComponent(message)}`;
-                window.open(whatsappUrl, '_blank');
-                
-                // Redirect to success page or home
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 1000);
+                return summary;
             }
         }
 
