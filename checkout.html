@@ -640,34 +640,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;margin:0;padding:0;
 
                 // Send email via EmailJS
                 this.sendOrderEmail(orderData).then(() => {
-                    // Create WhatsApp message
-                    let message = `🛍️ طلب جديد من متجر بندر\n\n`;
-                    message += `👤 معلومات العميل:\n`;
-                    message += `الاسم: ${orderData.customer.firstName} ${orderData.customer.lastName}\n`;
-                    message += `الهاتف: ${orderData.customer.phone}\n`;
-                    message += `البريد: ${orderData.customer.email}\n`;
-                    message += `المحافظة: ${orderData.customer.governorate}\n`;
-                    message += `الولاية: ${orderData.customer.wilayat}\n\n`;
-
-                    message += `🛒 تفاصيل الطلب:\n`;
-                    orderData.cart.forEach((item, index) => {
-                        message += `${index + 1}. ${item.name}\n`;
-                        message += `   الكمية: ${item.quantity}\n`;
-                        message += `   السعر: ${item.price} ريال\n\n`;
-                    });
-
-                    message += `💰 ملخص المبالغ:\n`;
-                    message += `المجموع الفرعي: ${orderData.totals.subtotal.toFixed(2)} ريال\n`;
-                    message += `التوصيل: ${orderData.totals.isFreeShipping ? 'مجاني 🎉' : orderData.totals.deliveryFee.toFixed(2) + ' ريال'}\n`;
-                    message += `المجموع الكلي: ${orderData.totals.total.toFixed(2)} ريال\n\n`;
-
-                    message += `💳 طريقة الدفع: ${orderData.customer.paymentMethod}\n`;
-
-                    if (orderData.customer.notes) {
-                        message += `📝 ملاحظات: ${orderData.customer.notes}\n`;
-                    }
-
-                    // Clear cart and redirect to WhatsApp
+                    // Clear cart
                     if (typeof bandarCart !== 'undefined') {
                         bandarCart.cart = [];
                         bandarCart.saveCart();
@@ -677,13 +650,8 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;margin:0;padding:0;
 
                     sessionStorage.removeItem('checkoutData');
 
-                    const whatsappUrl = `https://wa.me/96891800885?text=${encodeURIComponent(message)}`;
-                    window.open(whatsappUrl, '_blank');
-
-                    // Redirect to success page or home
-                    setTimeout(() => {
-                        window.location.href = 'index.html';
-                    }, 1000);
+                    // Show success message
+                    this.showSuccessMessage();
                 }).catch((error) => {
                     console.error('Email sending failed:', error);
                     // Reset button state
@@ -710,6 +678,7 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;margin:0;padding:0;
                     total_amount: orderData.totals.total.toFixed(2),
                     items_count: orderData.cart.length,
                     order_items: this.formatOrderItems(orderData.cart),
+                    order_items_html: this.formatOrderItemsHTML(orderData.cart),
                     order_summary: this.createOrderSummary(orderData)
                 };
 
@@ -719,8 +688,20 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;margin:0;padding:0;
 
             formatOrderItems(cart) {
                 return cart.map((item, index) =>
-                    `${index + 1}. ${item.name} - الكمية: ${item.quantity} - السعر: ${item.price} ريال`
+                    `${index + 1}. ${item.name}\n   الكمية: ${item.quantity}\n   السعر الواحد: ${item.price} ريال\n   المجموع: ${(item.price * item.quantity).toFixed(2)} ريال\n   رابط الصورة: ${item.image}\n`
                 ).join('\n');
+            }
+
+            formatOrderItemsHTML(cart) {
+                return cart.map((item, index) => `
+                    <div style="border: 1px solid #ddd; margin: 10px 0; padding: 15px; border-radius: 8px; background: white;">
+                        <h4 style="color: #4ecdc4; margin: 0 0 10px 0;">${index + 1}. ${item.name}</h4>
+                        <p style="margin: 5px 0;"><strong>الكمية:</strong> ${item.quantity}</p>
+                        <p style="margin: 5px 0;"><strong>السعر الواحد:</strong> ${item.price} ريال</p>
+                        <p style="margin: 5px 0;"><strong>المجموع:</strong> ${(item.price * item.quantity).toFixed(2)} ريال</p>
+                        <p style="margin: 5px 0;"><strong>رابط الصورة:</strong> <a href="${item.image}" target="_blank">${item.image}</a></p>
+                    </div>
+                `).join('');
             }
 
             createOrderSummary(orderData) {
@@ -755,6 +736,115 @@ body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;margin:0;padding:0;
                 }
 
                 return summary;
+            }
+
+            showSuccessMessage() {
+                // Hide the checkout form
+                const checkoutContainer = document.querySelector('.checkout-container');
+                if (checkoutContainer) {
+                    checkoutContainer.style.display = 'none';
+                }
+
+                // Create success message
+                const successHTML = `
+                    <div class="success-container" style="
+                        max-width: 500px;
+                        margin: 50px auto;
+                        background: white;
+                        border-radius: 15px;
+                        padding: 40px;
+                        text-align: center;
+                        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                        position: relative;
+                    ">
+                        <button onclick="window.location.href='index.html'" style="
+                            position: absolute;
+                            top: 15px;
+                            left: 15px;
+                            background: #ff6b6b;
+                            color: white;
+                            border: none;
+                            width: 35px;
+                            height: 35px;
+                            border-radius: 50%;
+                            cursor: pointer;
+                            font-size: 18px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            transition: all 0.3s ease;
+                        " onmouseover="this.style.background='#ff5252'" onmouseout="this.style.background='#ff6b6b'">
+                            ✕
+                        </button>
+
+                        <div style="
+                            width: 80px;
+                            height: 80px;
+                            background: linear-gradient(135deg, #4ecdc4, #44A08D);
+                            border-radius: 50%;
+                            margin: 0 auto 25px auto;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 35px;
+                            color: white;
+                        ">
+                            ✓
+                        </div>
+
+                        <h2 style="
+                            color: #4ecdc4;
+                            margin: 0 0 20px 0;
+                            font-size: 24px;
+                        ">تم استلام طلبك بنجاح!</h2>
+
+                        <p style="
+                            color: #666;
+                            font-size: 16px;
+                            line-height: 1.6;
+                            margin: 0 0 25px 0;
+                        ">
+                            شكراً لك على ثقتك في متجر البندر.<br>
+                            سيتم التواصل معك قريباً لتأكيد الطلب وترتيب التوصيل.
+                        </p>
+
+                        <div style="
+                            background: #f8f9fa;
+                            padding: 20px;
+                            border-radius: 10px;
+                            margin: 25px 0;
+                        ">
+                            <p style="
+                                color: #4ecdc4;
+                                font-weight: bold;
+                                margin: 0 0 10px 0;
+                            ">📞 للاستفسارات:</p>
+                            <p style="
+                                color: #333;
+                                margin: 0;
+                                font-size: 18px;
+                                font-weight: bold;
+                            ">96894824226</p>
+                        </div>
+
+                        <button onclick="window.location.href='index.html'" style="
+                            background: linear-gradient(135deg, #4ecdc4, #44A08D);
+                            color: white;
+                            border: none;
+                            padding: 12px 30px;
+                            border-radius: 25px;
+                            font-size: 16px;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+                            margin-top: 20px;
+                        " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                            العودة للمتجر
+                        </button>
+                    </div>
+                `;
+
+                // Add success message to body
+                document.body.insertAdjacentHTML('beforeend', successHTML);
             }
         }
 
