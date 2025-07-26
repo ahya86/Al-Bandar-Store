@@ -8,7 +8,7 @@ class BandarCart {
         this.cart = JSON.parse(localStorage.getItem('bandarStoreCart')) || [];
         this.isArabic = true;
         this.baseDeliveryFee = 2;
-        this.freeShippingThreshold = 5; // Free shipping when 5+ items
+        this.freeShippingThreshold = 4; // Free shipping when 5+ items
         this.lastCartState = JSON.stringify(this.cart); // Track cart state for auto-refresh
         this.init();
     }
